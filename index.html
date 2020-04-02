@@ -1,11 +1,19 @@
 <html>
   <head> </head>
   <body>
+    <div id="div1">hello, github pages!</div>
     <div>hello, github pages!</div>
     <div>hello, github pages!</div>
     <div>hello, github pages!</div>
     <div>hello, github pages!</div>
     <div>hello, github pages!</div>
-    <div>hello, github pages!</div>
+
+    <script>
+      window.onload = () => {
+        alert("111");
+        const oDiv1 = document.getElementById("div1");
+        oDiv1.innerHtml = "<strong>i am div1</strong>";
+      };
+    </script>
   </body>
 </html>
