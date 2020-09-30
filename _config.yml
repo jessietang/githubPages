@@ -27,7 +27,7 @@ nav:
       description: My Projects,
       url: "https://github.com/jessietang",
     }
-  - { title: 个人简历, description: A button, url: "/2020/09/my/index.html" }
+  - { title: 个人简历, description: A button, url: "/about" }
 
 # Pagination
 plugins: [jekyll-paginate]
