@@ -1,0 +1,17 @@
+---
+layout: page
+---
+
+<div class="main-post-list">
+    <ul class="post-list">
+        {% for post in site.posts %}
+        <li class="post-list-item">
+            <time datetime="{{page.date | date: date_to_xmlschema}}" itemprop="datePublished"
+                class="post-list-item-date">{{post.date | date: "%F"}}</time> &nbsp;&nbsp;&nbsp;<span
+                class="post-list-item-tags">{{post.tags | join:' '}}</span>
+            <div class="post-list-item-title"><a href="{{ post.url }}">{{ post.title }}</a></div>
+            <div class="post-list-item-content">{{ post.excerpt }}</div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
