@@ -5,9 +5,41 @@
     <description>2年RN，3年前端。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 30 Mar 2021 13:37:11 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Mar 2021 13:37:11 +0800</lastBuildDate>
+    <pubDate>Wed, 31 Mar 2021 17:58:21 +0800</pubDate>
+    <lastBuildDate>Wed, 31 Mar 2021 17:58:21 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>鼠标右键contextMenu事件在mac和windows上的不同</title>
+        <description>&lt;p&gt;前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。&lt;/p&gt;
+
+&lt;h3 id=&quot;方法使用&quot;&gt;方法使用&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;区别&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;mac: 右键按下即触发 contextMenu event，鼠标抬起，触发 mouseUp event；&lt;/li&gt;
+      &lt;li&gt;win: 右键按下抬起后，先触发 mouseUp event，然后触发 contextMenu event。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 31 Mar 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/</guid>
+        
+        <category>#鼠标右键事件,</category>
+        
+        <category>#contextMenu,#mac</category>
+        
+        <category>&amp;</category>
+        
+        <category>windows区别</category>
+        
+        
+      </item>
     
       <item>
         <title>insertAdjacentHTML方法的使用</title>
@@ -36,9 +68,9 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Thu, 25 Feb 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/02/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/02/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+        <pubDate>Tue, 30 Mar 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/03/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/03/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
         
         <category>#insertAdjacentHTML,</category>
         

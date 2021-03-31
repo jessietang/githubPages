@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>React17源码解读笔记</title>
-  <meta name="description" content="前言：好奇 react 虚拟 dom 的结构，到底长什么样？">
+  <title>鼠标右键contextMenu事件在mac和windows上的不同</title>
+  <meta name="description" content="前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。">
   <meta name="author" content="Wei Wang">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="React17源码解读笔记">
-  <meta name="twitter:description" content="前言：好奇 react 虚拟 dom 的结构，到底长什么样？">
+  <meta name="twitter:title" content="鼠标右键contextMenu事件在mac和windows上的不同">
+  <meta name="twitter:description" content="前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。">
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="React17源码解读笔记">
-  <meta property="og:description" content="前言：好奇 react 虚拟 dom 的结构，到底长什么样？">
+  <meta property="og:title" content="鼠标右键contextMenu事件在mac和windows上的不同">
+  <meta property="og:description" content="前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。">
   
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
   <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="http://localhost:4000/2021/02/react17%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/">
+  <link rel="canonical" href="http://localhost:4000/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/">
   <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
   
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
@@ -154,21 +154,28 @@
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="2021-02-25 00:00:00 +0800" itemprop="datePublished"
-        class="post-meta__date date">2021-02-25</time> &nbsp;&nbsp;&nbsp;
-      <span class="post-meta__tags tags">#react,#react源码,#react虚拟dom</span>
+      <time datetime="2021-03-31 00:00:00 +0800" itemprop="datePublished"
+        class="post-meta__date date">2021-03-31</time> &nbsp;&nbsp;&nbsp;
+      <span class="post-meta__tags tags">#鼠标右键事件,#contextMenu,#mac&windows区别</span>
       <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
     </div>
-    <h1 class="post-title">React17源码解读笔记</h1>
+    <h1 class="post-title">鼠标右键contextMenu事件在mac和windows上的不同</h1>
   </header>
 
   <section class="post">
-    <p>前言：好奇 react 虚拟 dom 的结构，到底长什么样？</p>
+    <p>前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。</p>
 
-<h4 id="1fork-react-代码仓库">1.fork react 代码仓库</h4>
+<h3 id="方法使用">方法使用</h3>
 
 <ul>
-  <li>注意，不要直接下载 React 仓库，先 fork 一份到自己仓库，然后再下载。这样可以修改或者增加注释之后，提交到自己仓库。</li>
+  <li>
+    <p>区别</p>
+
+    <ul>
+      <li>mac: 右键按下即触发 contextMenu event，鼠标抬起，触发 mouseUp event；</li>
+      <li>win: 右键按下抬起后，先触发 mouseUp event，然后触发 contextMenu event。</li>
+    </ul>
+  </li>
 </ul>
 
   </section>
@@ -176,9 +183,11 @@
 
 <section class="read-more">
     
+
+    
     
     <div class="read-more-item">
-        <span class="read-more-item-dim">最近的文章</span>
+        <span class="read-more-item-dim">更早的文章</span>
         <h2 class="post-list__post-title post-title"><a href="/2021/03/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/"
                 title="link to insertAdjacentHTML方法的使用">insertAdjacentHTML方法的使用</a></h2>
         <p class="excerpt">前言：我们常用 innerText &amp; innerHTML 给一个 dom 元素插入一段文本或者 html。最近发现还有 insertAdjacentHTML 和 insertAdjacentText 方法，这两个方法更灵活，可以在指定的地方插入 html 内容和文本内容。（adjacent，这个单词是“相邻”的意思）方法使用      insertAdjacentHTML(swhere, stext)          swhere: 指定插入 html 标签语句的地方，有四个值...&hellip;</p>
@@ -188,20 +197,6 @@
                 href=/2021/03/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/>继续阅读</a></div>
     </div>
     
-
-    
-    
-    <div class="read-more-item">
-        <span class="read-more-item-dim">更早的文章</span>
-        <h2 class="post-list__post-title post-title"><a href="/2021/01/Bash%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0/"
-                title="link to Bash脚本学习">Bash脚本学习</a></h2>
-        <p class="excerpt">前言：Bash 是 Unix 系统和 Linux 系统的一种 Shell（命令行环境），是目前绝大多数 Linux 发行版的默认 Shell。Bash 简介      shell 的含义          shell 是一个程序，提供一个与用户对话的环境；      shell 是一个命令解释器，解释用户输入的命令；      shell 是一个工具箱，提供了各种小工具，供用户方便的使用操作系统的功能。            shell 的种类          Bourne Shell（...&hellip;</p>
-        <div class="post-list__meta"><time datetime="2021-01-05 00:00:00 +0800"
-                class="post-list__meta--date date">2021-01-05</time> &nbsp;&nbsp; <span
-                class="post-list__meta--tags tags">#bash,#shell</span><a class="btn-border-small"
-                href=/2021/01/Bash%E8%84%9A%E6%9C%AC%E5%AD%A6%E4%B9%A0/>继续阅读</a></div>
-    </div>
-    
 </section>
 <!-- <section class="post-comments">
   
@@ -209,8 +204,8 @@
     <script>
     
     var disqus_config = function () {
-        this.page.url = "http://localhost:4000/2021/02/react17%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/";
-        this.page.identifier = "/2021/02/react17%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/";
+        this.page.url = "http://localhost:4000/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/";
+        this.page.identifier = "/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/";
     };
 
     var disqus_shortname = 'vno-jekyll';

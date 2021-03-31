@@ -1,7 +1,7 @@
 ---
 layout: post
 title: insertAdjacentHTML方法的使用
-date: 2021-02-25
+date: 2021-03-30
 tags: "#insertAdjacentHTML, #insertAdjacentText,"
 ---
 
