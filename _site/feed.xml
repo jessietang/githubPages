@@ -5,9 +5,165 @@
     <description>2年RN，3年前端。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 31 Mar 2021 17:58:21 +0800</pubDate>
-    <lastBuildDate>Wed, 31 Mar 2021 17:58:21 +0800</lastBuildDate>
+    <pubDate>Tue, 06 Apr 2021 10:19:39 +0800</pubDate>
+    <lastBuildDate>Tue, 06 Apr 2021 10:19:39 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>2021-04-06-iphone各机型屏幕尺寸（包含最新iphone12）</title>
+        <description>&lt;p&gt;前言：更新 iphone 各机型屏幕尺寸列表（包含最新 iphone12）&lt;/p&gt;
+
+&lt;h3 id=&quot;iphone-各机型屏幕尺寸如下所示&quot;&gt;iphone 各机型屏幕尺寸如下所示&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;手机设备型号&lt;/td&gt;
+      &lt;td&gt;屏幕尺寸&lt;/td&gt;
+      &lt;td&gt;分辨率点数（pt）&lt;/td&gt;
+      &lt;td&gt;屏幕显示模式&lt;/td&gt;
+      &lt;td&gt;分辨率像素（px）&lt;/td&gt;
+      &lt;td&gt;屏幕比例&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone SE&lt;/td&gt;
+      &lt;td&gt;4.0 吋&lt;/td&gt;
+      &lt;td&gt;320x568&lt;/td&gt;
+      &lt;td&gt;@2x&lt;/td&gt;
+      &lt;td&gt;640x1136&lt;/td&gt;
+      &lt;td&gt;16:9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone 6/6s/7/8/SE 2&lt;/td&gt;
+      &lt;td&gt;4.7 吋&lt;/td&gt;
+      &lt;td&gt;375x667&lt;/td&gt;
+      &lt;td&gt;@2x&lt;/td&gt;
+      &lt;td&gt;750x1334&lt;/td&gt;
+      &lt;td&gt;16:9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone 6p/7p/8p&lt;/td&gt;
+      &lt;td&gt;5.5 吋&lt;/td&gt;
+      &lt;td&gt;414x736&lt;/td&gt;
+      &lt;td&gt;@3x&lt;/td&gt;
+      &lt;td&gt;1242x2208&lt;/td&gt;
+      &lt;td&gt;16:9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone XR/11&lt;/td&gt;
+      &lt;td&gt;6.1 吋&lt;/td&gt;
+      &lt;td&gt;414x896&lt;/td&gt;
+      &lt;td&gt;@2x&lt;/td&gt;
+      &lt;td&gt;828x1792&lt;/td&gt;
+      &lt;td&gt;19.5:9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone X/XS/11 Pro&lt;/td&gt;
+      &lt;td&gt;5.8 吋&lt;/td&gt;
+      &lt;td&gt;375x812&lt;/td&gt;
+      &lt;td&gt;@3x&lt;/td&gt;
+      &lt;td&gt;1125x2436&lt;/td&gt;
+      &lt;td&gt;19.5:9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone XS Max/11 Pro Max&lt;/td&gt;
+      &lt;td&gt;6.5 吋&lt;/td&gt;
+      &lt;td&gt;414x896&lt;/td&gt;
+      &lt;td&gt;@3x&lt;/td&gt;
+      &lt;td&gt;1242x2688&lt;/td&gt;
+      &lt;td&gt;19.5:9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone 12 mini&lt;/td&gt;
+      &lt;td&gt;5.4 吋&lt;/td&gt;
+      &lt;td&gt;360x780&lt;/td&gt;
+      &lt;td&gt;@3x&lt;/td&gt;
+      &lt;td&gt;1080x2340&lt;/td&gt;
+      &lt;td&gt;19.5:9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone 12/12 Pro&lt;/td&gt;
+      &lt;td&gt;6.1 吋&lt;/td&gt;
+      &lt;td&gt;390x844&lt;/td&gt;
+      &lt;td&gt;@3x&lt;/td&gt;
+      &lt;td&gt;1170x2532&lt;/td&gt;
+      &lt;td&gt;19.5:9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone 12 Pro Max&lt;/td&gt;
+      &lt;td&gt;6.7 吋&lt;/td&gt;
+      &lt;td&gt;428x926&lt;/td&gt;
+      &lt;td&gt;@3x&lt;/td&gt;
+      &lt;td&gt;1284x2778&lt;/td&gt;
+      &lt;td&gt;19.5:9&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        <pubDate>Tue, 06 Apr 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/04/iphone%E5%90%84%E6%9C%BA%E5%9E%8B%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AF%B8-%E5%8C%85%E5%90%AB%E6%9C%80%E6%96%B0iphone12/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/04/iphone%E5%90%84%E6%9C%BA%E5%9E%8B%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AF%B8-%E5%8C%85%E5%90%AB%E6%9C%80%E6%96%B0iphone12/</guid>
+        
+        <category>#ios,</category>
+        
+        <category>#iphone,</category>
+        
+        <category>#屏幕尺寸</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>2021-04-06-ios完整的 statusbar 高度的表</title>
+        <description>&lt;p&gt;前言：更新 iphone 各机型屏幕尺寸列表（包含最新 iphone12）&lt;/p&gt;
+
+&lt;h3 id=&quot;iphone-各机型屏幕尺寸如下所示&quot;&gt;iphone 各机型屏幕尺寸如下所示&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;设备&lt;/td&gt;
+      &lt;td&gt;statusbar 高度&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone11&lt;/td&gt;
+      &lt;td&gt;48&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone12/12 pro/12 pro max&lt;/td&gt;
+      &lt;td&gt;47&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPhone12 mini&lt;/td&gt;
+      &lt;td&gt;50&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;iPad Pro、IPad Air&lt;/td&gt;
+      &lt;td&gt;24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Other iPhones&lt;/td&gt;
+      &lt;td&gt;44&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;非刘海屏&lt;/td&gt;
+      &lt;td&gt;20&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+        <pubDate>Tue, 06 Apr 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/04/ios%E5%AE%8C%E6%95%B4%E7%9A%84-statusbar-%E9%AB%98%E5%BA%A6%E7%9A%84%E8%A1%A8/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/04/ios%E5%AE%8C%E6%95%B4%E7%9A%84-statusbar-%E9%AB%98%E5%BA%A6%E7%9A%84%E8%A1%A8/</guid>
+        
+        <category>#ios,</category>
+        
+        <category>#iphone,</category>
+        
+        <category>#屏幕尺寸</category>
+        
+        
+      </item>
     
       <item>
         <title>鼠标右键contextMenu事件在mac和windows上的不同</title>
