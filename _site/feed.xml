@@ -5,8 +5,8 @@
     <description>2年RN，3年前端。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 08 Apr 2021 09:53:59 +0800</pubDate>
-    <lastBuildDate>Thu, 08 Apr 2021 09:53:59 +0800</lastBuildDate>
+    <pubDate>Thu, 08 Apr 2021 16:25:31 +0800</pubDate>
+    <lastBuildDate>Thu, 08 Apr 2021 16:25:31 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -24,6 +24,120 @@
         <guid isPermaLink="true">http://localhost:4000/2021/04/%E7%94%B5%E5%AD%90%E4%B9%A6%E7%B1%8D%E5%BD%95/</guid>
         
         <category>#电子书籍</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>2021-04-08-Object.create()使用及探究</title>
+        <description>&lt;p&gt;前言：在看 js 设计模式的时候，有提到：JavaScript 没有提供传统面向对象语言中的类式继承，而是通过原型委托的方式来实现对象
+与对象之间的继承。
+委托是一种利用 Object.create 与对象方式实现的 js 类多态方式。&lt;/p&gt;
+
+&lt;p&gt;例如，我们最近正在做的轻量化引擎里面就有这样的应用：OrbitControls.prototype = Object.create( EventDispatcher.prototype );&lt;/p&gt;
+
+&lt;h3 id=&quot;objectcreateproto-propertiesobject&quot;&gt;Object.create(proto, [propertiesObject])&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;参数：proto : 必须。表示新建对象的原型对象，即该参数会被赋值到目标对象(即新对象，或说是最后返回的对象)的原型上。该参数可以是&lt;code class=&quot;highlighter-rouge&quot;&gt;null&lt;/code&gt;， &lt;code class=&quot;highlighter-rouge&quot;&gt;对象&lt;/code&gt;， 函数的&lt;code class=&quot;highlighter-rouge&quot;&gt;prototype属性&lt;/code&gt; （创建空的对象时需传 null , 否则会抛出&lt;code class=&quot;highlighter-rouge&quot;&gt;TypeError&lt;/code&gt;异常）。&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;propertiesObject : 可选。 添加到新创建对象的可枚举属性（即其自身的属性，而不是原型链上的枚举属性）对象的属性描述符以及相应的属性名称。这些属性对应&lt;a href=&quot;https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.defineProperties()&lt;/code&gt;&lt;/a&gt;的第二个参数。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;先使用一波
+&lt;img src=&quot;/assets/images/0408/1.png&quot; alt=&quot;1.png&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;给对象原型添加属性和方法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;使用 Object.create()给对象原型添加属性和方法：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var proto = {
+	x:1,
+	y:2,
+	showNum(){}
+}
+var o = Object.create(proto)
+console.log(o) // 结果见截图
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/0408/2.png&quot; alt=&quot;2.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;如果不是使用 Object.create()方法，我们是如何给对象原型添加属性和方法的呢？&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 创建一个构造函数或者类
+var People = function(){}
+People.prototype.x = 1
+People.prototype.t = 2
+People.prototype.showNum = function(){}
+// 通过构造函数创建实例
+var p = new People()
+console.log(p.__proto__ === People.prototype) // true
+console.log(p) //结果见截图
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/0408/3.png&quot; alt=&quot;3.png&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;再看下面一段代码（原型属性的继承）：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var triangle = {a: 1, b: 2, c: 3};
+
+function ColoredTriangle() {
+  this.color = 'red';
+}
+
+// ColoredTriangle.prototype = triangle;  // ColoredTriangle.prototype.constructor === ColoredTriangle // false
+
+Object.assign(ColoredTriangle.prototype, triangle) // ColoredTriangle.prototype.constructor === ColoredTriangle // true
+
+var c = new ColoredTriangle();
+console.log(c) // 这里打印出c可以看看结构。其中color属性在实例上，而其他的在原型上。如下图：
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/0408/4.png&quot; alt=&quot;4.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;再来拷贝一个实例 c3:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var c3 = Object.assign({}, c)
+console.log(c3.color) // red
+console.log(c3.a) // undefined
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/0408/5.png&quot; alt=&quot;5.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;因为 Object.assign 是不能拷贝到继承或原型上的方法的。&lt;/p&gt;
+
+&lt;p&gt;所以 c3 没有 a 这个属性。那要怎么样才能拷贝原型上的方法呢？见下：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var c2 = Object.create(Object.getPrototypeOf(c), Object.getOwnPropertyDescriptors(c));
+
+console.log(c2) // 结果见下图
+console.log(c2.color); // red
+console.log(c2.a); // 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/0408/6.png&quot; alt=&quot;6.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以把 Object.create()的参数理解为：第一个参数是放在新对象的原型上的，第二个参数是放在新对象的实例上的。
+所以上面例子 Object.getPrototypeOf() 得到的是 c 对象的原型，然后作为第一个参数，所以会在新对象 c2 的原型上。
+Object.getOwnPropertyDescriptors() 得到是 c 对象自身的可枚举属性，作为第二个参数，放在 c2 的实例上。
+为什么说推荐这个方法呢？因为 Object.assign() 方法不能正确拷贝 get ，set 属性。&lt;/p&gt;
+
+&lt;p&gt;上面实现 原型属性拷贝 中的两种方法中用到了 &lt;code class=&quot;highlighter-rouge&quot;&gt;Object.getOwnPropertyDescriptors&lt;/code&gt; 、&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.assing()&lt;/code&gt; 、&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.create&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;Object.getPrototypeOf()&lt;/code&gt;方法，通常这几种方法都有一起结合使用。&lt;/p&gt;
+</description>
+        <pubDate>Tue, 06 Apr 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/04/Object.create()%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%8E%A2%E7%A9%B6/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/04/Object.create()%E4%BD%BF%E7%94%A8%E4%B8%8E%E6%8E%A2%E7%A9%B6/</guid>
+        
+        <category>#Object.create(),</category>
+        
+        <category>#js设计模式（代理模式）</category>
         
         
       </item>
@@ -730,95 +844,6 @@ Installed as /Users/你自己的用户名/Library/Android/sdk/platform-tools/adb
         <category>#mac,</category>
         
         <category>#adb2</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>RN运行报错日志记录集</title>
-        <description>&lt;p&gt;整理了这两年开发 rn 过程中，记录了的一些，遇到的运行相关的问题。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=56f25e41d1ae0fef7581a03c22b5cd92&quot;&gt;友盟 iOS13 报错([_LSDefaults sharedInstance] unrecognized selector sent to class)&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=a6d500b937230779049524bce2e7c7db&quot;&gt;Could not launch “XXX” Domain IDEDebugSessionErrorDomain&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=e916ffe40a7d16396b165d2e4e8594bb&quot;&gt;Cannot fit requested classes in a single dex file&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=e6349dd07bbd289330901d1f15df14ee&quot;&gt;react-native android 报错找不到相应模块解决办法&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=7cd87f43a91251515030424e4035ce38&quot;&gt;ios 连接真机调试的时候打不开 debug 模式&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=2afccb797f0ba6ebad16c0faf7247d47&quot;&gt;RN0.57 打包报错，Execution failed for task ‘xxx，verifyReleaseResources’&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=b199fecaa64b9ae5a7862abdaa6b6e0d&quot;&gt;执行 react-native run-android 报错&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=d242c87f075b8762ccec330c864cbce8&quot;&gt;FileProvider 冲突报错(现有的代码拉下来就会有这个问题，因为加了下载更新相关的代码导致)&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=be218e6ad56f78e601ee9359d32800bd&quot;&gt;react native android studio 报错 R 文件丢失&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=ca07faaf259887bc7eb2ae1bee6efc63&quot;&gt;IOS 打包报重复引用问题&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=1689f0ac9b781cf468b9700cc0df5c6a&quot;&gt;react native android4.4 开启 debug 模式无效问题&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=3e2bbcfda4dfddab9dbc511603e74e98&quot;&gt;react-native run-android 运行完，开启 debug 模式 metro bundle 报错&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=7a10ba38769f1c7546249b7a4c699a25&quot;&gt;react-native run-android 报错&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=f9c44683ee4ba75c8f003f3a81c580ac&quot;&gt;React Native 日常报错 ‘config.h’ file not found&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=b96388a5ccc0b33f6107d4499c2fd0ae&quot;&gt;android 编译报错 Could not find support-compat.aar (com.android.support:support-compat:27.1.0)&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=5654116592cfacf14fd4d52e3002b6e1&quot;&gt;android 报错：Only fullscreen activities can request orientation&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=3c8d223d1ad0dc808c53e07517d13855&quot;&gt;React Native 报错：Error recordAsync Expected a Camera component&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=830c4c077ee361a0575ad2361cc6de8b&quot;&gt;react-native run-android 运行报错说找不到设备（权限问题）&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=7392c313d2ab61c9d71bf227946b881e&quot;&gt;打包常见错误&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=f0ccc6a63e9fb22e1ba0bdde8ed18da9&quot;&gt;安装启动遇到的问题&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;android 真机运行，报错找不到 bundle.js 文件，解决办法：(这个不是最好的解决办法，具体的我还有点记不太清了)
-Unable to load script from assets ‘index.android.bundle’ ？
-解决办法：
-在 android\app\src\main\下新建 assets 文件夹，然后执行：
-react-native bundle –platform android –dev false –entry-file index.js –bundle-output android/app/src/main/assets/index.android.bundle –assets-dest android/app/src/main/res
-会在 assets 下面生成 index.android.bundle 和 index.android.bundle.meta 文件
-最后重新运行：react-native run-android
-就可以了。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://reactnative.cn/docs/0.51/running-on-device-android.html&quot;&gt;android 真机运行可以了，开启 remote debug 调试报错&lt;/a&gt;
-运行:
-&lt;code class=&quot;highlighter-rouge&quot;&gt;adb reverse tcp:8081 tcp:8081&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Sun, 26 Apr 2020 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2020/04/RN%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E9%9B%86/</link>
-        <guid isPermaLink="true">http://localhost:4000/2020/04/RN%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E9%9B%86/</guid>
         
         
       </item>
