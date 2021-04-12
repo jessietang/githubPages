@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>2021-04-12-vue和react diff 算法对比</title>
-  <meta name="description" content="react diff 算法">
+  <title>2021-04-12-谈谈vue-router</title>
+  <meta name="description" content="vue-router 对不同模式的实现大致是这样的：">
   <meta name="author" content="Wei Wang">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="2021-04-12-vue和react diff 算法对比">
-  <meta name="twitter:description" content="react diff 算法">
+  <meta name="twitter:title" content="2021-04-12-谈谈vue-router">
+  <meta name="twitter:description" content="vue-router 对不同模式的实现大致是这样的：">
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="2021-04-12-vue和react diff 算法对比">
-  <meta property="og:description" content="react diff 算法">
+  <meta property="og:title" content="2021-04-12-谈谈vue-router">
+  <meta property="og:description" content="vue-router 对不同模式的实现大致是这样的：">
   
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
   <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="http://localhost:4000/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/">
+  <link rel="canonical" href="http://localhost:4000/2021/04/%E8%B0%88%E8%B0%88vueRouter/">
   <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
   
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
@@ -156,77 +156,91 @@
     <div class="post-meta">
       <time datetime="2021-04-12 00:00:00 +0800" itemprop="datePublished"
         class="post-meta__date date">2021-04-12</time> &nbsp;&nbsp;&nbsp;
-      <span class="post-meta__tags tags">#vue2.0,#vue3.0,#react</span>
+      <span class="post-meta__tags tags">#vue,#vue-router,#hash,#history</span>
       <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
     </div>
-    <h1 class="post-title">2021-04-12-vue和react diff 算法对比</h1>
+    <h1 class="post-title">2021-04-12-谈谈vue-router</h1>
   </header>
 
   <section class="post">
-    <h3 id="react-diff-算法">react diff 算法</h3>
-
-<p>当调用 React 的 render()方法时，会创建一棵由 React 元素组成的树。在下一次 State 或 Props 更新时，相同的 render()方法会返回一棵不同的树。React 会应用 Diffing 算法来高效的比较两棵树，算法过程如下：</p>
+    <h3 id="vue-router-对不同模式的实现大致是这样的">vue-router 对不同模式的实现大致是这样的：</h3>
 
 <ol>
-  <li>当根节点为不同类型的元素时，React 会拆卸原有的树，销毁对应的 DOM 节点和关联的 State、卸载子组件，最后再创建新的树。</li>
-  <li>当比对两个相同类型的 DOM 元素时，会保留 DOM 节点，仅比对变更的属性。</li>
-  <li>当比对两个相同类型的组件元素时，组件实例保持不变，更新该组件实例的 Props。</li>
-  <li>当递归 DOM 节点的子元素时，React 会同时遍历两个子元素的列表，比对相同位置的元素，性能比较低效。</li>
-  <li>在给子元素添加唯一标识的 key 属性后，就能只比对变更了 key 属性的元素。</li>
+  <li>首先根据 mode 来确定所选的模式，如果当前环境不支持 history 模式，会强制切换到 hash 模式；</li>
+  <li>如果当前环境不是浏览器环境，会切换到 abstract 模式下。然后再根据不同模式来生成不同的 history 操作对象。</li>
 </ol>
 
-<h3 id="vue20-diff-算法">vue2.0 diff 算法</h3>
+<h3 id="new-vuerouter-过程">new VueRouter 过程</h3>
 
 <ol>
-  <li>先同级比较再比较子节点</li>
-  <li>先判断一方有子节点和一方没有子节点的情况。如果新的一方有子节点，旧的一方没有，相当于新的子节点替代了原来没有的节点；同理，如果新的一方没有子节点，旧的一方有，相当于要把老的节点删除。</li>
-  <li>再来比较都有子节点的情况，这里是 diff 的核心。首先会通过判断两个节点的 key、tag、isComment、data 同时定义或不定义以及当标签类型为 input 的时候 type 相不相同来确定两个节点是不是相同的节点，如果不是的话就将新节点替换旧节点。</li>
-  <li>如果是相同节点的话才会进入到 patchVNode 阶段。在这个阶段核心是采用【双指针】的算法，同时从新旧节点的两端进行比较，在这个过程中，会用到模版编译时的静态标记配合 key 来跳过对比静态节点，如果不是的话再进行其它的比较。</li>
+  <li>init 方法内的 app 变量便是存储的当前的 vue 实例的 this。</li>
+  <li>将 app 存入数组 apps 中。通过 this.app 判断是实例否已经被初始化。</li>
+  <li>通过 history 来确定不同路由的切换动作 history.transitionTo。</li>
+  <li>通过 history.listen 来注册路由变化的响应回调。</li>
 </ol>
 
+<h3 id="hash-和-history-的区别">hash 和 history 的区别</h3>
+
+<ol>
+  <li>最明显的是在显示上，hash 模式的 URL 中会夹杂着#号，而 history 没有。</li>
+  <li>Vue 底层对它们的实现方式不同。hash 模式是依靠 onhashchange 事件(监听 location.hash 的改变)，而 history 模式（popstate）是主要是依靠的 HTML5 history 中新增的两个方法，pushState()可以改变 url 地址且不会发送请求，replaceState()可以读取历史记录栈，还可以对浏览器记录进行修改。</li>
+  <li>当真正需要通过 URL 向后端发送 HTTP 请求的时候，比如常见的用户手动输入 URL 后回车，或者是刷新(重启)浏览器，这时候 history 模式需要后端的支持。因为 history 模式下，前端的 URL 必须和实际向后端发送请求的 URL 一致，例如有一个 URL 是带有路径 path 的(例如www.lindaidai.wang/blogs/id)，如果后端没有对这个路径做处理的话，就会返回404错误。所以需要后端增加一个覆盖所有情况的候选资源，一般会配合前端给出的一个404页面。</li>
+</ol>
+
+<h3 id="vue-history-配置">vue history 配置</h3>
+
+<p>vue history 需要 nginx 或者其他方式配置一下才可正确访问，否则路由跳转之后刷新一下便会出现 404。</p>
+
 <ul>
-  <li>** 缺点：因为采用的是同级比较，所以如果发现本级的节点不同的话就会将新节点直接替换旧节点，不会再去比较其下的子节点是否有相同 **</li>
+  <li>vue history 模式 部署在服务器端的 nginx 配置 (非根目录)配置如下：</li>
 </ul>
 
-<h3 id="vue2vue3-和-react-比较">vue2、vue3 和 react 比较</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+
+        listen      443 ;
+
+        server_name  m;
+
+        root  html/mobile;
+
+        location / {
+
+            index  index.html index.htm;
+
+            try_files $uri $uri/ /index.html;
+
+        }
+
+    }
+</code></pre></div></div>
 
 <ul>
-  <li>vue2 和 vue3.x:
-Vue3.x 借鉴了 ivi 算法和 inferno 算法。
-它在创建 VNode 的时候就确定了其类型，以及在 mount/patch 的过程中采用位运算来判断一个 VNode 的类型，在这个基础之上再配合核心的 Diff 算法，使得性能上较 Vue2.x 有了提升。</li>
-  <li>vue 和 react:
-共同点是：都是用同层比较，不同点是：vue 使用双指针比较，react 是用 key 集合级比较。</li>
+  <li>路由配置：</li>
 </ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const router=new VueRouter({
+  mode: 'history',
+  routes
+})
+</code></pre></div></div>
 
   </section>
 </article>
 
 <section class="read-more">
     
-    
-    <div class="read-more-item">
-        <span class="read-more-item-dim">最近的文章</span>
-        <h2 class="post-list__post-title post-title"><a href="/2021/04/%E8%B0%88%E8%B0%88vueRouter/"
-                title="link to 2021-04-12-谈谈vue-router">2021-04-12-谈谈vue-router</a></h2>
-        <p class="excerpt">vue-router 对不同模式的实现大致是这样的：  首先根据 mode 来确定所选的模式，如果当前环境不支持 history 模式，会强制切换到 hash 模式；  如果当前环境不是浏览器环境，会切换到 abstract 模式下。然后再根据不同模式来生成不同的 history 操作对象。new VueRouter 过程  init 方法内的 app 变量便是存储的当前的 vue 实例的 this。  将 app 存入数组 apps 中。通过 this.app 判断是实例否已经被初始化。...&hellip;</p>
-        <div class="post-list__meta"><time datetime="2021-04-12 00:00:00 +0800"
-                class="post-list__meta--date date">2021-04-12</time> &nbsp;&nbsp; <span
-                class="post-list__meta--tags tags">#vue,#vue-router,#hash,#history</span><a class="btn-border-small"
-                href=/2021/04/%E8%B0%88%E8%B0%88vueRouter/>继续阅读</a></div>
-    </div>
-    
 
     
     
     <div class="read-more-item">
         <span class="read-more-item-dim">更早的文章</span>
-        <h2 class="post-list__post-title post-title"><a href="/2021/04/%E7%94%B5%E5%AD%90%E4%B9%A6%E7%B1%8D%E5%BD%95/"
-                title="link to 2021-04-08-一些电子书籍链接记录">2021-04-08-一些电子书籍链接记录</a></h2>
-        <p class="excerpt">一些电子书籍链接记录:  代码大全 2 中文版(完整清晰版).pdf 密码: lhpv  javascript 设计模式与开发实战.pdf（曾探） 密码: pd49  深入 react 技术栈.pdf 密码: 7o6b&hellip;</p>
-        <div class="post-list__meta"><time datetime="2021-04-06 00:00:00 +0800"
-                class="post-list__meta--date date">2021-04-06</time> &nbsp;&nbsp; <span
-                class="post-list__meta--tags tags">#电子书籍</span><a class="btn-border-small"
-                href=/2021/04/%E7%94%B5%E5%AD%90%E4%B9%A6%E7%B1%8D%E5%BD%95/>继续阅读</a></div>
+        <h2 class="post-list__post-title post-title"><a href="/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/"
+                title="link to 2021-04-12-vue和react diff 算法对比">2021-04-12-vue和react diff 算法对比</a></h2>
+        <p class="excerpt">react diff 算法当调用 React 的 render()方法时，会创建一棵由 React 元素组成的树。在下一次 State 或 Props 更新时，相同的 render()方法会返回一棵不同的树。React 会应用 Diffing 算法来高效的比较两棵树，算法过程如下：  当根节点为不同类型的元素时，React 会拆卸原有的树，销毁对应的 DOM 节点和关联的 State、卸载子组件，最后再创建新的树。  当比对两个相同类型的 DOM 元素时，会保留 DOM 节点，仅比对变更的...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-04-12 00:00:00 +0800"
+                class="post-list__meta--date date">2021-04-12</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#vue2.0,#vue3.0,#react</span><a class="btn-border-small"
+                href=/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/>继续阅读</a></div>
     </div>
     
 </section>
@@ -236,8 +250,8 @@ Vue3.x 借鉴了 ivi 算法和 inferno 算法。
     <script>
     
     var disqus_config = function () {
-        this.page.url = "http://localhost:4000/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/";
-        this.page.identifier = "/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/";
+        this.page.url = "http://localhost:4000/2021/04/%E8%B0%88%E8%B0%88vueRouter/";
+        this.page.identifier = "/2021/04/%E8%B0%88%E8%B0%88vueRouter/";
     };
 
     var disqus_shortname = 'vno-jekyll';

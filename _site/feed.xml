@@ -5,9 +5,87 @@
     <description>2年RN，3年前端。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 12 Apr 2021 11:19:55 +0800</pubDate>
-    <lastBuildDate>Mon, 12 Apr 2021 11:19:55 +0800</lastBuildDate>
+    <pubDate>Mon, 12 Apr 2021 14:51:13 +0800</pubDate>
+    <lastBuildDate>Mon, 12 Apr 2021 14:51:13 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>2021-04-12-谈谈vue-router</title>
+        <description>&lt;h3 id=&quot;vue-router-对不同模式的实现大致是这样的&quot;&gt;vue-router 对不同模式的实现大致是这样的：&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;首先根据 mode 来确定所选的模式，如果当前环境不支持 history 模式，会强制切换到 hash 模式；&lt;/li&gt;
+  &lt;li&gt;如果当前环境不是浏览器环境，会切换到 abstract 模式下。然后再根据不同模式来生成不同的 history 操作对象。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;new-vuerouter-过程&quot;&gt;new VueRouter 过程&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;init 方法内的 app 变量便是存储的当前的 vue 实例的 this。&lt;/li&gt;
+  &lt;li&gt;将 app 存入数组 apps 中。通过 this.app 判断是实例否已经被初始化。&lt;/li&gt;
+  &lt;li&gt;通过 history 来确定不同路由的切换动作 history.transitionTo。&lt;/li&gt;
+  &lt;li&gt;通过 history.listen 来注册路由变化的响应回调。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;hash-和-history-的区别&quot;&gt;hash 和 history 的区别&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;最明显的是在显示上，hash 模式的 URL 中会夹杂着#号，而 history 没有。&lt;/li&gt;
+  &lt;li&gt;Vue 底层对它们的实现方式不同。hash 模式是依靠 onhashchange 事件(监听 location.hash 的改变)，而 history 模式（popstate）是主要是依靠的 HTML5 history 中新增的两个方法，pushState()可以改变 url 地址且不会发送请求，replaceState()可以读取历史记录栈，还可以对浏览器记录进行修改。&lt;/li&gt;
+  &lt;li&gt;当真正需要通过 URL 向后端发送 HTTP 请求的时候，比如常见的用户手动输入 URL 后回车，或者是刷新(重启)浏览器，这时候 history 模式需要后端的支持。因为 history 模式下，前端的 URL 必须和实际向后端发送请求的 URL 一致，例如有一个 URL 是带有路径 path 的(例如www.lindaidai.wang/blogs/id)，如果后端没有对这个路径做处理的话，就会返回404错误。所以需要后端增加一个覆盖所有情况的候选资源，一般会配合前端给出的一个404页面。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;vue-history-配置&quot;&gt;vue history 配置&lt;/h3&gt;
+
+&lt;p&gt;vue history 需要 nginx 或者其他方式配置一下才可正确访问，否则路由跳转之后刷新一下便会出现 404。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;vue history 模式 部署在服务器端的 nginx 配置 (非根目录)配置如下：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;server {
+
+        listen      443 ;
+
+        server_name  m;
+
+        root  html/mobile;
+
+        location / {
+
+            index  index.html index.htm;
+
+            try_files $uri $uri/ /index.html;
+
+        }
+
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;路由配置：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const router=new VueRouter({
+  mode: 'history',
+  routes
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Mon, 12 Apr 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/04/%E8%B0%88%E8%B0%88vueRouter/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/04/%E8%B0%88%E8%B0%88vueRouter/</guid>
+        
+        <category>#vue,</category>
+        
+        <category>#vue-router,</category>
+        
+        <category>#hash,</category>
+        
+        <category>#history</category>
+        
+        
+      </item>
     
       <item>
         <title>2021-04-12-vue和react diff 算法对比</title>
@@ -775,59 +853,6 @@ test.html test2.html
         <category>#bash,</category>
         
         <category>#shell</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>RN使用react-navigation底部tab切换触发相应事件</title>
-        <description>&lt;p&gt;问题引入：
-在 rn 实际开发场景中遇到很多这种需求：主页面，底部是 react-navigation 实现的底部 tab 栏。在使用应用的过程中，可进行切换。但是，在切换的时候，需要触发切换这个事件，在这个事件里面，去执行其他时间（例如：请求最新的个人信息数据、或者最新的消息数据等等）
-解决这类问题，大致就是网上查阅，翻翻文档。最后把我自己实际开发中用到的两种解决方案附上，以做记录：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;完全使用 hook：首次进入该页面时就会触发。后面再次进入的时候，也会触发。首次进入该 screen 不需要单独请求数据。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import { useFocusEffect, useIsFocused } from 'react-navigation-hooks'
-import React, { useCallback, useEffect, useState } from 'react'
-
-useFocusEffect(
-    useCallback(() =&amp;gt; {
-      console.log('screen takes focus')
-      doRequest();
-
-      return () =&amp;gt; console.debug('screen loses focus')
-    }, [])
-)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;不使用 hook：用 didFocus 来进行监听，首次进入该页面时，不会触发。后面再进入的时候，会触发。所以这种模式，首次进入该 screen 需要单独请求数据。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 首次进入需要单独请求数据
-useEffect(()=&amp;gt;{
-    console.log('第一进入触发')
-    doRequest();
-},[])
-
-useEffect(() =&amp;gt; {
-    console.log('第一进入触发')
-    const _navListener = props.navigation.addListener('didFocus', () =&amp;gt; {
-      console.log('后面再进入触发')
-      doRequest();
-    });
-
-    return () =&amp;gt; {
-      _navListener.remove();
-    };
-  }, []);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Fri, 24 Jul 2020 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2020/07/RN%E4%BD%BF%E7%94%A8react-navigation%E5%BA%95%E9%83%A8tab%E5%88%87%E6%8D%A2%E8%A7%A6%E5%8F%91%E7%9B%B8%E5%BA%94%E4%BA%8B%E4%BB%B6/</link>
-        <guid isPermaLink="true">http://localhost:4000/2020/07/RN%E4%BD%BF%E7%94%A8react-navigation%E5%BA%95%E9%83%A8tab%E5%88%87%E6%8D%A2%E8%A7%A6%E5%8F%91%E7%9B%B8%E5%BA%94%E4%BA%8B%E4%BB%B6/</guid>
         
         
       </item>
