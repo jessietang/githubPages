@@ -168,7 +168,16 @@
 <p><img src="/assets/images/0412/1.png" alt="1.png" />
 computed 和 watch 公用一个 Watcher 类，在 computed 的情况下有一个 deps 。 Vue 在二次收集依赖时用 cleanupDeps 在每次添加完新的订阅，会移除掉旧的订阅。</p>
 
-<p>查看<a href="https://zhuanlan.zhihu.com/p/45081605">‘收集依赖’</a>是什么意思</p>
+<h3 id="收集依赖">收集依赖</h3>
+
+<ol>
+  <li>initState 时，对 computed 属性初始化时，触发 computed Watcher 依赖收集</li>
+  <li>initState 时，对 watch 属性初始化时，触发 user Watcher 依赖收集</li>
+  <li>render()的过程，触发 render watcher 依赖收集</li>
+  <li>re-render 时，vm.render()再次执行，会移除 subs 的订阅，重新赋值</li>
+</ol>
+
+<p>查看<a href="https://zhuanlan.zhihu.com/p/45081605">‘收集依赖’</a>更详细的解释。</p>
 
   </section>
 </article>

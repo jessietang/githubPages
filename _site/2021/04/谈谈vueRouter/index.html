@@ -234,13 +234,13 @@
     
     <div class="read-more-item">
         <span class="read-more-item-dim">更早的文章</span>
-        <h2 class="post-list__post-title post-title"><a href="/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/"
-                title="link to 2021-04-12-vue和react diff 算法对比">2021-04-12-vue和react diff 算法对比</a></h2>
-        <p class="excerpt">react diff 算法当调用 React 的 render()方法时，会创建一棵由 React 元素组成的树。在下一次 State 或 Props 更新时，相同的 render()方法会返回一棵不同的树。React 会应用 Diffing 算法来高效的比较两棵树，算法过程如下：  当根节点为不同类型的元素时，React 会拆卸原有的树，销毁对应的 DOM 节点和关联的 State、卸载子组件，最后再创建新的树。  当比对两个相同类型的 DOM 元素时，会保留 DOM 节点，仅比对变更的...&hellip;</p>
+        <h2 class="post-list__post-title post-title"><a href="/2021/04/vue%E6%A0%B8%E5%BF%83%E8%A7%92%E8%89%B2/"
+                title="link to 2021-04-12-vue 核心角色">2021-04-12-vue 核心角色</a></h2>
+        <p class="excerpt">vue 响应式过程的原理：当创建 Vue 实例时,vue 会遍历 data 选项的属性,利用 Object.defineProperty 为属性添加 getter 和 setter 对数据的读取进行劫持（getter 用来依赖收集,setter 用来派发更新）,并且在内部追踪依赖,在属性被访问和修改时通知变化。每个组件实例会有相应的 watcher 实例,会在组件渲染的过程中记录依赖的所有数据属性（进行依赖收集,还有 computed watcher,user watcher 实例）,之后...&hellip;</p>
         <div class="post-list__meta"><time datetime="2021-04-12 00:00:00 +0800"
                 class="post-list__meta--date date">2021-04-12</time> &nbsp;&nbsp; <span
-                class="post-list__meta--tags tags">#vue2.0,#vue3.0,#react</span><a class="btn-border-small"
-                href=/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/>继续阅读</a></div>
+                class="post-list__meta--tags tags">#vue核心角色</span><a class="btn-border-small"
+                href=/2021/04/vue%E6%A0%B8%E5%BF%83%E8%A7%92%E8%89%B2/>继续阅读</a></div>
     </div>
     
 </section>
