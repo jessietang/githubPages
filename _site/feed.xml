@@ -5,8 +5,8 @@
     <description>2年RN，3年前端。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 12 Apr 2021 18:06:54 +0800</pubDate>
-    <lastBuildDate>Mon, 12 Apr 2021 18:06:54 +0800</lastBuildDate>
+    <pubDate>Tue, 13 Apr 2021 09:19:37 +0800</pubDate>
+    <lastBuildDate>Tue, 13 Apr 2021 09:19:37 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -226,9 +226,9 @@ function defineReactive(target, key, val) {
 &lt;p&gt;当调用 React 的 render()方法时，会创建一棵由 React 元素组成的树。在下一次 State 或 Props 更新时，相同的 render()方法会返回一棵不同的树。React 会应用 Diffing 算法来高效的比较两棵树，算法过程如下：&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;当根节点为不同类型的元素时，React 会拆卸原有的树，销毁对应的 DOM 节点和关联的 State、卸载子组件，最后再创建新的树。&lt;/li&gt;
-  &lt;li&gt;当比对两个相同类型的 DOM 元素时，会保留 DOM 节点，仅比对变更的属性。&lt;/li&gt;
-  &lt;li&gt;当比对两个相同类型的组件元素时，组件实例保持不变，更新该组件实例的 Props。&lt;/li&gt;
+  &lt;li&gt;当根节点为【不同类型】的元素时，React 会拆卸原有的树，销毁对应的 DOM 节点和关联的 State、卸载子组件，最后再创建新的树。&lt;/li&gt;
+  &lt;li&gt;当比对两个【相同类型的 DOM 元素】时，会保留 DOM 节点，【仅比对变更的属性】。&lt;/li&gt;
+  &lt;li&gt;当比对两个【相同类型的组件元素】时，组件实例保持不变，【更新该组件实例的 Props】。&lt;/li&gt;
   &lt;li&gt;当递归 DOM 节点的子元素时，React 会同时遍历两个子元素的列表，比对相同位置的元素，性能比较低效。&lt;/li&gt;
   &lt;li&gt;在给子元素添加唯一标识的 key 属性后，就能只比对变更了 key 属性的元素。&lt;/li&gt;
 &lt;/ol&gt;
