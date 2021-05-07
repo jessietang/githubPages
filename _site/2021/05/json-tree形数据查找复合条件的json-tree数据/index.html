@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>2021-04-12-谈谈vue-router</title>
-  <meta name="description" content="vue-router 对不同模式的实现大致是这样的：">
+  <title>2021-05-07-json tree形数据查找复合条件的json tree数据</title>
+  <meta name="description" content="需求描述">
   <meta name="author" content="Wei Wang">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="2021-04-12-谈谈vue-router">
-  <meta name="twitter:description" content="vue-router 对不同模式的实现大致是这样的：">
+  <meta name="twitter:title" content="2021-05-07-json tree形数据查找复合条件的json tree数据">
+  <meta name="twitter:description" content="需求描述">
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="2021-04-12-谈谈vue-router">
-  <meta property="og:description" content="vue-router 对不同模式的实现大致是这样的：">
+  <meta property="og:title" content="2021-05-07-json tree形数据查找复合条件的json tree数据">
+  <meta property="og:description" content="需求描述">
   
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
   <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="http://localhost:4000/2021/04/%E8%B0%88%E8%B0%88vueRouter/">
+  <link rel="canonical" href="http://localhost:4000/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/">
   <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
   
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
@@ -154,74 +154,139 @@
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="2021-04-12 00:00:00 +0800" itemprop="datePublished"
-        class="post-meta__date date">2021-04-12</time> &nbsp;&nbsp;&nbsp;
-      <span class="post-meta__tags tags">#vue,#vue-router,#hash,#history</span>
+      <time datetime="2021-05-07 00:00:00 +0800" itemprop="datePublished"
+        class="post-meta__date date">2021-05-07</time> &nbsp;&nbsp;&nbsp;
+      <span class="post-meta__tags tags">#input,#oninput事件,#中文输入法,#浏览器兼容性</span>
       <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
     </div>
-    <h1 class="post-title">2021-04-12-谈谈vue-router</h1>
+    <h1 class="post-title">2021-05-07-json tree形数据查找复合条件的json tree数据</h1>
   </header>
 
   <section class="post">
-    <h3 id="vue-router-对不同模式的实现大致是这样的">vue-router 对不同模式的实现大致是这样的：</h3>
+    <h3 id="需求描述">需求描述</h3>
 
-<ol>
-  <li>首先根据 mode 来确定所选的模式，如果当前环境不支持 history 模式，会强制切换到 hash 模式；</li>
-  <li>如果当前环境不是浏览器环境，会切换到 abstract 模式下。然后再根据不同模式来生成不同的 history 操作对象。</li>
-</ol>
+<p>存在一个 json tree 形数据：</p>
 
-<h3 id="new-vuerouter-过程">new VueRouter 过程</h3>
-
-<ol>
-  <li>init 方法内的 app 变量便是存储的当前的 vue 实例的 this。</li>
-  <li>将 app 存入数组 apps 中。通过 this.app 判断是实例否已经被初始化。</li>
-  <li>通过 history 来确定不同路由的切换动作 history.transitionTo。</li>
-  <li>通过 history.listen 来注册路由变化的响应回调。</li>
-</ol>
-
-<h3 id="hash-和-history-的区别">hash 和 history 的区别</h3>
-
-<ol>
-  <li>最明显的是在显示上，hash 模式的 URL 中会夹杂着#号，而 history 没有。</li>
-  <li>Vue 底层对它们的实现方式不同。hash 模式是依靠 onhashchange 事件(监听 location.hash 的改变)，而 history 模式（popstate）是主要是依靠的 HTML5 history 中新增的两个方法，pushState()可以改变 url 地址且不会发送请求，replaceState()可以读取历史记录栈，还可以对浏览器记录进行修改。</li>
-  <li>当真正需要通过 URL 向后端发送 HTTP 请求的时候，比如常见的用户手动输入 URL 后回车，或者是刷新(重启)浏览器，这时候 history 模式需要后端的支持。因为 history 模式下，前端的 URL 必须和实际向后端发送请求的 URL 一致，例如有一个 URL 是带有路径 path 的(例如www.lindaidai.wang/blogs/id)，如果后端没有对这个路径做处理的话，就会返回404错误。所以需要后端增加一个覆盖所有情况的候选资源，一般会配合前端给出的一个404页面。</li>
-</ol>
-
-<h3 id="vue-history-配置">vue history 配置</h3>
-
-<p>vue history 需要 nginx 或者其他方式配置一下才可正确访问，否则路由跳转之后刷新一下便会出现 404。</p>
-
-<ul>
-  <li>vue history 模式 部署在服务器端的 nginx 配置 (非根目录)配置如下：</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
-
-        listen      443 ;
-
-        server_name  m;
-
-        root  html/mobile;
-
-        location / {
-
-            index  index.html index.htm;
-
-            try_files $uri $uri/ /index.html;
-
-        }
-
-    }
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var treeData = [
+    {
+        id: 'root',
+        name: '食物',
+        children: [
+            {
+                id: '1',
+                name: '水果',
+                children: [
+                    {
+                        id: '1-1',
+                        name: '水果-苹果',
+                        children: []
+                    },
+                    {
+                        id: '1-2',
+                        name: '香蕉',
+                        children: []
+                    }
+                ]
+            },
+            {
+                id: '2',
+                name: '主食',
+                children: [
+                    {
+                        id: '2-1',
+                        name: '主食-米饭',
+                        children: []
+                    },
+                    {
+                        id: '2-2',
+                        name: '面条',
+                        children: []
+                    },
+                    {
+                        id: '2-3',
+                        name: '米线',
+                        children: []
+                    }
+                ]
+            },
+            {
+                id: '3',
+                name: '零食',
+                children: [
+                    {
+                        id: '3-1',
+                        name: '瓜子',
+                        children: []
+                    },
+                    {
+                        id: '3-2',
+                        name: '花生',
+                        children: []
+                    },
+                    {
+                        id: '3-3',
+                        name: '蚕豆',
+                        children: []
+                    }
+                ]
+            }
+        ]
+    }
+]
 </code></pre></div></div>
 
-<ul>
-  <li>路由配置：</li>
-</ul>
+<p>输入框搜索关键词，如：“水果”，一旦发现某一层级的 name 匹配上了关键词，则返回这一层级以及他的所有子元素。
+返回的数据应该如下：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const router=new VueRouter({
-  mode: 'history',
-  routes
-})
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var searchResult = [
+    {
+        id: 'root',
+        name: '食物',
+        children: [
+            {
+                id: '1',
+                name: '水果',
+                children: [
+                    {
+                        id: '1-1',
+                        name: '水果-苹果',
+                        children: []
+                    },
+                    {
+                        id: '1-2',
+                        name: '香蕉',
+                        children: []
+                    }
+                ]
+            }
+    }
+]
+</code></pre></div></div>
+
+<p>算法如下：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    // tree search
+    handleTreeData(treeData, searchValue) {
+      if (!treeData || treeData.length === 0) {
+        return [];
+      }
+      const array = [];
+      for (let i = 0; i &lt; treeData.length; i += 1) {
+        const nodeName = treeData[i].name.toLowerCase()
+        const searchName = searchValue.toLowerCase()
+        if (this.handleTreeData(treeData[i].children, searchValue).length &gt; 0 || nodeName.includes(searchName)) {
+          let obj = {
+            ...treeData[i]
+          }
+          if(!nodeName.includes(searchName)){
+            // 父节点name不包含searchVal,则继续查找。否则，子节点不用查找，把父节点和父节点的children直接返回
+            obj.children = this.handleTreeData(treeData[i].children, searchValue)
+          }
+          array.push(obj)
+        }
+      }
+      return array;
+    }
 </code></pre></div></div>
 
   </section>
@@ -232,13 +297,13 @@
     
     <div class="read-more-item">
         <span class="read-more-item-dim">最近的文章</span>
-        <h2 class="post-list__post-title post-title"><a href="/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/"
-                title="link to 2021-05-07-json tree形数据查找复合条件的json tree数据">2021-05-07-json tree形数据查找复合条件的json tree数据</a></h2>
-        <p class="excerpt">需求描述存在一个 json tree 形数据：var treeData = [    {        id: 'root',        name: '食物',        children: [            {                id: '1',                name: '水果',                children: [                    {                        id: '1-1',...&hellip;</p>
+        <h2 class="post-list__post-title post-title"><a href="/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/"
+                title="link to 2021-05-07-vue中input的blur影响下拉框中click事件">2021-05-07-vue中input的blur影响下拉框中click事件</a></h2>
+        <p class="excerpt">问题描述:存在如下一段代码：&lt;input ref="input" class="search-box" placeholder="请输入要搜索的内容" v-model="keyWords" @input="search()" @focus="focusSearch()" @blur="onBlur()"/&gt;&lt;div class="result-list" v-if="showComplete"&gt;    &lt;div class="result-item" v-if...&hellip;</p>
         <div class="post-list__meta"><time datetime="2021-05-07 00:00:00 +0800"
                 class="post-list__meta--date date">2021-05-07</time> &nbsp;&nbsp; <span
-                class="post-list__meta--tags tags">#input,#oninput事件,#中文输入法,#浏览器兼容性</span><a class="btn-border-small"
-                href=/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/>继续阅读</a></div>
+                class="post-list__meta--tags tags">#vue，#input,#blur,#click</span><a class="btn-border-small"
+                href=/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/>继续阅读</a></div>
     </div>
     
 
@@ -246,13 +311,13 @@
     
     <div class="read-more-item">
         <span class="read-more-item-dim">更早的文章</span>
-        <h2 class="post-list__post-title post-title"><a href="/2021/04/vue%E6%A0%B8%E5%BF%83%E8%A7%92%E8%89%B2/"
-                title="link to 2021-04-12-vue 核心角色">2021-04-12-vue 核心角色</a></h2>
-        <p class="excerpt">vue 响应式过程的原理：当创建 Vue 实例时,vue 会遍历 data 选项的属性,利用 Object.defineProperty 为属性添加 getter 和 setter 对数据的读取进行劫持（getter 用来依赖收集,setter 用来派发更新）,并且在内部追踪依赖,在属性被访问和修改时通知变化。每个组件实例会有相应的 watcher 实例,会在组件渲染的过程中记录依赖的所有数据属性（进行依赖收集,还有 computed watcher,user watcher 实例）,之后...&hellip;</p>
+        <h2 class="post-list__post-title post-title"><a href="/2021/04/%E8%B0%88%E8%B0%88vueRouter/"
+                title="link to 2021-04-12-谈谈vue-router">2021-04-12-谈谈vue-router</a></h2>
+        <p class="excerpt">vue-router 对不同模式的实现大致是这样的：  首先根据 mode 来确定所选的模式，如果当前环境不支持 history 模式，会强制切换到 hash 模式；  如果当前环境不是浏览器环境，会切换到 abstract 模式下。然后再根据不同模式来生成不同的 history 操作对象。new VueRouter 过程  init 方法内的 app 变量便是存储的当前的 vue 实例的 this。  将 app 存入数组 apps 中。通过 this.app 判断是实例否已经被初始化。...&hellip;</p>
         <div class="post-list__meta"><time datetime="2021-04-12 00:00:00 +0800"
                 class="post-list__meta--date date">2021-04-12</time> &nbsp;&nbsp; <span
-                class="post-list__meta--tags tags">#vue核心角色</span><a class="btn-border-small"
-                href=/2021/04/vue%E6%A0%B8%E5%BF%83%E8%A7%92%E8%89%B2/>继续阅读</a></div>
+                class="post-list__meta--tags tags">#vue,#vue-router,#hash,#history</span><a class="btn-border-small"
+                href=/2021/04/%E8%B0%88%E8%B0%88vueRouter/>继续阅读</a></div>
     </div>
     
 </section>
@@ -262,8 +327,8 @@
     <script>
     
     var disqus_config = function () {
-        this.page.url = "http://localhost:4000/2021/04/%E8%B0%88%E8%B0%88vueRouter/";
-        this.page.identifier = "/2021/04/%E8%B0%88%E8%B0%88vueRouter/";
+        this.page.url = "http://localhost:4000/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/";
+        this.page.identifier = "/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/";
     };
 
     var disqus_shortname = 'vno-jekyll';

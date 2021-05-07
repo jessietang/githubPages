@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>鼠标右键contextMenu事件在mac和windows上的不同</title>
-  <meta name="description" content="前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。">
+  <title>2021-05-07-vue中input的blur影响下拉框中click事件</title>
+  <meta name="description" content="问题描述:">
   <meta name="author" content="Wei Wang">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="鼠标右键contextMenu事件在mac和windows上的不同">
-  <meta name="twitter:description" content="前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。">
+  <meta name="twitter:title" content="2021-05-07-vue中input的blur影响下拉框中click事件">
+  <meta name="twitter:description" content="问题描述:">
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="鼠标右键contextMenu事件在mac和windows上的不同">
-  <meta property="og:description" content="前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。">
+  <meta property="og:title" content="2021-05-07-vue中input的blur影响下拉框中click事件">
+  <meta property="og:description" content="问题描述:">
   
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
   <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="http://localhost:4000/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/">
+  <link rel="canonical" href="http://localhost:4000/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/">
   <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
   
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
@@ -154,29 +154,61 @@
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="2021-03-31 00:00:00 +0800" itemprop="datePublished"
-        class="post-meta__date date">2021-03-31</time> &nbsp;&nbsp;&nbsp;
-      <span class="post-meta__tags tags">#鼠标右键事件,#contextMenu,#mac&windows区别</span>
+      <time datetime="2021-05-07 00:00:00 +0800" itemprop="datePublished"
+        class="post-meta__date date">2021-05-07</time> &nbsp;&nbsp;&nbsp;
+      <span class="post-meta__tags tags">#vue，#input,#blur,#click</span>
       <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
     </div>
-    <h1 class="post-title">鼠标右键contextMenu事件在mac和windows上的不同</h1>
+    <h1 class="post-title">2021-05-07-vue中input的blur影响下拉框中click事件</h1>
   </header>
 
   <section class="post">
-    <p>前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。</p>
+    <h3 id="问题描述">问题描述:</h3>
 
-<h3 id="方法使用">方法使用</h3>
+<p>存在如下一段代码：</p>
 
-<ul>
-  <li>
-    <p>区别</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;input ref="input" class="search-box" placeholder="请输入要搜索的内容" v-model="keyWords" @input="search()" @focus="focusSearch()" @blur="onBlur()"/&gt;
 
-    <ul>
-      <li>mac: 右键按下即触发 contextMenu event，鼠标抬起，触发 mouseUp event；</li>
-      <li>win: 右键按下抬起后，先触发 mouseUp event，然后触发 contextMenu event。</li>
-    </ul>
-  </li>
-</ul>
+&lt;div class="result-list" v-if="showComplete"&gt;
+    &lt;div class="result-item" v-if="searchResultList.length === 0"&gt;没有找到对应内容&lt;/div&gt;
+    &lt;div class="result-item" v-for="r in searchResultList" :key="r.id" @click="toSearch([r])"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+onBlur(){
+    console.log('blur')
+    this.showComplete = false
+}
+toSearch(nodes){
+    console.log('click')
+    // do sth...
+    this.$nextTick(()=&gt;{
+        this.keyWords = '';
+    })
+}
+</code></pre></div></div>
+
+<p>输入框输入关键字搜索，选择下拉框里匹配的某一条数据后，click 无法执行。主要原因是。blur 的优先级比 click 高，先触发了 blur 事件 showComplete = false,下拉列表注销，click 无法执行。</p>
+
+<h3 id="解决办法">解决办法</h3>
+
+<ol>
+  <li>解决办法一：blur 执行的函数可以加个定时器，在 200ms 后执行</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>onBlur(){
+      console.log('blur')
+      setTimeout(()=&gt;{
+        this.showComplete = false
+      },200)
+},
+</code></pre></div></div>
+
+<ol>
+  <li>解决办法二：将 click 换成优先级更高的 mousedown，将优先于 blur 执行</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class="result-item" v-for="r in searchResultList" :key="r.id" @mousedown="toSearch([r])"&gt;&lt;/div&gt;
+</code></pre></div></div>
 
   </section>
 </article>
@@ -186,13 +218,13 @@
     
     <div class="read-more-item">
         <span class="read-more-item-dim">最近的文章</span>
-        <h2 class="post-list__post-title post-title"><a href="/2021/04/ios%E5%AE%8C%E6%95%B4%E7%9A%84-statusbar-%E9%AB%98%E5%BA%A6%E7%9A%84%E8%A1%A8/"
-                title="link to 2021-04-06-ios完整的 statusbar 高度的表">2021-04-06-ios完整的 statusbar 高度的表</a></h2>
-        <p class="excerpt">前言：更新 iphone 各机型屏幕尺寸列表（包含最新 iphone12）iphone 各机型屏幕尺寸如下所示            设备      statusbar 高度              iPhone11      48              iPhone12/12 pro/12 pro max      47              iPhone12 mini      50              iPad Pro、IPad Air      24        ...&hellip;</p>
-        <div class="post-list__meta"><time datetime="2021-04-06 00:00:00 +0800"
-                class="post-list__meta--date date">2021-04-06</time> &nbsp;&nbsp; <span
-                class="post-list__meta--tags tags">#ios,#iphone,#屏幕尺寸</span><a class="btn-border-small"
-                href=/2021/04/ios%E5%AE%8C%E6%95%B4%E7%9A%84-statusbar-%E9%AB%98%E5%BA%A6%E7%9A%84%E8%A1%A8/>继续阅读</a></div>
+        <h2 class="post-list__post-title post-title"><a href="/2021/05/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/"
+                title="link to 2021-05-07-解决oninput事件在中文输入法下会取得拼音的值的问题">2021-05-07-解决oninput事件在中文输入法下会取得拼音的值的问题</a></h2>
+        <p class="excerpt">前言如果直接通过 input 监听输入框输入，它会在键盘按键按下的时候就触发事件，这样就会导致一些问题，比如在 chrome 浏览器中，想输入中文输入不了。解决方法是，用 compositionstart 和 compositionend.注意：chrome 和 safari 浏览器（webkit 内核）跟其他浏览器的执行顺序不同，chrome 和 safari 是 compositionstart =&gt; 监听 input 事件 =&gt; compositionend,其他浏览器是...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-05-07 00:00:00 +0800"
+                class="post-list__meta--date date">2021-05-07</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#input,#oninput事件,#中文输入法,#浏览器兼容性</span><a class="btn-border-small"
+                href=/2021/05/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/>继续阅读</a></div>
     </div>
     
 
@@ -200,13 +232,13 @@
     
     <div class="read-more-item">
         <span class="read-more-item-dim">更早的文章</span>
-        <h2 class="post-list__post-title post-title"><a href="/2021/03/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/"
-                title="link to insertAdjacentHTML方法的使用">insertAdjacentHTML方法的使用</a></h2>
-        <p class="excerpt">前言：我们常用 innerText &amp; innerHTML 给一个 dom 元素插入一段文本或者 html。最近发现还有 insertAdjacentHTML 和 insertAdjacentText 方法，这两个方法更灵活，可以在指定的地方插入 html 内容和文本内容。（adjacent，这个单词是“相邻”的意思）方法使用      insertAdjacentHTML(swhere, stext)          swhere: 指定插入 html 标签语句的地方，有四个值...&hellip;</p>
-        <div class="post-list__meta"><time datetime="2021-03-30 00:00:00 +0800"
-                class="post-list__meta--date date">2021-03-30</time> &nbsp;&nbsp; <span
-                class="post-list__meta--tags tags">#insertAdjacentHTML,#insertAdjacentText,</span><a class="btn-border-small"
-                href=/2021/03/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/>继续阅读</a></div>
+        <h2 class="post-list__post-title post-title"><a href="/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/"
+                title="link to 2021-05-07-json tree形数据查找复合条件的json tree数据">2021-05-07-json tree形数据查找复合条件的json tree数据</a></h2>
+        <p class="excerpt">需求描述存在一个 json tree 形数据：var treeData = [    {        id: 'root',        name: '食物',        children: [            {                id: '1',                name: '水果',                children: [                    {                        id: '1-1',...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-05-07 00:00:00 +0800"
+                class="post-list__meta--date date">2021-05-07</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#input,#oninput事件,#中文输入法,#浏览器兼容性</span><a class="btn-border-small"
+                href=/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/>继续阅读</a></div>
     </div>
     
 </section>
@@ -216,8 +248,8 @@
     <script>
     
     var disqus_config = function () {
-        this.page.url = "http://localhost:4000/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/";
-        this.page.identifier = "/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/";
+        this.page.url = "http://localhost:4000/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/";
+        this.page.identifier = "/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/";
     };
 
     var disqus_shortname = 'vno-jekyll';

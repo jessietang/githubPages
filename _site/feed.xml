@@ -5,9 +5,305 @@
     <description>2年RN，3年前端。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 13 Apr 2021 09:19:37 +0800</pubDate>
-    <lastBuildDate>Tue, 13 Apr 2021 09:19:37 +0800</lastBuildDate>
+    <pubDate>Fri, 07 May 2021 11:26:19 +0800</pubDate>
+    <lastBuildDate>Fri, 07 May 2021 11:26:19 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>2021-05-07-解决oninput事件在中文输入法下会取得拼音的值的问题</title>
+        <description>&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
+
+&lt;p&gt;如果直接通过 input 监听输入框输入，它会在键盘按键按下的时候就触发事件，这样就会导致一些问题，比如在 chrome 浏览器中，想输入中文输入不了。
+解决方法是，用 compositionstart 和 compositionend.&lt;/p&gt;
+
+&lt;p&gt;注意：chrome 和 safari 浏览器（webkit 内核）跟其他浏览器的执行顺序不同，
+chrome 和 safari 是 compositionstart =&amp;gt; 监听 input 事件 =&amp;gt; compositionend,&lt;br /&gt;
+其他浏览器是 compositionstart =&amp;gt; compositionend =&amp;gt; 监听 input 事件。
+所以，在 compositionend 浏览器里面要判断一下是否是谷歌浏览器。&lt;/p&gt;
+
+&lt;h3 id=&quot;上代码&quot;&gt;上代码&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // 输入框事件
+    const searchInputDom = document.getElementById('search-input');
+
+    // 解决oninput事件在中文输入法下会取得拼音的值的问题
+    let isInputZh = false;
+
+    searchInputDom.addEventListener('compositionstart', (e)=&amp;gt; {
+        console.log('compositionstart')
+        isInputZh = true;
+    }, false);
+
+    searchInputDom.addEventListener('compositionend',  (e)=&amp;gt; {
+        console.log('compositionend')
+        isInputZh = false;
+
+        // 判断是否是webkit内核
+        if(!isInputZh &amp;amp;&amp;amp; isWebkit()){
+            toSearch(searchInputDom.value)
+        }
+
+    }, false);
+
+    searchInputDom.oninput= (e) =&amp;gt; {
+      console.log('oninput')
+      if(isInputZh) return;
+      toSearch(e.target.value)
+    };
+
+
+
+    // 判断是否是chrome or safari
+    function isWebkit(){
+        var browser = {
+            versions: function() {
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {
+                    trident: u.indexOf('Trident') &amp;gt; -1, //IE内核
+                    presto: u.indexOf('Presto') &amp;gt; -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') &amp;gt; -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') &amp;gt; -1 &amp;amp;&amp;amp; u.indexOf('KHTML') == -1, //火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    android: u.indexOf('Android') &amp;gt; -1 || u.indexOf('Linux') &amp;gt; -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf('iPhone') &amp;gt; -1 || u.indexOf('Mac') &amp;gt; -1, //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') &amp;gt; -1, //是否iPad
+                    webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                };
+            }(),
+            language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+
+        if(browser.versions.webKit){
+            return true;
+        }
+
+        return false;
+    }
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+        
+        <category>#input,</category>
+        
+        <category>#oninput事件,</category>
+        
+        <category>#中文输入法,</category>
+        
+        <category>#浏览器兼容性</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>2021-05-07-vue中input的blur影响下拉框中click事件</title>
+        <description>&lt;h3 id=&quot;问题描述&quot;&gt;问题描述:&lt;/h3&gt;
+
+&lt;p&gt;存在如下一段代码：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;input ref=&quot;input&quot; class=&quot;search-box&quot; placeholder=&quot;请输入要搜索的内容&quot; v-model=&quot;keyWords&quot; @input=&quot;search()&quot; @focus=&quot;focusSearch()&quot; @blur=&quot;onBlur()&quot;/&amp;gt;
+
+&amp;lt;div class=&quot;result-list&quot; v-if=&quot;showComplete&quot;&amp;gt;
+    &amp;lt;div class=&quot;result-item&quot; v-if=&quot;searchResultList.length === 0&quot;&amp;gt;没有找到对应内容&amp;lt;/div&amp;gt;
+    &amp;lt;div class=&quot;result-item&quot; v-for=&quot;r in searchResultList&quot; :key=&quot;r.id&quot; @click=&quot;toSearch([r])&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+
+onBlur(){
+    console.log('blur')
+    this.showComplete = false
+}
+toSearch(nodes){
+    console.log('click')
+    // do sth...
+    this.$nextTick(()=&amp;gt;{
+        this.keyWords = '';
+    })
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;输入框输入关键字搜索，选择下拉框里匹配的某一条数据后，click 无法执行。主要原因是。blur 的优先级比 click 高，先触发了 blur 事件 showComplete = false,下拉列表注销，click 无法执行。&lt;/p&gt;
+
+&lt;h3 id=&quot;解决办法&quot;&gt;解决办法&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;解决办法一：blur 执行的函数可以加个定时器，在 200ms 后执行&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;onBlur(){
+      console.log('blur')
+      setTimeout(()=&amp;gt;{
+        this.showComplete = false
+      },200)
+},
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;解决办法二：将 click 换成优先级更高的 mousedown，将优先于 blur 执行&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;div class=&quot;result-item&quot; v-for=&quot;r in searchResultList&quot; :key=&quot;r.id&quot; @mousedown=&quot;toSearch([r])&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/</guid>
+        
+        <category>#vue，</category>
+        
+        <category>#input,</category>
+        
+        <category>#blur,</category>
+        
+        <category>#click</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>2021-05-07-json tree形数据查找复合条件的json tree数据</title>
+        <description>&lt;h3 id=&quot;需求描述&quot;&gt;需求描述&lt;/h3&gt;
+
+&lt;p&gt;存在一个 json tree 形数据：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var treeData = [
+    {
+        id: 'root',
+        name: '食物',
+        children: [
+            {
+                id: '1',
+                name: '水果',
+                children: [
+                    {
+                        id: '1-1',
+                        name: '水果-苹果',
+                        children: []
+                    },
+                    {
+                        id: '1-2',
+                        name: '香蕉',
+                        children: []
+                    }
+                ]
+            },
+            {
+                id: '2',
+                name: '主食',
+                children: [
+                    {
+                        id: '2-1',
+                        name: '主食-米饭',
+                        children: []
+                    },
+                    {
+                        id: '2-2',
+                        name: '面条',
+                        children: []
+                    },
+                    {
+                        id: '2-3',
+                        name: '米线',
+                        children: []
+                    }
+                ]
+            },
+            {
+                id: '3',
+                name: '零食',
+                children: [
+                    {
+                        id: '3-1',
+                        name: '瓜子',
+                        children: []
+                    },
+                    {
+                        id: '3-2',
+                        name: '花生',
+                        children: []
+                    },
+                    {
+                        id: '3-3',
+                        name: '蚕豆',
+                        children: []
+                    }
+                ]
+            }
+        ]
+    }
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;输入框搜索关键词，如：“水果”，一旦发现某一层级的 name 匹配上了关键词，则返回这一层级以及他的所有子元素。
+返回的数据应该如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var searchResult = [
+    {
+        id: 'root',
+        name: '食物',
+        children: [
+            {
+                id: '1',
+                name: '水果',
+                children: [
+                    {
+                        id: '1-1',
+                        name: '水果-苹果',
+                        children: []
+                    },
+                    {
+                        id: '1-2',
+                        name: '香蕉',
+                        children: []
+                    }
+                ]
+            }
+    }
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;算法如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // tree search
+    handleTreeData(treeData, searchValue) {
+      if (!treeData || treeData.length === 0) {
+        return [];
+      }
+      const array = [];
+      for (let i = 0; i &amp;lt; treeData.length; i += 1) {
+        const nodeName = treeData[i].name.toLowerCase()
+        const searchName = searchValue.toLowerCase()
+        if (this.handleTreeData(treeData[i].children, searchValue).length &amp;gt; 0 || nodeName.includes(searchName)) {
+          let obj = {
+            ...treeData[i]
+          }
+          if(!nodeName.includes(searchName)){
+            // 父节点name不包含searchVal,则继续查找。否则，子节点不用查找，把父节点和父节点的children直接返回
+            obj.children = this.handleTreeData(treeData[i].children, searchValue)
+          }
+          array.push(obj)
+        }
+      }
+      return array;
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/</guid>
+        
+        <category>#input,</category>
+        
+        <category>#oninput事件,</category>
+        
+        <category>#中文输入法,</category>
+        
+        <category>#浏览器兼容性</category>
+        
+        
+      </item>
     
       <item>
         <title>2021-04-12-谈谈vue-router</title>
@@ -531,128 +827,6 @@ Object.getOwnPropertyDescriptors() 得到是 c 对象自身的可枚举属性，
         <category>#iphone,</category>
         
         <category>#屏幕尺寸</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>2021-04-06-ios完整的 statusbar 高度的表</title>
-        <description>&lt;p&gt;前言：更新 iphone 各机型屏幕尺寸列表（包含最新 iphone12）&lt;/p&gt;
-
-&lt;h3 id=&quot;iphone-各机型屏幕尺寸如下所示&quot;&gt;iphone 各机型屏幕尺寸如下所示&lt;/h3&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;设备&lt;/td&gt;
-      &lt;td&gt;statusbar 高度&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;iPhone11&lt;/td&gt;
-      &lt;td&gt;48&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;iPhone12/12 pro/12 pro max&lt;/td&gt;
-      &lt;td&gt;47&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;iPhone12 mini&lt;/td&gt;
-      &lt;td&gt;50&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;iPad Pro、IPad Air&lt;/td&gt;
-      &lt;td&gt;24&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Other iPhones&lt;/td&gt;
-      &lt;td&gt;44&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;非刘海屏&lt;/td&gt;
-      &lt;td&gt;20&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-</description>
-        <pubDate>Tue, 06 Apr 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/04/ios%E5%AE%8C%E6%95%B4%E7%9A%84-statusbar-%E9%AB%98%E5%BA%A6%E7%9A%84%E8%A1%A8/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/04/ios%E5%AE%8C%E6%95%B4%E7%9A%84-statusbar-%E9%AB%98%E5%BA%A6%E7%9A%84%E8%A1%A8/</guid>
-        
-        <category>#ios,</category>
-        
-        <category>#iphone,</category>
-        
-        <category>#屏幕尺寸</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>鼠标右键contextMenu事件在mac和windows上的不同</title>
-        <description>&lt;p&gt;前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。&lt;/p&gt;
-
-&lt;h3 id=&quot;方法使用&quot;&gt;方法使用&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;区别&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;mac: 右键按下即触发 contextMenu event，鼠标抬起，触发 mouseUp event；&lt;/li&gt;
-      &lt;li&gt;win: 右键按下抬起后，先触发 mouseUp event，然后触发 contextMenu event。&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Wed, 31 Mar 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/</guid>
-        
-        <category>#鼠标右键事件,</category>
-        
-        <category>#contextMenu,#mac</category>
-        
-        <category>&amp;</category>
-        
-        <category>windows区别</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>insertAdjacentHTML方法的使用</title>
-        <description>&lt;p&gt;前言：我们常用 innerText &amp;amp; innerHTML 给一个 dom 元素插入一段文本或者 html。最近发现还有 insertAdjacentHTML 和 insertAdjacentText 方法，这两个方法更灵活，可以在指定的地方插入 html 内容和文本内容。（adjacent，这个单词是“相邻”的意思）&lt;/p&gt;
-
-&lt;h3 id=&quot;方法使用&quot;&gt;方法使用&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;insertAdjacentHTML(swhere, stext)&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;swhere: 指定插入 html 标签语句的地方，有四个值可选：
-        &lt;ul&gt;
-          &lt;li&gt;beforeBegin:插入到标签开始标记前， 如：xxx&amp;lt;div&amp;gt;&lt;/li&gt;
-          &lt;li&gt;afterBegin:插入到标签开始标记后，如：&amp;lt;div&amp;gt;xxx&lt;/li&gt;
-          &lt;li&gt;beforeEnd:插入到标签结束标记前，如：xxx&amp;lt;/div&amp;gt;&lt;/li&gt;
-          &lt;li&gt;afterEnd:插入到标签结束标记后, 如：&amp;lt;/div&amp;gt;xxx&lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-      &lt;li&gt;stext: 要插入的内容&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;insertAdjacentText(swhere, stext)方法与 inserAdjacentHTML 方法类似，只不过只能插入纯文本，参数一样。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Tue, 30 Mar 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/03/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/03/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
-        
-        <category>#insertAdjacentHTML,</category>
-        
-        <category>#insertAdjacentText,</category>
         
         
       </item>

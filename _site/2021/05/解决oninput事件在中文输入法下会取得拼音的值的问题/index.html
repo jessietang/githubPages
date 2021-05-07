@@ -6,17 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>鼠标右键contextMenu事件在mac和windows上的不同</title>
-  <meta name="description" content="前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。">
+  <title>2021-05-07-解决oninput事件在中文输入法下会取得拼音的值的问题</title>
+  <meta name="description" content="前言">
   <meta name="author" content="Wei Wang">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="鼠标右键contextMenu事件在mac和windows上的不同">
-  <meta name="twitter:description" content="前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。">
+  <meta name="twitter:title" content="2021-05-07-解决oninput事件在中文输入法下会取得拼音的值的问题">
+  <meta name="twitter:description" content="前言">
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="鼠标右键contextMenu事件在mac和windows上的不同">
-  <meta property="og:description" content="前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。">
+  <meta property="og:title" content="2021-05-07-解决oninput事件在中文输入法下会取得拼音的值的问题">
+  <meta property="og:description" content="前言">
   
   <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
   <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="http://localhost:4000/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/">
+  <link rel="canonical" href="http://localhost:4000/2021/05/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/">
   <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
   
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
@@ -154,59 +154,104 @@
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
     <div class="post-meta">
-      <time datetime="2021-03-31 00:00:00 +0800" itemprop="datePublished"
-        class="post-meta__date date">2021-03-31</time> &nbsp;&nbsp;&nbsp;
-      <span class="post-meta__tags tags">#鼠标右键事件,#contextMenu,#mac&windows区别</span>
+      <time datetime="2021-05-07 00:00:00 +0800" itemprop="datePublished"
+        class="post-meta__date date">2021-05-07</time> &nbsp;&nbsp;&nbsp;
+      <span class="post-meta__tags tags">#input,#oninput事件,#中文输入法,#浏览器兼容性</span>
       <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
     </div>
-    <h1 class="post-title">鼠标右键contextMenu事件在mac和windows上的不同</h1>
+    <h1 class="post-title">2021-05-07-解决oninput事件在中文输入法下会取得拼音的值的问题</h1>
   </header>
 
   <section class="post">
-    <p>前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。</p>
+    <h3 id="前言">前言</h3>
 
-<h3 id="方法使用">方法使用</h3>
+<p>如果直接通过 input 监听输入框输入，它会在键盘按键按下的时候就触发事件，这样就会导致一些问题，比如在 chrome 浏览器中，想输入中文输入不了。
+解决方法是，用 compositionstart 和 compositionend.</p>
 
-<ul>
-  <li>
-    <p>区别</p>
+<p>注意：chrome 和 safari 浏览器（webkit 内核）跟其他浏览器的执行顺序不同，
+chrome 和 safari 是 compositionstart =&gt; 监听 input 事件 =&gt; compositionend,<br />
+其他浏览器是 compositionstart =&gt; compositionend =&gt; 监听 input 事件。
+所以，在 compositionend 浏览器里面要判断一下是否是谷歌浏览器。</p>
 
-    <ul>
-      <li>mac: 右键按下即触发 contextMenu event，鼠标抬起，触发 mouseUp event；</li>
-      <li>win: 右键按下抬起后，先触发 mouseUp event，然后触发 contextMenu event。</li>
-    </ul>
-  </li>
-</ul>
+<h3 id="上代码">上代码</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    // 输入框事件
+    const searchInputDom = document.getElementById('search-input');
+
+    // 解决oninput事件在中文输入法下会取得拼音的值的问题
+    let isInputZh = false;
+
+    searchInputDom.addEventListener('compositionstart', (e)=&gt; {
+        console.log('compositionstart')
+        isInputZh = true;
+    }, false);
+
+    searchInputDom.addEventListener('compositionend',  (e)=&gt; {
+        console.log('compositionend')
+        isInputZh = false;
+
+        // 判断是否是webkit内核
+        if(!isInputZh &amp;&amp; isWebkit()){
+            toSearch(searchInputDom.value)
+        }
+
+    }, false);
+
+    searchInputDom.oninput= (e) =&gt; {
+      console.log('oninput')
+      if(isInputZh) return;
+      toSearch(e.target.value)
+    };
+
+
+
+    // 判断是否是chrome or safari
+    function isWebkit(){
+        var browser = {
+            versions: function() {
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {
+                    trident: u.indexOf('Trident') &gt; -1, //IE内核
+                    presto: u.indexOf('Presto') &gt; -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') &gt; -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') &gt; -1 &amp;&amp; u.indexOf('KHTML') == -1, //火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    android: u.indexOf('Android') &gt; -1 || u.indexOf('Linux') &gt; -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf('iPhone') &gt; -1 || u.indexOf('Mac') &gt; -1, //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') &gt; -1, //是否iPad
+                    webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                };
+            }(),
+            language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+
+        if(browser.versions.webKit){
+            return true;
+        }
+
+        return false;
+    }
+
+</code></pre></div></div>
 
   </section>
 </article>
 
 <section class="read-more">
     
-    
-    <div class="read-more-item">
-        <span class="read-more-item-dim">最近的文章</span>
-        <h2 class="post-list__post-title post-title"><a href="/2021/04/ios%E5%AE%8C%E6%95%B4%E7%9A%84-statusbar-%E9%AB%98%E5%BA%A6%E7%9A%84%E8%A1%A8/"
-                title="link to 2021-04-06-ios完整的 statusbar 高度的表">2021-04-06-ios完整的 statusbar 高度的表</a></h2>
-        <p class="excerpt">前言：更新 iphone 各机型屏幕尺寸列表（包含最新 iphone12）iphone 各机型屏幕尺寸如下所示            设备      statusbar 高度              iPhone11      48              iPhone12/12 pro/12 pro max      47              iPhone12 mini      50              iPad Pro、IPad Air      24        ...&hellip;</p>
-        <div class="post-list__meta"><time datetime="2021-04-06 00:00:00 +0800"
-                class="post-list__meta--date date">2021-04-06</time> &nbsp;&nbsp; <span
-                class="post-list__meta--tags tags">#ios,#iphone,#屏幕尺寸</span><a class="btn-border-small"
-                href=/2021/04/ios%E5%AE%8C%E6%95%B4%E7%9A%84-statusbar-%E9%AB%98%E5%BA%A6%E7%9A%84%E8%A1%A8/>继续阅读</a></div>
-    </div>
-    
 
     
     
     <div class="read-more-item">
         <span class="read-more-item-dim">更早的文章</span>
-        <h2 class="post-list__post-title post-title"><a href="/2021/03/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/"
-                title="link to insertAdjacentHTML方法的使用">insertAdjacentHTML方法的使用</a></h2>
-        <p class="excerpt">前言：我们常用 innerText &amp; innerHTML 给一个 dom 元素插入一段文本或者 html。最近发现还有 insertAdjacentHTML 和 insertAdjacentText 方法，这两个方法更灵活，可以在指定的地方插入 html 内容和文本内容。（adjacent，这个单词是“相邻”的意思）方法使用      insertAdjacentHTML(swhere, stext)          swhere: 指定插入 html 标签语句的地方，有四个值...&hellip;</p>
-        <div class="post-list__meta"><time datetime="2021-03-30 00:00:00 +0800"
-                class="post-list__meta--date date">2021-03-30</time> &nbsp;&nbsp; <span
-                class="post-list__meta--tags tags">#insertAdjacentHTML,#insertAdjacentText,</span><a class="btn-border-small"
-                href=/2021/03/insertAdjacentHTML%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/>继续阅读</a></div>
+        <h2 class="post-list__post-title post-title"><a href="/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/"
+                title="link to 2021-05-07-vue中input的blur影响下拉框中click事件">2021-05-07-vue中input的blur影响下拉框中click事件</a></h2>
+        <p class="excerpt">问题描述:存在如下一段代码：&lt;input ref="input" class="search-box" placeholder="请输入要搜索的内容" v-model="keyWords" @input="search()" @focus="focusSearch()" @blur="onBlur()"/&gt;&lt;div class="result-list" v-if="showComplete"&gt;    &lt;div class="result-item" v-if...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-05-07 00:00:00 +0800"
+                class="post-list__meta--date date">2021-05-07</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#vue，#input,#blur,#click</span><a class="btn-border-small"
+                href=/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/>继续阅读</a></div>
     </div>
     
 </section>
@@ -216,8 +261,8 @@
     <script>
     
     var disqus_config = function () {
-        this.page.url = "http://localhost:4000/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/";
-        this.page.identifier = "/2021/03/%E9%BC%A0%E6%A0%87%E5%8F%B3%E9%94%AEcontextMenu%E4%BA%8B%E4%BB%B6%E5%9C%A8mac%E5%92%8Cwindows%E4%B8%8A%E7%9A%84%E4%B8%8D%E5%90%8C/";
+        this.page.url = "http://localhost:4000/2021/05/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/";
+        this.page.identifier = "/2021/05/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/";
     };
 
     var disqus_shortname = 'vno-jekyll';
