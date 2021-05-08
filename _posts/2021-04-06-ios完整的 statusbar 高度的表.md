@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 2021-04-06-ios完整的 statusbar 高度的表
+title: ios完整的 statusbar 高度的表
 date: 2021-04-06
 tags: "#ios, #iphone, #屏幕尺寸"
 ---

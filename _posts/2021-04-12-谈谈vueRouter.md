@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 2021-04-12-谈谈vue-router
+title: 谈谈vue-router
 date: 2021-04-12
 tags: "#vue, #vue-router, #hash, #history"
 ---

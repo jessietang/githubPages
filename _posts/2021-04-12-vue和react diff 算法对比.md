@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 2021-04-12-vue和react diff 算法对比
+title: vue和react diff 算法对比
 date: 2021-04-12
 tags: "#vue2.0, #vue3.0, #react"
 ---

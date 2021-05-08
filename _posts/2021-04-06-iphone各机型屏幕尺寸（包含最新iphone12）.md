@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 2021-04-06-iphone各机型屏幕尺寸（包含最新iphone12）
+title: iphone各机型屏幕尺寸（包含最新iphone12）
 date: 2021-04-06
 tags: "#ios, #iphone, #屏幕尺寸"
 ---

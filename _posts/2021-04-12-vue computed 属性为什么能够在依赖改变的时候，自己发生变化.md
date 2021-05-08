@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 2021-04-12-vue computed 属性为什么能够在依赖改变的时候，自己发生变化
+title: vue computed 属性为什么能够在依赖改变的时候，自己发生变化
 date: 2021-04-12
 tags: "#vue, #computed属性"
 ---
