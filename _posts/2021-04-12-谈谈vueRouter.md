@@ -27,7 +27,9 @@ tags: "#vue, #vue-router, #hash, #history"
 
 vue history 需要 nginx 或者其他方式配置一下才可正确访问，否则路由跳转之后刷新一下便会出现 404。
 
-- vue history 模式 部署在服务器端的 nginx 配置 (非根目录)配置如下：
+- vue history 模式 部署在服务器端的 nginx 配置，配置如下：
+
+1. 根路径配置：
 
 ```
 server {
@@ -49,7 +51,7 @@ server {
     }
 ```
 
-- 路由配置：
+路由配置：
 
 ```
 const router=new VueRouter({
@@ -57,3 +59,58 @@ const router=new VueRouter({
   routes
 })
 ```
+
+2. 非根路径配置：
+
+```
+server {
+        location ^~/A {
+
+            index  index.html
+
+            try_files $uri $uri/ /A/index.html;
+
+        }
+
+        location ^~/B {
+
+            index  index.html
+
+            try_files $uri $uri/ /B/index.html;
+
+        }
+
+    }
+```
+
+路由配置：
+
+- A 项目：
+
+```
+const router=new VueRouter({
+  mode: 'history',
+  routes,
+  base: '/A'
+})
+```
+
+- B 项目：
+
+```
+const router=new VueRouter({
+  mode: 'history',
+  routes,
+  base: '/B'
+})
+```
+
+### 缓存策略
+
+设置某些文件不使用缓存：
+location = /index.html {
+add_header Cache-Control "no-cache, no-store";
+}
+location = /lib/sdk.js {
+add_header Cache-Control "no-cache, no-store";
+}
