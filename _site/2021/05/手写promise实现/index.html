@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>手写promise实现</title>
+  <meta name="description" content="实现代码如下：">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="手写promise实现">
+  <meta name="twitter:description" content="实现代码如下：">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="手写promise实现">
+  <meta property="og:description" content="实现代码如下：">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2021/05/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0/">
+  <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+  </span>
+
+  <header class="panel-cover panel-cover--collapsed">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+
+        <a href="/blog/index.html" title="前往 唐静 的主页" class="blog-button"><img
+            src="/assets/images/avatar.jpg" width="80" alt="唐静 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/blog/index.html"
+            title="link to homepage for 唐静" class="blog-button">唐静</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">tangjing's blogs.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">2年RN，3年前端。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/blog/index.html" title="Visit blog"
+                    class="blog-button">随笔</a></li>
+                
+                <li class="navigation__item"><a href="https://github.com/jessietang" target="_blank"
+                    title="My Projects">Projects</a></li>
+                
+                <li class="navigation__item"><a href="/about" target="_blank"
+                    title="A button">个人简历</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/onevcat" title="@onevcat 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/onevcat" title="@onevcat 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/onevcat" title="@onevcat" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/107108267983477358170" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:onev@onevcat.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2021-05-11 00:00:00 +0800" itemprop="datePublished"
+        class="post-meta__date date">2021-05-11</time> &nbsp;&nbsp;&nbsp;
+      <span class="post-meta__tags tags">#promise</span>
+      <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
+    </div>
+    <h1 class="post-title">手写promise实现</h1>
+  </header>
+
+  <section class="post">
+    <h3 id="实现代码如下">实现代码如下：</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class MyPromise{
+    constructor(executor) {
+        this.status = "pending";     // 初始化状态为pending
+        this.value = undefined;      // 初始化返回的成功的结果或者失败的原因
+        this.resolveArr = [];        // 初始化then中成功的方法
+        this.rejectArr = [];         // 初始化then中失败的方法
+
+
+        // 定义change方法，因为我们发现好像resolve和reject方法共同的地方还挺多
+        let change = (status, value) =&gt; {
+            if(this.status !== "pending") return;  // 状态一旦改变，就不会再变
+            this.status = status;
+            this.value = value;
+
+            // 根据状态判断要执行成功的方法或失败的方法
+            let fnArr = status === "resolved" ? this.resolveArr : this.rejectArr;
+
+            // fnArr中的方法依次执行
+            fnArr.forEach(item =&gt; {
+                if(typeof item !== "function") return;
+                item(this. value);
+            })
+        }
+        // 这里是resolve方法，成功后执行，将状态改变为resolved，并且将结果返回
+        let resolve = result =&gt; {
+            // 如果数组中有值，则立即改变状态
+            if(this.resolveArr.length &gt; 0) {
+                change("resolved", result)
+            }
+            // 如果没值，则延后改变状态
+            let timer = setTimeout(_ =&gt; {
+                change("resolved", result)
+                clearTimeout(timer);
+            }, 0)
+        }
+
+        // 这里是reject方法，异常时执行，状态改为rejected，并且将失败的原因返回
+        let reject = reason =&gt; {
+        // 如果数组中有值，则立即改变状态
+            if(this.rejectArr.length &gt; 0) {
+                change("rejected", reason);
+            }
+            // 如果没值，则延后改变状态
+            let timer = setTimeout(_ =&gt; {
+                change("rejected", reason);
+                clearTimeout(timer);
+            }, 0)
+        }
+
+        // try、catch捕获异常，如果错误，执行reject方法
+        try {
+            executor(resolve, reject)
+        } catch(err) {
+            reject(err)
+        }
+    }
+
+    then(resolveFn, rejectFn) {
+    // 如果传入的两个参数不是函数，则直接执行返回结果
+
+        if(typeof resolveFn !== "function") {
+            resolveFn = result =&gt; {
+                return result;
+            }
+        }
+
+        if(typeof rejectFn !== "function") {
+            rejectFn = reason =&gt; {
+                return MyPromise.reject(reason);
+            }
+        }
+
+        return new MyPromise((resolve, reject) =&gt; {
+            this.resolveArr.push(result =&gt; {
+                try {
+                    let x = resolveFn(result);  // 获取执行成功方法返回的结果
+
+                    // 如果x是一个promise实例，则继续调用then方法 ==&gt; then链的实现
+                    if(x instanceof MyPromise) {
+                        x.then(resolve, reject)
+                        return;
+                    }
+
+                    // 不是promise实例，直接执行成功的方法
+                    resolve(x);
+                } catch(err) {
+                    reject(err)
+                }
+            })
+
+            this.rejectArr.push(reason =&gt; {
+                try {
+                    let x = rejectFn(reason);
+
+                    if(x instanceof MyPromise) {
+                        x.then(resolve, reject)
+                        return;
+                    }
+
+                    resolve(x);
+                } catch(err) {
+                    reject(err)
+                }
+            })
+        })
+    }
+
+    catch(rejectFn) {
+        return this.then(null, rejectFn)
+    }
+
+    static resolve(result) {
+        // 返回新的promise实例，执行promise实例中resolve方法
+        return new MyPromise(resolve =&gt; {
+            resolve(result)
+        })
+    }
+
+    static reject(reason) {
+        // 返回新的promise实例，执行promise实例中reject方法
+        return new MyPromise((_, reject) =&gt; {
+            reject(reason);
+        })
+    }
+
+    done(resolveFn, rejectFn) {
+        this.then(resolveFn, rejectFn)
+            .catch(reason =&gt; {
+                setTimeout(() =&gt; {
+                    throw reason;
+                }, 0)
+            })
+    }
+
+    finally(finallyFn) {
+        let P = this.constructor;
+        return this.then(
+            value =&gt; P.resolve(finallyFn()).then(() =&gt; value),
+            reason =&gt; P.reject(finallyFn()).then(() =&gt; reason)
+        )
+    }
+
+    // 接收数组参数
+    static all(promiseList) {
+        // 返回新实例，调用后还可使用then、catch等方法
+        return new MyPromise((resolve, reject) =&gt; {
+            let index = 0,      // 成功次数计数
+                results = [];   // 返回的结果
+
+            for(let i = 0; i &lt; promiseList.length; i++) {
+                let item = promiseList[i];
+
+                // 如果item不是promise实例
+                if(!(item instanceof MyPromise)) return;
+
+                item.then(result =&gt; {
+                    index++;
+                    results[i] = result;
+                    if(index === promiseList.length) {
+                        resolve(results);
+                    }
+                }).catch(reason =&gt; {
+                    reject(reason);
+                })
+            }
+        })
+    }
+
+    static race(promiseList) {
+        return new MyPromise((resolve, reject) =&gt; {
+            promiseList.forEach(item =&gt; {
+                if(!(item instanceof MyPromise)) return;
+
+                item.then(result =&gt; {
+                    resolve(result);
+                }).catch(err =&gt; {
+                    reject(err)
+                })
+            })
+        })
+    }
+
+    static allSettled(promiseList) {
+        return new MyPromise((resolve, reject) =&gt; {
+            let results = [];
+
+            for(let i = 0; i &lt; promiseList.length; i++) {
+                let item = promiseList[i];
+
+                if(!(item instanceof MyPromise)) return;
+
+                item.then(result =&gt; {
+                    results[i] = result;
+                }, reason =&gt; {
+                    results[i] = reason;
+                })
+                resolve(results);
+            }
+        })
+    }
+
+
+
+
+}
+</code></pre></div></div>
+
+  </section>
+</article>
+
+<section class="read-more">
+    
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">最近的文章</span>
+        <h2 class="post-list__post-title post-title"><a href="/2021/05/jsdoc%E7%9A%84%E4%BD%BF%E7%94%A8/"
+                title="link to jsdoc的使用">jsdoc的使用</a></h2>
+        <p class="excerpt">需要一个工具—javascript API 文档生成器我们在开发完成之后，需要写一份 js api 说明文档。手动去写，太麻烦了，而且，如果改动了 js 代码或者注释之类的，需要同时更新 api 文档，比较麻烦。所以，我们可以使用jsdoc这个工具来进行文档的转换。      用 conf.json 配置 jsdoc要自定义 JSDoc 的行为，可以使用 JSON 格式的配置文件格式化 JSDoc，使用-c 选项，例如： jsdoc -c /path/to/conf.json。    { ...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-05-17 00:00:00 +0800"
+                class="post-list__meta--date date">2021-05-17</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#javascript,#js注释转api文档</span><a class="btn-border-small"
+                href=/2021/05/jsdoc%E7%9A%84%E4%BD%BF%E7%94%A8/>继续阅读</a></div>
+    </div>
+    
+
+    
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">更早的文章</span>
+        <h2 class="post-list__post-title post-title"><a href="/2021/05/react-fiber/"
+                title="link to react fiber">react fiber</a></h2>
+        <p class="excerpt">react fiber 直接参考下面的文章，目前见过讲得最好的一篇文章：react fiber&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-05-09 00:00:00 +0800"
+                class="post-list__meta--date date">2021-05-09</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#react,#fiber</span><a class="btn-border-small"
+                href=/2021/05/react-fiber/>继续阅读</a></div>
+    </div>
+    
+</section>
+<!-- <section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2021/05/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0/";
+        this.page.identifier = "/2021/05/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0/";
+    };
+
+    var disqus_shortname = 'vno-jekyll';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+ -->
+      <section class="footer">
+    <footer>
+        <span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享
+                署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2021-05-24 生成，感谢
+            <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 jessietang 创建，采用 <a
+                href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a
+                href="https://github.com/jessietang/jessietang.github.io">本站源码</a> - &copy;
+            2021</span>
+    </footer>
+</section>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

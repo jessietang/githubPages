@@ -192,8 +192,12 @@
 <p>vue history 需要 nginx 或者其他方式配置一下才可正确访问，否则路由跳转之后刷新一下便会出现 404。</p>
 
 <ul>
-  <li>vue history 模式 部署在服务器端的 nginx 配置 (非根目录)配置如下：</li>
+  <li>vue history 模式 部署在服务器端的 nginx 配置，配置如下：</li>
 </ul>
+
+<ol>
+  <li>根路径配置：</li>
+</ol>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
 
@@ -214,15 +218,71 @@
     }
 </code></pre></div></div>
 
-<ul>
-  <li>路由配置：</li>
-</ul>
+<p>路由配置：</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const router=new VueRouter({
   mode: 'history',
   routes
 })
 </code></pre></div></div>
+
+<ol>
+  <li>非根路径配置：</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>server {
+        location ^~/A {
+
+            index  index.html
+
+            try_files $uri $uri/ /A/index.html;
+
+        }
+
+        location ^~/B {
+
+            index  index.html
+
+            try_files $uri $uri/ /B/index.html;
+
+        }
+
+    }
+</code></pre></div></div>
+
+<p>路由配置：</p>
+
+<ul>
+  <li>A 项目：</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const router=new VueRouter({
+  mode: 'history',
+  routes,
+  base: '/A'
+})
+</code></pre></div></div>
+
+<ul>
+  <li>B 项目：</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const router=new VueRouter({
+  mode: 'history',
+  routes,
+  base: '/B'
+})
+</code></pre></div></div>
+
+<h3 id="缓存策略">缓存策略</h3>
+
+<p>设置某些文件不使用缓存：
+location = /index.html {
+add_header Cache-Control “no-cache, no-store”;
+}
+location = /lib/sdk.js {
+add_header Cache-Control “no-cache, no-store”;
+}</p>
 
   </section>
 </article>
@@ -287,7 +347,7 @@
     <footer>
         <span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享
                 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
-        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2021-05-11 生成，感谢
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2021-05-24 生成，感谢
             <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
         <span class="footer__copyright">本站由 jessietang 创建，采用 <a
                 href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a

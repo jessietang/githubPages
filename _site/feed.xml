@@ -5,9 +5,437 @@
     <description>2年RN，3年前端。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 11 May 2021 11:41:03 +0800</pubDate>
-    <lastBuildDate>Tue, 11 May 2021 11:41:03 +0800</lastBuildDate>
+    <pubDate>Mon, 24 May 2021 14:56:03 +0800</pubDate>
+    <lastBuildDate>Mon, 24 May 2021 14:56:03 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>node快速切换版本、版本升级和降级</title>
+        <description>&lt;h3 id=&quot;为什么要涉及版本切换&quot;&gt;为什么要涉及版本切换&lt;/h3&gt;
+
+&lt;p&gt;在某天把电脑安装的 node 版本升级到了最新版本（v14.17.0）。后面在某个 app tets 项目里面，用的是 expo-cli 脚手架构建的项目。执行启动命令&lt;code class=&quot;highlighter-rouge&quot;&gt;expo start --ios&lt;/code&gt;的时候，报了一个错：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ERROR: Node.js version 14.17.0 is no longer supported.
+
+expo-cli supports following Node.js versions:
+* &amp;gt;=10.13.0 &amp;lt;11.0.0 (Active LTS)
+* &amp;gt;=12.0.0 &amp;lt;13.0.0 (Active LTS)
+* &amp;gt;=13.0.0 &amp;lt;14.0.0 (Current Release)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;从报错可以看到，只支持 14.0.0 一下的 node 版本。
+所以需要把 node 版本降回来，但是我又想把最新版本留着。这个时候就需要一个可以快速切换 node 版本的工具了。
+以下来源于网络，整理记录一番：&lt;/p&gt;
+
+&lt;h4 id=&quot;node-版本管理模块-n&quot;&gt;node 版本管理模块 n&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;安装 node 版本管理模块 n
+mac:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo npm install n -g
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;windows:
+管理员模式打开 cmd&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install n -g
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如遇到下面的报错：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;unsupported platform for n@7.2.2: wanted {&quot;os&quot;: &quot;!win32&quot;, &quot;arch&quot;: &quot;any&quot;} &amp;lt;current: {&quot;os&quot;: &quot;win32&quot;, &quot;arch&quot;: &quot;x64&quot;}&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;我的 windows 的确是 win64, 但是在操作时还是报这个错了。解决办法：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install n -g --force
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;下面的步骤根据需求安装（接下来我都列举 mac 的安装方式，sudo 是 mac 下输入密码验证身份的命令，因此 windows 用户应该是以管理员身份运行命令行工具）&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;安装稳定版本&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n stable
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;安装最新版本&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;安装指定版本， 如 12.0.0 版本&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n 12.0.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;查看当前安装了哪些版本&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;执行查看安装了哪些版本命令之后，会出现你安装的列表，通过上下箭头进行选择切换。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;删除版本&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n rm 版本号
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Mon, 24 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/node%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E7%89%88%E6%9C%AC-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%92%8C%E9%99%8D%E7%BA%A7/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/node%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E7%89%88%E6%9C%AC-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%92%8C%E9%99%8D%E7%BA%A7/</guid>
+        
+        <category>#node,</category>
+        
+        <category>#node版本切换</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>jsdoc的使用</title>
+        <description>&lt;h3 id=&quot;需要一个工具javascript-api-文档生成器&quot;&gt;需要一个工具—javascript API 文档生成器&lt;/h3&gt;
+
+&lt;p&gt;我们在开发完成之后，需要写一份 js api 说明文档。手动去写，太麻烦了，而且，如果改动了 js 代码或者注释之类的，需要同时更新 api 文档，比较麻烦。
+所以，我们可以使用&lt;a href=&quot;http://shouce.jb51.net/jsdoc/&quot;&gt;jsdoc&lt;/a&gt;这个工具来进行文档的转换。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;用 conf.json 配置 jsdoc
+要自定义 JSDoc 的行为，可以使用 JSON 格式的配置文件格式化 JSDoc，使用-c 选项，例如： jsdoc -c /path/to/conf.json。&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+ &quot;opts&quot;: {
+     &quot;recurse&quot;: true
+ },
+ &quot;tags&quot;: {
+     &quot;allowUnknownTags&quot;: true,
+     &quot;dictionaries&quot;: [
+         &quot;jsdoc&quot;,
+         &quot;closure&quot;
+     ]
+ },
+ &quot;source&quot;: {
+     &quot;include&quot;: [
+         &quot;src/demo/Test.js&quot;,
+         &quot;src/demo/funcs/views/&quot;,
+         &quot;src/demo/funcs/models/&quot;
+     ],
+     &quot;includePattern&quot;: &quot;.+\\.js(doc)?$&quot;,
+     &quot;excludePattern&quot;: &quot;(^|\\/|\\\\)_&quot;
+ },
+ &quot;plugins&quot;: [],
+ &quot;templates&quot;: {
+     &quot;cleverLinks&quot;: false,
+     &quot;monospaceLinks&quot;: false,
+     &quot;default&quot;: {
+         &quot;includeDate&quot;: false,
+         &quot;outputSourceFiles&quot;: false,
+         &quot;layoutFile&quot;: &quot;jsdoc/template/layout.tmpl&quot;
+     }
+ }
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用自定义模板 layout.tmpl
+这里为了方便， 我直接从 github jsdoc 源码里找到了一个 layout.tmpl 原来的模板, 如下（我修改了引入的 js 文件和 css 文件的路径，要跟执行&lt;code class=&quot;highlighter-rouge&quot;&gt;jsdoc -c ./jsdoc/path/to/conf.json -r&lt;/code&gt;之后生产的文件里面的这些文件匹配，最开始就是没看到这里路径的不同，所以自定义模板一直没起作用）：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;en&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;charset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;utf-8&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;JSDoc: &lt;span class=&quot;cp&quot;&gt;&amp;lt;?js= title ?&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./scripts/prettify/prettify.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./scripts/prettify/lang-css.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;c&quot;&gt;&amp;lt;!--[if lt IE 9]&amp;gt;
+   &amp;lt;script src=&quot;//html5shiv.googlecode.com/svn/trunk/html5.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+   &amp;lt;![endif]--&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/css&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./styles/prettify-tomorrow.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/css&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./styles/jsdoc-default.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;style&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;nl&quot;&gt;border-bottom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;nav&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;h2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+       &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;!important&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;page-title&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?js= title ?&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+
+   &lt;span class=&quot;cp&quot;&gt;&amp;lt;?js= content ?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;nav&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;cp&quot;&gt;&amp;lt;?js= this.nav ?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/nav&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;br&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;clear&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;footer&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;cp&quot;&gt;&amp;lt;?js if(env.conf.templates &amp;amp;&amp;amp; env.conf.templates.default &amp;amp;&amp;amp; env.conf.templates.default.includeDate !== false) { ?&amp;gt;&lt;/span&gt; on &lt;span class=&quot;cp&quot;&gt;&amp;lt;?js= (new Date()) ?&amp;gt;&amp;lt;?js } ?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/footer&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prettyPrint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./scripts/linenumber.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;执行&lt;code class=&quot;highlighter-rouge&quot;&gt;jsdoc -c ./jsdoc/path/to/conf.json -r&lt;/code&gt;命令，会生成一个 out 文件夹，里面的各个 html 就是转换结果，把 out 文件夹下面的东西拷贝到需要使用的地方即可。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Mon, 17 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/jsdoc%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/jsdoc%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+        
+        <category>#javascript,</category>
+        
+        <category>#js注释转api文档</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>手写promise实现</title>
+        <description>&lt;h3 id=&quot;实现代码如下&quot;&gt;实现代码如下：&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class MyPromise{
+    constructor(executor) {
+        this.status = &quot;pending&quot;;     // 初始化状态为pending
+        this.value = undefined;      // 初始化返回的成功的结果或者失败的原因
+        this.resolveArr = [];        // 初始化then中成功的方法
+        this.rejectArr = [];         // 初始化then中失败的方法
+
+
+        // 定义change方法，因为我们发现好像resolve和reject方法共同的地方还挺多
+        let change = (status, value) =&amp;gt; {
+            if(this.status !== &quot;pending&quot;) return;  // 状态一旦改变，就不会再变
+            this.status = status;
+            this.value = value;
+
+            // 根据状态判断要执行成功的方法或失败的方法
+            let fnArr = status === &quot;resolved&quot; ? this.resolveArr : this.rejectArr;
+
+            // fnArr中的方法依次执行
+            fnArr.forEach(item =&amp;gt; {
+                if(typeof item !== &quot;function&quot;) return;
+                item(this. value);
+            })
+        }
+        // 这里是resolve方法，成功后执行，将状态改变为resolved，并且将结果返回
+        let resolve = result =&amp;gt; {
+            // 如果数组中有值，则立即改变状态
+            if(this.resolveArr.length &amp;gt; 0) {
+                change(&quot;resolved&quot;, result)
+            }
+            // 如果没值，则延后改变状态
+            let timer = setTimeout(_ =&amp;gt; {
+                change(&quot;resolved&quot;, result)
+                clearTimeout(timer);
+            }, 0)
+        }
+
+        // 这里是reject方法，异常时执行，状态改为rejected，并且将失败的原因返回
+        let reject = reason =&amp;gt; {
+        // 如果数组中有值，则立即改变状态
+            if(this.rejectArr.length &amp;gt; 0) {
+                change(&quot;rejected&quot;, reason);
+            }
+            // 如果没值，则延后改变状态
+            let timer = setTimeout(_ =&amp;gt; {
+                change(&quot;rejected&quot;, reason);
+                clearTimeout(timer);
+            }, 0)
+        }
+
+        // try、catch捕获异常，如果错误，执行reject方法
+        try {
+            executor(resolve, reject)
+        } catch(err) {
+            reject(err)
+        }
+    }
+
+    then(resolveFn, rejectFn) {
+    // 如果传入的两个参数不是函数，则直接执行返回结果
+
+        if(typeof resolveFn !== &quot;function&quot;) {
+            resolveFn = result =&amp;gt; {
+                return result;
+            }
+        }
+
+        if(typeof rejectFn !== &quot;function&quot;) {
+            rejectFn = reason =&amp;gt; {
+                return MyPromise.reject(reason);
+            }
+        }
+
+        return new MyPromise((resolve, reject) =&amp;gt; {
+            this.resolveArr.push(result =&amp;gt; {
+                try {
+                    let x = resolveFn(result);  // 获取执行成功方法返回的结果
+
+                    // 如果x是一个promise实例，则继续调用then方法 ==&amp;gt; then链的实现
+                    if(x instanceof MyPromise) {
+                        x.then(resolve, reject)
+                        return;
+                    }
+
+                    // 不是promise实例，直接执行成功的方法
+                    resolve(x);
+                } catch(err) {
+                    reject(err)
+                }
+            })
+
+            this.rejectArr.push(reason =&amp;gt; {
+                try {
+                    let x = rejectFn(reason);
+
+                    if(x instanceof MyPromise) {
+                        x.then(resolve, reject)
+                        return;
+                    }
+
+                    resolve(x);
+                } catch(err) {
+                    reject(err)
+                }
+            })
+        })
+    }
+
+    catch(rejectFn) {
+        return this.then(null, rejectFn)
+    }
+
+    static resolve(result) {
+        // 返回新的promise实例，执行promise实例中resolve方法
+        return new MyPromise(resolve =&amp;gt; {
+            resolve(result)
+        })
+    }
+
+    static reject(reason) {
+        // 返回新的promise实例，执行promise实例中reject方法
+        return new MyPromise((_, reject) =&amp;gt; {
+            reject(reason);
+        })
+    }
+
+    done(resolveFn, rejectFn) {
+        this.then(resolveFn, rejectFn)
+            .catch(reason =&amp;gt; {
+                setTimeout(() =&amp;gt; {
+                    throw reason;
+                }, 0)
+            })
+    }
+
+    finally(finallyFn) {
+        let P = this.constructor;
+        return this.then(
+            value =&amp;gt; P.resolve(finallyFn()).then(() =&amp;gt; value),
+            reason =&amp;gt; P.reject(finallyFn()).then(() =&amp;gt; reason)
+        )
+    }
+
+    // 接收数组参数
+    static all(promiseList) {
+        // 返回新实例，调用后还可使用then、catch等方法
+        return new MyPromise((resolve, reject) =&amp;gt; {
+            let index = 0,      // 成功次数计数
+                results = [];   // 返回的结果
+
+            for(let i = 0; i &amp;lt; promiseList.length; i++) {
+                let item = promiseList[i];
+
+                // 如果item不是promise实例
+                if(!(item instanceof MyPromise)) return;
+
+                item.then(result =&amp;gt; {
+                    index++;
+                    results[i] = result;
+                    if(index === promiseList.length) {
+                        resolve(results);
+                    }
+                }).catch(reason =&amp;gt; {
+                    reject(reason);
+                })
+            }
+        })
+    }
+
+    static race(promiseList) {
+        return new MyPromise((resolve, reject) =&amp;gt; {
+            promiseList.forEach(item =&amp;gt; {
+                if(!(item instanceof MyPromise)) return;
+
+                item.then(result =&amp;gt; {
+                    resolve(result);
+                }).catch(err =&amp;gt; {
+                    reject(err)
+                })
+            })
+        })
+    }
+
+    static allSettled(promiseList) {
+        return new MyPromise((resolve, reject) =&amp;gt; {
+            let results = [];
+
+            for(let i = 0; i &amp;lt; promiseList.length; i++) {
+                let item = promiseList[i];
+
+                if(!(item instanceof MyPromise)) return;
+
+                item.then(result =&amp;gt; {
+                    results[i] = result;
+                }, reason =&amp;gt; {
+                    results[i] = reason;
+                })
+                resolve(results);
+            }
+        })
+    }
+
+
+
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+</description>
+        <pubDate>Tue, 11 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0/</guid>
+        
+        <category>#promise</category>
+        
+        
+      </item>
     
       <item>
         <title>react fiber</title>
@@ -701,8 +1129,12 @@ toSearch(nodes){
 &lt;p&gt;vue history 需要 nginx 或者其他方式配置一下才可正确访问，否则路由跳转之后刷新一下便会出现 404。&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;vue history 模式 部署在服务器端的 nginx 配置 (非根目录)配置如下：&lt;/li&gt;
+  &lt;li&gt;vue history 模式 部署在服务器端的 nginx 配置，配置如下：&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;根路径配置：&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;server {
 
@@ -723,15 +1155,71 @@ toSearch(nodes){
     }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;路由配置：&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;路由配置：&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const router=new VueRouter({
   mode: 'history',
   routes
 })
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;非根路径配置：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;server {
+        location ^~/A {
+
+            index  index.html
+
+            try_files $uri $uri/ /A/index.html;
+
+        }
+
+        location ^~/B {
+
+            index  index.html
+
+            try_files $uri $uri/ /B/index.html;
+
+        }
+
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;路由配置：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A 项目：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const router=new VueRouter({
+  mode: 'history',
+  routes,
+  base: '/A'
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;B 项目：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const router=new VueRouter({
+  mode: 'history',
+  routes,
+  base: '/B'
+})
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;缓存策略&quot;&gt;缓存策略&lt;/h3&gt;
+
+&lt;p&gt;设置某些文件不使用缓存：
+location = /index.html {
+add_header Cache-Control “no-cache, no-store”;
+}
+location = /lib/sdk.js {
+add_header Cache-Control “no-cache, no-store”;
+}&lt;/p&gt;
 </description>
         <pubDate>Mon, 12 Apr 2021 00:00:00 +0800</pubDate>
         <link>http://localhost:4000/2021/04/%E8%B0%88%E8%B0%88vueRouter/</link>
@@ -744,217 +1232,6 @@ toSearch(nodes){
         <category>#hash,</category>
         
         <category>#history</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>vue 核心角色</title>
-        <description>&lt;h3 id=&quot;vue-响应式过程的原理&quot;&gt;vue 响应式过程的原理：&lt;/h3&gt;
-
-&lt;p&gt;当创建 Vue 实例时,vue 会遍历 data 选项的属性,利用 Object.defineProperty 为属性添加 getter 和 setter 对数据的读取进行劫持（getter 用来依赖收集,setter 用来派发更新）,并且在内部追踪依赖,在属性被访问和修改时通知变化。&lt;/p&gt;
-
-&lt;p&gt;每个组件实例会有相应的 watcher 实例,会在组件渲染的过程中记录依赖的所有数据属性（进行依赖收集,还有 computed watcher,user watcher 实例）,之后依赖项被改动时,setter 逻辑会通知依赖与此 data 的 watcher 实例重新计算（派发更新）,从而使它关联的组件重新渲染。&lt;/p&gt;
-
-&lt;p&gt;总结就是: vue.js 采用数据劫持结合发布-订阅模式,通过 Object.defineproperty 来劫持各个属性的 setter,getter,在数据变动时发布消息给订阅者,触发响应的监听回调&lt;/p&gt;
-
-&lt;h3 id=&quot;vue-核心角色是下面几个&quot;&gt;vue 核心角色是下面几个：&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Observer（监听器）：给对象添加 getter 和 setter，用于依赖搜集和派发更新。不仅是一个数据监听器，也是发布者；&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Watcher（订阅者）：observer 把数据转发给了真正的订阅者——watcher 对象。watcher 接收到新的数据后，会去更新视图。watcher 实例分为渲染 watcher(render watcher), computed watcher, 侦听器 user watcher。维护了一个 deps（用于收集依赖）的实例数组。二次依赖收集时，cleanupDeps 在每次添加完新的订阅，会移除掉旧的订阅的 deps；&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;compile（编译器）：MVVM 框架特有的角色，负责对每个节点元素指令进行扫描和解析，指令的数据初始化、订阅者的创建这些“杂活”也归它管；&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Dep：用于收集当前响应式对象的依赖关系，每个响应式对象都有一个 Dep 实例（里边 subs 是 Watcher 实例数组），数据变更触发 setter 逻辑时，通过 dep.notify()(遍历 subs，调用每个 Watcher 的 update()方法)通知各个 Watcher。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;核心代码&quot;&gt;核心代码&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;实现 observer&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 遍历对象
-function observer(target) {
-  // target是对象，则遍历
-  if (target &amp;amp;&amp;amp; typeof target === 'object') {
-    Object.keys(target).forEach(key =&amp;gt; {
-      defineReactive(target, key, target[key])
-    })
-  }
-}
-
-// 用defineProperty监听当前属性
-function defineReactive(target, key, val) {
-  const dep = new Dep()
-  // 递归
-  observer(val)
-  Object.defineProperty(target, key, {
-    // 可枚举
-    enumerable: true,
-    // 不可配置
-    configurable: false,
-    get: function() {
-      return val
-    },
-    set: function(value) {
-      console.log(val, value)
-      val = value
-    }
-  })
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;实现 dep 订阅者&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Dep {
-  constructor() {
-    // 初始化订阅队列
-    this.subs = []
-  }
-  // 增加订阅
-  addSub(sub) {
-    this.subs.push(sub)
-  }
-  // 通知订阅者
-  notify() {
-    this.subs.forEach(sub =&amp;gt; {
-      sub.update()
-    })
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;订阅者 Dep 里的 subs 数组是 Watcher 实例。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;实现 Watcher 类&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Watcher {
-  constructor() {}
-  update() {
-    // 更新视图
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;改写 defineReactive 中的 setter 方法，在监听器里去通知订阅者了:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// 用defineProperty监听当前属性
-function defineReactive(target, key, val) {
-  const dep = new Dep()
-  // 递归
-  observer(val)
-  Object.defineProperty(target, key, {
-    // 可枚举
-    enumerable: true,
-    // 不可配置
-    configurable: false,
-    get: function() {
-      return val
-    },
-    set: function(value) {
-      console.log(val, value)
-      dep.notify()
-    }
-  })
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Mon, 12 Apr 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/04/vue%E6%A0%B8%E5%BF%83%E8%A7%92%E8%89%B2/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/04/vue%E6%A0%B8%E5%BF%83%E8%A7%92%E8%89%B2/</guid>
-        
-        <category>#vue核心角色</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>vue和react diff 算法对比</title>
-        <description>&lt;h3 id=&quot;react-diff-算法&quot;&gt;react diff 算法&lt;/h3&gt;
-
-&lt;p&gt;当调用 React 的 render()方法时，会创建一棵由 React 元素组成的树。在下一次 State 或 Props 更新时，相同的 render()方法会返回一棵不同的树。React 会应用 Diffing 算法来高效的比较两棵树，算法过程如下：&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;当根节点为【不同类型】的元素时，React 会拆卸原有的树，销毁对应的 DOM 节点和关联的 State、卸载子组件，最后再创建新的树。&lt;/li&gt;
-  &lt;li&gt;当比对两个【相同类型的 DOM 元素】时，会保留 DOM 节点，【仅比对变更的属性】。&lt;/li&gt;
-  &lt;li&gt;当比对两个【相同类型的组件元素】时，组件实例保持不变，【更新该组件实例的 Props】。&lt;/li&gt;
-  &lt;li&gt;当递归 DOM 节点的子元素时，React 会同时遍历两个子元素的列表，比对相同位置的元素，性能比较低效。&lt;/li&gt;
-  &lt;li&gt;在给子元素添加唯一标识的 key 属性后，就能只比对变更了 key 属性的元素。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;vue20-diff-算法&quot;&gt;vue2.0 diff 算法&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;先同级比较再比较子节点&lt;/li&gt;
-  &lt;li&gt;先判断一方有子节点和一方没有子节点的情况。如果新的一方有子节点，旧的一方没有，相当于新的子节点替代了原来没有的节点；同理，如果新的一方没有子节点，旧的一方有，相当于要把老的节点删除。&lt;/li&gt;
-  &lt;li&gt;再来比较都有子节点的情况，这里是 diff 的核心。首先会通过判断两个节点的 key、tag、isComment、data 同时定义或不定义以及当标签类型为 input 的时候 type 相不相同来确定两个节点是不是相同的节点，如果不是的话就将新节点替换旧节点。&lt;/li&gt;
-  &lt;li&gt;如果是相同节点的话才会进入到 patchVNode 阶段。在这个阶段核心是采用【双指针】的算法，同时从新旧节点的两端进行比较，在这个过程中，会用到模版编译时的静态标记配合 key 来跳过对比静态节点，如果不是的话再进行其它的比较。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;** 缺点：因为采用的是同级比较，所以如果发现本级的节点不同的话就会将新节点直接替换旧节点，不会再去比较其下的子节点是否有相同 **&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;vue2vue3-和-react-比较&quot;&gt;vue2、vue3 和 react 比较&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;vue2 和 vue3.x:
-Vue3.x 借鉴了 ivi 算法和 inferno 算法。
-它在创建 VNode 的时候就确定了其类型，以及在 mount/patch 的过程中采用位运算来判断一个 VNode 的类型，在这个基础之上再配合核心的 Diff 算法，使得性能上较 Vue2.x 有了提升。&lt;/li&gt;
-  &lt;li&gt;vue 和 react:
-共同点是：都是用同层比较，不同点是：vue 使用双指针比较，react 是用 key 集合级比较。&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        <pubDate>Mon, 12 Apr 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/</guid>
-        
-        <category>#vue2.0,</category>
-        
-        <category>#vue3.0,</category>
-        
-        <category>#react</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>vue computed 属性为什么能够在依赖改变的时候，自己发生变化</title>
-        <description>&lt;h3 id=&quot;vue-computed-属性为什么能够在依赖改变的时候自己发生变化&quot;&gt;Vue computed 属性为什么能够在依赖改变的时候，自己发生变化？&lt;/h3&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/0412/1.png&quot; alt=&quot;1.png&quot; /&gt;
-computed 和 watch 公用一个 Watcher 类，在 computed 的情况下有一个 deps 。 Vue 在二次收集依赖时用 cleanupDeps 在每次添加完新的订阅，会移除掉旧的订阅。&lt;/p&gt;
-
-&lt;h3 id=&quot;收集依赖&quot;&gt;收集依赖&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;initState 时，对 computed 属性初始化时，触发 computed Watcher 依赖收集&lt;/li&gt;
-  &lt;li&gt;initState 时，对 watch 属性初始化时，触发 user Watcher 依赖收集&lt;/li&gt;
-  &lt;li&gt;render()的过程，触发 render watcher 依赖收集&lt;/li&gt;
-  &lt;li&gt;re-render 时，vm.render()再次执行，会移除 subs 的订阅，重新赋值&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;查看&lt;a href=&quot;https://zhuanlan.zhihu.com/p/45081605&quot;&gt;‘收集依赖’&lt;/a&gt;更详细的解释。&lt;/p&gt;
-</description>
-        <pubDate>Mon, 12 Apr 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/04/vue-computed-%E5%B1%9E%E6%80%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%A4%9F%E5%9C%A8%E4%BE%9D%E8%B5%96%E6%94%B9%E5%8F%98%E7%9A%84%E6%97%B6%E5%80%99-%E8%87%AA%E5%B7%B1%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/04/vue-computed-%E5%B1%9E%E6%80%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%A4%9F%E5%9C%A8%E4%BE%9D%E8%B5%96%E6%94%B9%E5%8F%98%E7%9A%84%E6%97%B6%E5%80%99-%E8%87%AA%E5%B7%B1%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96/</guid>
-        
-        <category>#vue,</category>
-        
-        <category>#computed属性</category>
         
         
       </item>
