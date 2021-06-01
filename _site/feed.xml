@@ -5,9 +5,44 @@
     <description>2年RN，3年前端。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 24 May 2021 14:56:03 +0800</pubDate>
-    <lastBuildDate>Mon, 24 May 2021 14:56:03 +0800</lastBuildDate>
+    <pubDate>Mon, 31 May 2021 15:21:17 +0800</pubDate>
+    <lastBuildDate>Mon, 31 May 2021 15:21:17 +0800</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>判断一个对象是否有某个属性</title>
+        <description>&lt;h3 id=&quot;判断一个对象是否具有某个属性以前只知道-hasownproperty-这个方法最近看到还有-in-这种方式故记录一下&quot;&gt;判断一个对象是否具有某个属性，以前只知道 hasOwnProperty 这个方法。最近看到还有 in 这种方式，故记录一下。&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let a = {
+    b: 1
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;hasOwnProperty&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a.hasOwnProperty('b') // true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;in&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;('b' in a) // true
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;如图：
+&lt;img src=&quot;/assets/images/210531/t1.png&quot; alt=&quot;测试&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 31 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E6%9C%89%E6%9F%90%E4%B8%AA%E5%B1%9E%E6%80%A7/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E6%9C%89%E6%9F%90%E4%B8%AA%E5%B1%9E%E6%80%A7/</guid>
+        
+        <category>#对象，#属性</category>
+        
+        
+      </item>
     
       <item>
         <title>node快速切换版本、版本升级和降级</title>
@@ -1094,144 +1129,6 @@ toSearch(nodes){
         <category>#中文输入法,</category>
         
         <category>#浏览器兼容性</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>谈谈vue-router</title>
-        <description>&lt;h3 id=&quot;vue-router-对不同模式的实现大致是这样的&quot;&gt;vue-router 对不同模式的实现大致是这样的：&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;首先根据 mode 来确定所选的模式，如果当前环境不支持 history 模式，会强制切换到 hash 模式；&lt;/li&gt;
-  &lt;li&gt;如果当前环境不是浏览器环境，会切换到 abstract 模式下。然后再根据不同模式来生成不同的 history 操作对象。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;new-vuerouter-过程&quot;&gt;new VueRouter 过程&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;init 方法内的 app 变量便是存储的当前的 vue 实例的 this。&lt;/li&gt;
-  &lt;li&gt;将 app 存入数组 apps 中。通过 this.app 判断是实例否已经被初始化。&lt;/li&gt;
-  &lt;li&gt;通过 history 来确定不同路由的切换动作 history.transitionTo。&lt;/li&gt;
-  &lt;li&gt;通过 history.listen 来注册路由变化的响应回调。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;hash-和-history-的区别&quot;&gt;hash 和 history 的区别&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;最明显的是在显示上，hash 模式的 URL 中会夹杂着#号，而 history 没有。&lt;/li&gt;
-  &lt;li&gt;Vue 底层对它们的实现方式不同。hash 模式是依靠 onhashchange 事件(监听 location.hash 的改变)，而 history 模式（popstate）是主要是依靠的 HTML5 history 中新增的两个方法，pushState()可以改变 url 地址且不会发送请求，replaceState()可以读取历史记录栈，还可以对浏览器记录进行修改。&lt;/li&gt;
-  &lt;li&gt;当真正需要通过 URL 向后端发送 HTTP 请求的时候，比如常见的用户手动输入 URL 后回车，或者是刷新(重启)浏览器，这时候 history 模式需要后端的支持。因为 history 模式下，前端的 URL 必须和实际向后端发送请求的 URL 一致，例如有一个 URL 是带有路径 path 的(例如www.lindaidai.wang/blogs/id)，如果后端没有对这个路径做处理的话，就会返回404错误。所以需要后端增加一个覆盖所有情况的候选资源，一般会配合前端给出的一个404页面。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;vue-history-配置&quot;&gt;vue history 配置&lt;/h3&gt;
-
-&lt;p&gt;vue history 需要 nginx 或者其他方式配置一下才可正确访问，否则路由跳转之后刷新一下便会出现 404。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;vue history 模式 部署在服务器端的 nginx 配置，配置如下：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;根路径配置：&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;server {
-
-        listen      443 ;
-
-        server_name  m;
-
-        root  html/mobile;
-
-        location / {
-
-            index  index.html index.htm;
-
-            try_files $uri $uri/ /index.html;
-
-        }
-
-    }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;路由配置：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const router=new VueRouter({
-  mode: 'history',
-  routes
-})
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;非根路径配置：&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;server {
-        location ^~/A {
-
-            index  index.html
-
-            try_files $uri $uri/ /A/index.html;
-
-        }
-
-        location ^~/B {
-
-            index  index.html
-
-            try_files $uri $uri/ /B/index.html;
-
-        }
-
-    }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;路由配置：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;A 项目：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const router=new VueRouter({
-  mode: 'history',
-  routes,
-  base: '/A'
-})
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;B 项目：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const router=new VueRouter({
-  mode: 'history',
-  routes,
-  base: '/B'
-})
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;缓存策略&quot;&gt;缓存策略&lt;/h3&gt;
-
-&lt;p&gt;设置某些文件不使用缓存：
-location = /index.html {
-add_header Cache-Control “no-cache, no-store”;
-}
-location = /lib/sdk.js {
-add_header Cache-Control “no-cache, no-store”;
-}&lt;/p&gt;
-</description>
-        <pubDate>Mon, 12 Apr 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/04/%E8%B0%88%E8%B0%88vueRouter/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/04/%E8%B0%88%E8%B0%88vueRouter/</guid>
-        
-        <category>#vue,</category>
-        
-        <category>#vue-router,</category>
-        
-        <category>#hash,</category>
-        
-        <category>#history</category>
         
         
       </item>
