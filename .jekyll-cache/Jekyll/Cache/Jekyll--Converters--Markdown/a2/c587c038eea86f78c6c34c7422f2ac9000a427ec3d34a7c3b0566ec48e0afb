@@ -1,0 +1,126 @@
+I"<h3 id="需求描述">需求描述</h3>
+
+<p>存在一个 json tree 形数据：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var treeData = [
+    {
+        id: 'root',
+        name: '食物',
+        children: [
+            {
+                id: '1',
+                name: '水果',
+                children: [
+                    {
+                        id: '1-1',
+                        name: '水果-苹果',
+                        children: []
+                    },
+                    {
+                        id: '1-2',
+                        name: '香蕉',
+                        children: []
+                    }
+                ]
+            },
+            {
+                id: '2',
+                name: '主食',
+                children: [
+                    {
+                        id: '2-1',
+                        name: '主食-米饭',
+                        children: []
+                    },
+                    {
+                        id: '2-2',
+                        name: '面条',
+                        children: []
+                    },
+                    {
+                        id: '2-3',
+                        name: '米线',
+                        children: []
+                    }
+                ]
+            },
+            {
+                id: '3',
+                name: '零食',
+                children: [
+                    {
+                        id: '3-1',
+                        name: '瓜子',
+                        children: []
+                    },
+                    {
+                        id: '3-2',
+                        name: '花生',
+                        children: []
+                    },
+                    {
+                        id: '3-3',
+                        name: '蚕豆',
+                        children: []
+                    }
+                ]
+            }
+        ]
+    }
+]
+</code></pre></div></div>
+
+<p>输入框搜索关键词，如：“水果”，一旦发现某一层级的 name 匹配上了关键词，则返回这一层级以及他的所有子元素。
+返回的数据应该如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var searchResult = [
+    {
+        id: 'root',
+        name: '食物',
+        children: [
+            {
+                id: '1',
+                name: '水果',
+                children: [
+                    {
+                        id: '1-1',
+                        name: '水果-苹果',
+                        children: []
+                    },
+                    {
+                        id: '1-2',
+                        name: '香蕉',
+                        children: []
+                    }
+                ]
+            }
+    }
+]
+</code></pre></div></div>
+
+<p>算法如下：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    // tree search
+    handleTreeData(treeData, searchValue) {
+      if (!treeData || treeData.length === 0) {
+        return [];
+      }
+      const array = [];
+      for (let i = 0; i &lt; treeData.length; i += 1) {
+        const nodeName = treeData[i].name.toLowerCase()
+        const searchName = searchValue.toLowerCase()
+        if (this.handleTreeData(treeData[i].children, searchValue).length &gt; 0 || nodeName.includes(searchName)) {
+          let obj = {
+            ...treeData[i]
+          }
+          if(!nodeName.includes(searchName)){
+            // 父节点name不包含searchVal,则继续查找。否则，子节点不用查找，把父节点和父节点的children直接返回
+            obj.children = this.handleTreeData(treeData[i].children, searchValue)
+          }
+          array.push(obj)
+        }
+      }
+      return array;
+    }
+</code></pre></div></div>
+:ET

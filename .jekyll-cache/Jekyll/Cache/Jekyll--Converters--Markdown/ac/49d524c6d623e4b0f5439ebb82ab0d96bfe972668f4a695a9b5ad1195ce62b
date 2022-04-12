@@ -1,0 +1,101 @@
+I"<h3 id="需要一个工具javascript-api-文档生成器">需要一个工具—javascript API 文档生成器</h3>
+
+<p>我们在开发完成之后，需要写一份 js api 说明文档。手动去写，太麻烦了，而且，如果改动了 js 代码或者注释之类的，需要同时更新 api 文档，比较麻烦。
+所以，我们可以使用<a href="http://shouce.jb51.net/jsdoc/">jsdoc</a>这个工具来进行文档的转换。</p>
+
+<ol>
+  <li>
+    <p>用 conf.json 配置 jsdoc
+要自定义 JSDoc 的行为，可以使用 JSON 格式的配置文件格式化 JSDoc，使用-c 选项，例如： jsdoc -c /path/to/conf.json。</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+ "opts": {
+     "recurse": true
+ },
+ "tags": {
+     "allowUnknownTags": true,
+     "dictionaries": [
+         "jsdoc",
+         "closure"
+     ]
+ },
+ "source": {
+     "include": [
+         "src/demo/Test.js",
+         "src/demo/funcs/views/",
+         "src/demo/funcs/models/"
+     ],
+     "includePattern": ".+\\.js(doc)?$",
+     "excludePattern": "(^|\\/|\\\\)_"
+ },
+ "plugins": [],
+ "templates": {
+     "cleverLinks": false,
+     "monospaceLinks": false,
+     "default": {
+         "includeDate": false,
+         "outputSourceFiles": false,
+         "layoutFile": "jsdoc/template/layout.tmpl"
+     }
+ }
+}
+
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>使用自定义模板 layout.tmpl
+这里为了方便， 我直接从 github jsdoc 源码里找到了一个 layout.tmpl 原来的模板, 如下（我修改了引入的 js 文件和 css 文件的路径，要跟执行<code class="language-plaintext highlighter-rouge">jsdoc -c ./jsdoc/path/to/conf.json -r</code>之后生产的文件里面的这些文件匹配，最开始就是没看到这里路径的不同，所以自定义模板一直没起作用）：</p>
+
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+   &lt;meta charset="utf-8"&gt;
+   &lt;title&gt;JSDoc: &lt;?js= title ?&gt;&lt;/title&gt;
+
+   &lt;script src="./scripts/prettify/prettify.js"&gt; &lt;/script&gt;
+   &lt;script src="./scripts/prettify/lang-css.js"&gt; &lt;/script&gt;
+   &lt;!--[if lt IE 9]&gt;
+   &lt;script src="//html5shiv.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+   &lt;![endif]--&gt;
+   &lt;link type="text/css" rel="stylesheet" href="./styles/prettify-tomorrow.css"&gt;
+   &lt;link type="text/css" rel="stylesheet" href="./styles/jsdoc-default.css"&gt;
+   &lt;style&gt;
+   section{
+       border-bottom: none;
+   }
+   nav h2 {
+       display: none!important;
+   }
+   &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;div id="main"&gt;
+
+   &lt;h1 class="page-title"&gt;&lt;?js= title ?&gt;&lt;/h1&gt;
+
+   &lt;?js= content ?&gt;
+&lt;/div&gt;
+
+&lt;nav&gt;
+   &lt;?js= this.nav ?&gt;
+&lt;/nav&gt;
+
+&lt;br class="clear"&gt;
+
+&lt;footer&gt;
+   &lt;?js if(env.conf.templates &amp;&amp; env.conf.templates.default &amp;&amp; env.conf.templates.default.includeDate !== false) { ?&gt; on &lt;?js= (new Date()) ?&gt;&lt;?js } ?&gt;
+&lt;/footer&gt;
+
+&lt;script&gt; prettyPrint(); &lt;/script&gt;
+&lt;script src="./scripts/linenumber.js"&gt; &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>执行<code class="language-plaintext highlighter-rouge">jsdoc -c ./jsdoc/path/to/conf.json -r</code>命令，会生成一个 out 文件夹，里面的各个 html 就是转换结果，把 out 文件夹下面的东西拷贝到需要使用的地方即可。</p>
+  </li>
+</ol>
+:ET

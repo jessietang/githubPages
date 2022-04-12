@@ -1,0 +1,72 @@
+I"�<h3 id="前言">前言</h3>
+
+<p>如果直接通过 input 监听输入框输入，它会在键盘按键按下的时候就触发事件，这样就会导致一些问题，比如在 chrome 浏览器中，想输入中文输入不了。
+解决方法是，用 compositionstart 和 compositionend.</p>
+
+<p>注意：chrome 和 safari 浏览器（webkit 内核）跟其他浏览器的执行顺序不同，
+chrome 和 safari 是 compositionstart =&gt; 监听 input 事件 =&gt; compositionend,<br />
+其他浏览器是 compositionstart =&gt; compositionend =&gt; 监听 input 事件。
+所以，在 compositionend 浏览器里面要判断一下是否是谷歌浏览器。</p>
+
+<h3 id="上代码">上代码</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    // 输入框事件
+    const searchInputDom = document.getElementById('search-input');
+
+    // 解决oninput事件在中文输入法下会取得拼音的值的问题
+    let isInputZh = false;
+
+    searchInputDom.addEventListener('compositionstart', (e)=&gt; {
+        console.log('compositionstart')
+        isInputZh = true;
+    }, false);
+
+    searchInputDom.addEventListener('compositionend',  (e)=&gt; {
+        console.log('compositionend')
+        isInputZh = false;
+
+        // 判断是否是webkit内核
+        if(!isInputZh &amp;&amp; isWebkit()){
+            toSearch(searchInputDom.value)
+        }
+
+    }, false);
+
+    searchInputDom.oninput= (e) =&gt; {
+      console.log('oninput')
+      if(isInputZh) return;
+      toSearch(e.target.value)
+    };
+
+
+
+    // 判断是否是chrome or safari
+    function isWebkit(){
+        var browser = {
+            versions: function() {
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {
+                    trident: u.indexOf('Trident') &gt; -1, //IE内核
+                    presto: u.indexOf('Presto') &gt; -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') &gt; -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') &gt; -1 &amp;&amp; u.indexOf('KHTML') == -1, //火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    android: u.indexOf('Android') &gt; -1 || u.indexOf('Linux') &gt; -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf('iPhone') &gt; -1 || u.indexOf('Mac') &gt; -1, //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') &gt; -1, //是否iPad
+                    webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                };
+            }(),
+            language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+
+        if(browser.versions.webKit){
+            return true;
+        }
+
+        return false;
+    }
+
+</code></pre></div></div>
+:ET

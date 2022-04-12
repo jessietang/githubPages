@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>（react）深入理解虚拟dom和diff算法</title>
+  <meta name="description" content="什么是虚拟 dom?">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="（react）深入理解虚拟dom和diff算法">
+  <meta name="twitter:description" content="什么是虚拟 dom?">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="（react）深入理解虚拟dom和diff算法">
+  <meta property="og:description" content="什么是虚拟 dom?">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2021/05/08/react-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff%E7%AE%97%E6%B3%95">
+  <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+  </span>
+
+  <header class="panel-cover panel-cover--collapsed">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+
+        <a href="/blog/index.html" title="前往 唐静 的主页" class="blog-button"><img
+            src="/assets/images/avatar.jpg" width="80" alt="唐静 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/blog/index.html"
+            title="link to homepage for 唐静" class="blog-button">唐静</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">tangjing's blogs.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">6年前端。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/blog/index.html" title="Visit blog"
+                    class="blog-button">随笔</a></li>
+                
+                <li class="navigation__item"><a href="/about" target="_blank"
+                    title="A button">个人简历</a></li>
+                
+                <li class="navigation__item"><a href="/tags" target="_blank"
+                    title="A button">tags</a></li>
+                
+                <li class="navigation__item"><a href="/categories" target="_blank"
+                    title="A button">分类</a></li>
+                
+                <li class="navigation__item"><a href="https://github.com/jessietang" target="_blank"
+                    title="My Projects">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/onevcat" title="@onevcat 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/onevcat" title="@onevcat 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/onevcat" title="@onevcat" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/107108267983477358170" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:onev@onevcat.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2021-05-08 00:00:00 +0800" itemprop="datePublished"
+        class="post-meta__date date">2021-05-08</time> &nbsp;&nbsp;&nbsp;
+      <span class="post-meta__tags tags">#react,#reactvirtualdom,#reactdiff算法</span>
+      <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
+    </div>
+    <h1 class="post-title">（react）深入理解虚拟dom和diff算法</h1>
+  </header>
+
+  <section class="post">
+    <h3 id="什么是虚拟-dom">什么是虚拟 dom?</h3>
+
+<p>虚拟 dom 就是一个 js 对象。用 js 对象表示 DOM 信息和结构，当状态变更的时候，重新渲染这个 js 对象结构。这个 js 对象被称为 virtual dom.</p>
+
+<h3 id="为什么要用虚拟-dom">为什么要用虚拟 dom？</h3>
+
+<p>早先的时候，我们都是直接操作 dom（如：jquery）.</p>
+
+<p>这里，我们创建一个简单的 div，然后把他的所有的属性都打印出来：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    var div = document.createElement('div'),
+        str = '';
+    for (var key in div) {
+      str = str + ' ' + key;
+    }
+    console.log(str);
+</code></pre></div></div>
+
+<p>打印出来的结果：
+<img src="/assets/images/210509/divAttr.png" alt="divAttr.png" />
+可以看到，这些属性还是非常惊人的，包括样式的修饰特性、一般的特性、方法等等，如果我们打印出其长度，可以得到惊人的 227 个。
+而这仅仅是一层，真正的 DOM 元素是非常庞大的，这是因为标准就是这么设计的，而且操作他们的时候你要小心翼翼，轻微的触碰就有可能导致页面发生重排，这是杀死性能的罪魁祸首。</p>
+
+<p>而相对于 DOM 对象，原生的 JavaScript 对象处理起来更快，而且更简单，DOM 树上的结构信息我们都可以使用 JavaScript 对象很容易的表示出来。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var element = {
+      tagName: 'ul',
+      props: {
+        id: 'list'
+      },
+      children: {
+        {
+          tagName: 'li',
+          props: {
+            class: 'item'
+          },
+          children: ['Item1']
+        },
+        {
+          tagName: 'li',
+          props: {
+            class: 'item'
+          },
+          children: ['Item1']
+        },
+        {
+          tagName: 'li',
+          props: {
+            class: 'item'
+          },
+          children: ['Item1']
+        }
+      }
+    }
+</code></pre></div></div>
+
+<h3 id="在哪里用到了虚拟-dom">在哪里用到了虚拟 dom?</h3>
+
+<p>这就回到我们今天要说的。react 里面使用了虚拟 dom. React 里面就是把 jsx 转换成 js 对象。</p>
+
+<ol>
+  <li>
+    <p>jsx ?</p>
+
+    <ul>
+      <li>
+        <p>jsx 是一个语法糖，React 使用 jsx 来代替常规的 Javascript.
+先看看使用 jsx 的代码：
+<img src="/assets/images/210509/jsx01.png" alt="jsx01.png" /></p>
+      </li>
+      <li>
+        <p>再看看不使用 jsx 的代码：
+<img src="/assets/images/210509/jsx02.png" alt="jsx02.png" /></p>
+
+        <p>react 里面使用 jsx 语法描述视图，通过 babel-loader 转译后它们变为 React.reateElement(…)形式。该函数将生成 vdom（虚拟 dom,即：js 对象）来描述真实 dom。如果状态发生变化，vdom 将作出相应的变化，再通过 diff 算法对比新老 vdom 区别从而作出最终 dom 的操作。
+访问<a href="https://www.babeljs.cn/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&amp;build=&amp;builtIns=false&amp;corejs=3.6&amp;spec=false&amp;loose=false&amp;code_lz=MYewdgzgLgBFCWUA2BTGBeGAeAFgRhmCQEMIIA5YgWxXQCIFkU6A-ACRSSRABoYB3EACckAEwCEWAPT4WAbiA&amp;debug=false&amp;forceAllTransforms=false&amp;shippedProposals=false&amp;circleciRepo=&amp;evaluate=false&amp;fileSize=false&amp;timeTravel=false&amp;sourceType=module&amp;lineWrap=true&amp;presets=env%2Creact%2Cstage-2&amp;prettier=false&amp;targets=&amp;version=7.14.1&amp;externalPlugins=">在线 babel 编辑器</a>试一试。</p>
+
+        <p>如图示例：
+<img src="/assets/images/210509/babel.png" alt="babel.png" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>注意：
+在 react17 之前，使用的是 React.createElement()进行 jsx 编译。
+React17 中的 jsx 转换不会将 jsx 转换为 React.createElement(…),而是自动从 react 的 package 中引入新的函数并调用。另外，此次升级，不会改变 jsx 语法，旧的 jsx 转换也将继续工作。</p>
+  </li>
+</ol>
+
+<h3 id="diff-算法">diff 算法</h3>
+
+<p>参考：https://juejin.cn/post/6844904165026562056</p>
+
+<ol>
+  <li>
+    <p>diff 算法是什么？
+diff 算法会比较前后虚拟 DOM，从而得到 patches(补丁)，然后与老 Virtual DOM 进行对比，将其应用在需要更新的地方，得到新的 Virtual DOM，在网上有一张非常直观的图可以帮忙参考
+<img src="/assets/images/210509/domDiff.png" alt="domDiff.png" />
+来解释下这张图：现有一个真实的 DOM，首先会映射为虚拟 DOM，这个时候，我们删除了最后一个 p 节点和 son2 的节点，得到了新的一个虚拟 DOM，新的 vdom 会和旧的 vdom 进行差异对比，得到了 pathes 对象，之后，对旧的真实 dom 进行操作，得到了新的 DOM。</p>
+  </li>
+  <li>
+    <p>diff 策略</p>
+
+    <ul>
+      <li>
+        <p>Web UI 中 DOM 节点跨层级的移动操作特别少，可以忽略不计。</p>
+      </li>
+      <li>
+        <p>拥有相同类的两个组件将会生成相似的树形结构，拥有不同类的两个组件将会生成不同的树形结构。</p>
+      </li>
+      <li>
+        <p>对于同一层级的一组子节点，它们可以通过唯一 id 进行区分。</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>基于以上三个策略，React 分别对 tree diff、component diff 以及 element diff 进行了算法优化。</p>
+
+    <ul>
+      <li>
+        <p>tree diff
+基于第一个策略，react 只会对同一层次的节点进行比较，当发现节点不存在时，就会删除整个节点及其子节点，不会再进行比较，这样就只需要遍历一次，就能完成对整个 DOM 树的比较。
+如果出现了 DOM 节点的跨层级的移动操作，React diff 会怎样呢？React 只会简单的考虑同层级节点的位置变换，对于不同层级的节点，只有创建和删除操作。</p>
+      </li>
+      <li>
+        <p>component diff
+React 对于组件间的比较采取的策略也是简洁高效。
+如果是同一类型的组件，按照原策略继续比较虚拟 dom 树；
+如果不是，则将该组件判断为 dirty component，从而替换整个组件下的所有子节点；
+对于同一类型的组件，有可能其 Virtual DOM 没有任何变化，如果能够确切的知道这点那可以节省大量的 diff 运算的时间，因此 React 允许用户通过 shouldComponentUpdate()判断该组件是否需要进行 diff。</p>
+      </li>
+      <li>
+        <p>element diff
+当节点处于同一层级时，React diff 提供了三种节点操作：插入、移动和删除。
+插入：新的 component 类型不在老集合里 -&gt; 全新的节点，需要对新节点执行插入操作；
+移动：在老集合里有新 component 类型，且 element 是可更新的类型，generateComponentChildren 已调用 receiveComponent，这种情况下 prevChild=nextChild，就需要做移动操作，可以复用以前的 dom 节点；
+删除：老的 component 类型，在新集合中也有，但对应的 element 不同则不能直接复用和更新，需要执行删除操作，或者老 component 不在新集合里，也需要执行删除操作。</p>
+      </li>
+      <li>
+        <p>总结：
+基于 diff 这样的策略，所以 react 建议我们用添加唯一 key 的方式来进行优化。</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+  </section>
+</article>
+
+<section class="read-more">
+    
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">最近的文章</span>
+        <h2 class="post-list__post-title post-title"><a href="/2021/05/09/react-fiber"
+                title="link to react fiber">react fiber</a></h2>
+        <p class="excerpt">react fiber 直接参考下面的文章，目前见过讲得最好的一篇文章：react fiber&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-05-09 00:00:00 +0800"
+                class="post-list__meta--date date">2021-05-09</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#react,#fiber</span><a class="btn-border-small"
+                href=/2021/05/09/react-fiber>继续阅读</a></div>
+    </div>
+    
+
+    
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">更早的文章</span>
+        <h2 class="post-list__post-title post-title"><a href="/2021/05/08/%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"
+                title="link to 算法的时间复杂度和空间复杂度">算法的时间复杂度和空间复杂度</a></h2>
+        <p class="excerpt">前言如何衡量算法的优劣呢？主要从算法所占用的“时间”和“空间”去衡量。时间维度：是指执行当前算法所消耗的时间，我们通常用【时间复杂度】来描述空间维度：是指执行当前算法需要占用多少内存空间，我们通常用【空间复杂度】来描述大 O 复杂度表示法算法执行的效率。通俗的讲，就是算法代码执行的时间。简单看个例子：var m = 0;for(i=1; i&lt;=n; ++i){   j = i;   j++;}从 CPU 的角度来看，这段代码的每一行都执行着类似的操作：读数据-运算-写数据。尽管每行代...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-05-08 00:00:00 +0800"
+                class="post-list__meta--date date">2021-05-08</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#时间复杂度,#空间复杂度</span><a class="btn-border-small"
+                href=/2021/05/08/%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6>继续阅读</a></div>
+    </div>
+    
+</section>
+<!-- <section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2021/05/08/react-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff%E7%AE%97%E6%B3%95";
+        this.page.identifier = "/2021/05/08/react-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff%E7%AE%97%E6%B3%95";
+    };
+
+    var disqus_shortname = 'vno-jekyll';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+ -->
+      <section class="footer">
+    <footer>
+        <span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享
+                署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2022-04-12 生成，感谢
+            <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 jessietang 创建，采用 <a
+                href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a
+                href="https://github.com/jessietang/jessietang.github.io">本站源码</a> - &copy;
+            2022</span>
+    </footer>
+</section>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+I"�<p>前言：好奇 react 虚拟 dom 的结构，到底长什么样？</p>
+
+<h4 id="1fork-react-代码仓库">1.fork react 代码仓库</h4>
+
+<ul>
+  <li>注意，不要直接下载 React 仓库，先 fork 一份到自己仓库，然后再下载。这样可以修改或者增加注释之后，提交到自己仓库。
+入口文件在：packages/react/index.js
+主要关注以下实现：
+    <ol>
+      <li>createElement
+jsx 通过 babel 转换为虚拟 dom</li>
+      <li>Component</li>
+    </ol>
+  </li>
+</ul>
+:ET

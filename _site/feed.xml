@@ -2,18 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>唐静</title>
-    <description>2年RN，3年前端。</description>
+    <description>6年前端。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 31 May 2021 15:21:17 +0800</pubDate>
-    <lastBuildDate>Mon, 31 May 2021 15:21:17 +0800</lastBuildDate>
-    <generator>Jekyll v3.8.5</generator>
+    <pubDate>Tue, 12 Apr 2022 16:38:51 +0800</pubDate>
+    <lastBuildDate>Tue, 12 Apr 2022 16:38:51 +0800</lastBuildDate>
+    <generator>Jekyll v4.2.2</generator>
+    
+      <item>
+        <title>js中的this指向问题</title>
+        <description>&lt;h3 id=&quot;突然看到一篇公众号箭头函数中的-this-指向问题有点说不太清楚了所以再次整理一下&quot;&gt;突然看到一篇公众号，箭头函数中的 this 指向问题，有点说不太清楚了，所以再次整理一下。&lt;/h3&gt;
+
+&lt;p&gt;https://www.jianshu.com/p/c1ee12a328d2&lt;/p&gt;
+</description>
+        <pubDate>Mon, 31 May 2021 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2021/05/31/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84this</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/31/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84this</guid>
+        
+        <category>#this指向,</category>
+        
+        <category>#普通函数,</category>
+        
+        <category>#ES6箭头函数</category>
+        
+        
+        <category>零散的知识点积累</category>
+        
+      </item>
     
       <item>
         <title>判断一个对象是否有某个属性</title>
         <description>&lt;h3 id=&quot;判断一个对象是否具有某个属性以前只知道-hasownproperty-这个方法最近看到还有-in-这种方式故记录一下&quot;&gt;判断一个对象是否具有某个属性，以前只知道 hasOwnProperty 这个方法。最近看到还有 in 这种方式，故记录一下。&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let a = {
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let a = {
     b: 1
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -22,25 +43,27 @@
   &lt;li&gt;hasOwnProperty&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a.hasOwnProperty('b') // true
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;a.hasOwnProperty(&apos;b&apos;) // true
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ol&gt;
   &lt;li&gt;in&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;('b' in a) // true
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(&apos;b&apos; in a) // true
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;如图：
 &lt;img src=&quot;/assets/images/210531/t1.png&quot; alt=&quot;测试&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 31 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E6%9C%89%E6%9F%90%E4%B8%AA%E5%B1%9E%E6%80%A7/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E6%9C%89%E6%9F%90%E4%B8%AA%E5%B1%9E%E6%80%A7/</guid>
+        <link>http://localhost:4000/2021/05/31/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E6%9C%89%E6%9F%90%E4%B8%AA%E5%B1%9E%E6%80%A7</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/31/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E6%9C%89%E6%9F%90%E4%B8%AA%E5%B1%9E%E6%80%A7</guid>
         
         <category>#对象，#属性</category>
         
+        
+        <category>零散的知识点积累</category>
         
       </item>
     
@@ -48,9 +71,9 @@
         <title>node快速切换版本、版本升级和降级</title>
         <description>&lt;h3 id=&quot;为什么要涉及版本切换&quot;&gt;为什么要涉及版本切换&lt;/h3&gt;
 
-&lt;p&gt;在某天把电脑安装的 node 版本升级到了最新版本（v14.17.0）。后面在某个 app tets 项目里面，用的是 expo-cli 脚手架构建的项目。执行启动命令&lt;code class=&quot;highlighter-rouge&quot;&gt;expo start --ios&lt;/code&gt;的时候，报了一个错：&lt;/p&gt;
+&lt;p&gt;在某天把电脑安装的 node 版本升级到了最新版本（v14.17.0）。后面在某个 app tets 项目里面，用的是 expo-cli 脚手架构建的项目。执行启动命令&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expo start --ios&lt;/code&gt;的时候，报了一个错：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ERROR: Node.js version 14.17.0 is no longer supported.
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ERROR: Node.js version 14.17.0 is no longer supported.
 
 expo-cli supports following Node.js versions:
 * &amp;gt;=10.13.0 &amp;lt;11.0.0 (Active LTS)
@@ -69,23 +92,23 @@ expo-cli supports following Node.js versions:
 mac:&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo npm install n -g
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo npm install n -g
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;windows:
 管理员模式打开 cmd&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install n -g
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install n -g
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;如遇到下面的报错：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;unsupported platform for n@7.2.2: wanted {&quot;os&quot;: &quot;!win32&quot;, &quot;arch&quot;: &quot;any&quot;} &amp;lt;current: {&quot;os&quot;: &quot;win32&quot;, &quot;arch&quot;: &quot;x64&quot;}&amp;gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;unsupported platform for n@7.2.2: wanted {&quot;os&quot;: &quot;!win32&quot;, &quot;arch&quot;: &quot;any&quot;} &amp;lt;current: {&quot;os&quot;: &quot;win32&quot;, &quot;arch&quot;: &quot;x64&quot;}&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;我的 windows 的确是 win64, 但是在操作时还是报这个错了。解决办法：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install n -g --force
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install n -g --force
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;下面的步骤根据需求安装（接下来我都列举 mac 的安装方式，sudo 是 mac 下输入密码验证身份的命令，因此 windows 用户应该是以管理员身份运行命令行工具）&lt;/p&gt;
@@ -94,28 +117,28 @@ mac:&lt;/li&gt;
   &lt;li&gt;安装稳定版本&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n stable
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n stable
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ol&gt;
   &lt;li&gt;安装最新版本&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n latest
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n latest
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ol&gt;
   &lt;li&gt;安装指定版本， 如 12.0.0 版本&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n 12.0.0
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n 12.0.0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ol&gt;
   &lt;li&gt;查看当前安装了哪些版本&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;n
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;n
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;执行查看安装了哪些版本命令之后，会出现你安装的列表，通过上下箭头进行选择切换。&lt;/p&gt;
@@ -124,17 +147,19 @@ mac:&lt;/li&gt;
   &lt;li&gt;删除版本&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n rm 版本号
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n rm 版本号
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Mon, 24 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/node%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E7%89%88%E6%9C%AC-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%92%8C%E9%99%8D%E7%BA%A7/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/node%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E7%89%88%E6%9C%AC-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%92%8C%E9%99%8D%E7%BA%A7/</guid>
+        <link>http://localhost:4000/2021/05/24/node%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E7%89%88%E6%9C%AC-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%92%8C%E9%99%8D%E7%BA%A7</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/24/node%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E7%89%88%E6%9C%AC-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%92%8C%E9%99%8D%E7%BA%A7</guid>
         
         <category>#node,</category>
         
         <category>#node版本切换</category>
         
+        
+        <category>零散的知识点积累</category>
         
       </item>
     
@@ -150,7 +175,7 @@ mac:&lt;/li&gt;
     &lt;p&gt;用 conf.json 配置 jsdoc
 要自定义 JSDoc 的行为，可以使用 JSON 格式的配置文件格式化 JSDoc，使用-c 选项，例如： jsdoc -c /path/to/conf.json。&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
  &quot;opts&quot;: {
      &quot;recurse&quot;: true
  },
@@ -186,69 +211,71 @@ mac:&lt;/li&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;使用自定义模板 layout.tmpl
-这里为了方便， 我直接从 github jsdoc 源码里找到了一个 layout.tmpl 原来的模板, 如下（我修改了引入的 js 文件和 css 文件的路径，要跟执行&lt;code class=&quot;highlighter-rouge&quot;&gt;jsdoc -c ./jsdoc/path/to/conf.json -r&lt;/code&gt;之后生产的文件里面的这些文件匹配，最开始就是没看到这里路径的不同，所以自定义模板一直没起作用）：&lt;/p&gt;
+这里为了方便， 我直接从 github jsdoc 源码里找到了一个 layout.tmpl 原来的模板, 如下（我修改了引入的 js 文件和 css 文件的路径，要跟执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsdoc -c ./jsdoc/path/to/conf.json -r&lt;/code&gt;之后生产的文件里面的这些文件匹配，最开始就是没看到这里路径的不同，所以自定义模板一直没起作用）：&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;en&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;charset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;utf-8&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;JSDoc: &lt;span class=&quot;cp&quot;&gt;&amp;lt;?js= title ?&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&quot;en&quot;&amp;gt;
+&amp;lt;head&amp;gt;
+   &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
+   &amp;lt;title&amp;gt;JSDoc: &amp;lt;?js= title ?&amp;gt;&amp;lt;/title&amp;gt;
 
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./scripts/prettify/prettify.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./scripts/prettify/lang-css.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-   &lt;span class=&quot;c&quot;&gt;&amp;lt;!--[if lt IE 9]&amp;gt;
+   &amp;lt;script src=&quot;./scripts/prettify/prettify.js&quot;&amp;gt; &amp;lt;/script&amp;gt;
+   &amp;lt;script src=&quot;./scripts/prettify/lang-css.js&quot;&amp;gt; &amp;lt;/script&amp;gt;
+   &amp;lt;!--[if lt IE 9]&amp;gt;
    &amp;lt;script src=&quot;//html5shiv.googlecode.com/svn/trunk/html5.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-   &amp;lt;![endif]--&amp;gt;&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/css&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./styles/prettify-tomorrow.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/css&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./styles/jsdoc-default.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;style&amp;gt;&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-       &lt;span class=&quot;nl&quot;&gt;border-bottom&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;nav&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;h2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-       &lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;!important&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+   &amp;lt;![endif]--&amp;gt;
+   &amp;lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;./styles/prettify-tomorrow.css&quot;&amp;gt;
+   &amp;lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;./styles/jsdoc-default.css&quot;&amp;gt;
+   &amp;lt;style&amp;gt;
+   section{
+       border-bottom: none;
+   }
+   nav h2 {
+       display: none!important;
+   }
+   &amp;lt;/style&amp;gt;
+&amp;lt;/head&amp;gt;
 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+&amp;lt;body&amp;gt;
 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;main&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&amp;lt;div id=&quot;main&quot;&amp;gt;
 
-   &lt;span class=&quot;nt&quot;&gt;&amp;lt;h1&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;page-title&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?js= title ?&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
+   &amp;lt;h1 class=&quot;page-title&quot;&amp;gt;&amp;lt;?js= title ?&amp;gt;&amp;lt;/h1&amp;gt;
 
-   &lt;span class=&quot;cp&quot;&gt;&amp;lt;?js= content ?&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+   &amp;lt;?js= content ?&amp;gt;
+&amp;lt;/div&amp;gt;
 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;nav&amp;gt;&lt;/span&gt;
-   &lt;span class=&quot;cp&quot;&gt;&amp;lt;?js= this.nav ?&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/nav&amp;gt;&lt;/span&gt;
+&amp;lt;nav&amp;gt;
+   &amp;lt;?js= this.nav ?&amp;gt;
+&amp;lt;/nav&amp;gt;
 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;br&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;clear&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&amp;lt;br class=&quot;clear&quot;&amp;gt;
 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;footer&amp;gt;&lt;/span&gt;
-   &lt;span class=&quot;cp&quot;&gt;&amp;lt;?js if(env.conf.templates &amp;amp;&amp;amp; env.conf.templates.default &amp;amp;&amp;amp; env.conf.templates.default.includeDate !== false) { ?&amp;gt;&lt;/span&gt; on &lt;span class=&quot;cp&quot;&gt;&amp;lt;?js= (new Date()) ?&amp;gt;&amp;lt;?js } ?&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/footer&amp;gt;&lt;/span&gt;
+&amp;lt;footer&amp;gt;
+   &amp;lt;?js if(env.conf.templates &amp;amp;&amp;amp; env.conf.templates.default &amp;amp;&amp;amp; env.conf.templates.default.includeDate !== false) { ?&amp;gt; on &amp;lt;?js= (new Date()) ?&amp;gt;&amp;lt;?js } ?&amp;gt;
+&amp;lt;/footer&amp;gt;
 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;prettyPrint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;./scripts/linenumber.js&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&amp;lt;script&amp;gt; prettyPrint(); &amp;lt;/script&amp;gt;
+&amp;lt;script src=&quot;./scripts/linenumber.js&quot;&amp;gt; &amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;执行&lt;code class=&quot;highlighter-rouge&quot;&gt;jsdoc -c ./jsdoc/path/to/conf.json -r&lt;/code&gt;命令，会生成一个 out 文件夹，里面的各个 html 就是转换结果，把 out 文件夹下面的东西拷贝到需要使用的地方即可。&lt;/p&gt;
+    &lt;p&gt;执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsdoc -c ./jsdoc/path/to/conf.json -r&lt;/code&gt;命令，会生成一个 out 文件夹，里面的各个 html 就是转换结果，把 out 文件夹下面的东西拷贝到需要使用的地方即可。&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 </description>
         <pubDate>Mon, 17 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/jsdoc%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/jsdoc%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
+        <link>http://localhost:4000/2021/05/17/jsdoc%E7%9A%84%E4%BD%BF%E7%94%A8</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/17/jsdoc%E7%9A%84%E4%BD%BF%E7%94%A8</guid>
         
         <category>#javascript,</category>
         
         <category>#js注释转api文档</category>
         
+        
+        <category>零散的知识点积累</category>
         
       </item>
     
@@ -256,7 +283,7 @@ mac:&lt;/li&gt;
         <title>手写promise实现</title>
         <description>&lt;h3 id=&quot;实现代码如下&quot;&gt;实现代码如下：&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class MyPromise{
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class MyPromise{
     constructor(executor) {
         this.status = &quot;pending&quot;;     // 初始化状态为pending
         this.value = undefined;      // 初始化返回的成功的结果或者失败的原因
@@ -464,11 +491,13 @@ mac:&lt;/li&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Tue, 11 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0/</guid>
+        <link>http://localhost:4000/2021/05/11/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/11/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0</guid>
         
         <category>#promise</category>
         
+        
+        <category>零散的知识点积累</category>
         
       </item>
     
@@ -479,13 +508,15 @@ mac:&lt;/li&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.ayqy.net/blog/dive-into-react-fiber/&quot;&gt;react fiber&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 09 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/react-fiber/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/react-fiber/</guid>
+        <link>http://localhost:4000/2021/05/09/react-fiber</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/09/react-fiber</guid>
         
         <category>#react,</category>
         
         <category>#fiber</category>
         
+        
+        <category>React</category>
         
       </item>
     
@@ -501,10 +532,10 @@ mac:&lt;/li&gt;
 
 &lt;p&gt;这里，我们创建一个简单的 div，然后把他的所有的属性都打印出来：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    var div = document.createElement('div'),
-        str = '';
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    var div = document.createElement(&apos;div&apos;),
+        str = &apos;&apos;;
     for (var key in div) {
-      str = str + ' ' + key;
+      str = str + &apos; &apos; + key;
     }
     console.log(str);
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -516,32 +547,32 @@ mac:&lt;/li&gt;
 
 &lt;p&gt;而相对于 DOM 对象，原生的 JavaScript 对象处理起来更快，而且更简单，DOM 树上的结构信息我们都可以使用 JavaScript 对象很容易的表示出来。&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var element = {
-      tagName: 'ul',
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var element = {
+      tagName: &apos;ul&apos;,
       props: {
-        id: 'list'
+        id: &apos;list&apos;
       },
       children: {
         {
-          tagName: 'li',
+          tagName: &apos;li&apos;,
           props: {
-            class: 'item'
+            class: &apos;item&apos;
           },
-          children: ['Item1']
+          children: [&apos;Item1&apos;]
         },
         {
-          tagName: 'li',
+          tagName: &apos;li&apos;,
           props: {
-            class: 'item'
+            class: &apos;item&apos;
           },
-          children: ['Item1']
+          children: [&apos;Item1&apos;]
         },
         {
-          tagName: 'li',
+          tagName: &apos;li&apos;,
           props: {
-            class: 'item'
+            class: &apos;item&apos;
           },
-          children: ['Item1']
+          children: [&apos;Item1&apos;]
         }
       }
     }
@@ -638,8 +669,8 @@ React 对于组件间的比较采取的策略也是简洁高效。
 &lt;/ol&gt;
 </description>
         <pubDate>Sat, 08 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/react-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff%E7%AE%97%E6%B3%95/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/react-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff%E7%AE%97%E6%B3%95/</guid>
+        <link>http://localhost:4000/2021/05/08/react-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff%E7%AE%97%E6%B3%95</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/08/react-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff%E7%AE%97%E6%B3%95</guid>
         
         <category>#react,</category>
         
@@ -653,6 +684,8 @@ React 对于组件间的比较采取的策略也是简洁高效。
         
         <category>diff算法</category>
         
+        
+        <category>React</category>
         
       </item>
     
@@ -669,7 +702,7 @@ React 对于组件间的比较采取的策略也是简洁高效。
 &lt;p&gt;算法执行的效率。通俗的讲，就是算法代码执行的时间。
 简单看个例子：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var m = 0;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var m = 0;
 for(i=1; i&amp;lt;=n; ++i)
 {
    j = i;
@@ -706,7 +739,7 @@ K 次方阶 O(n^k)
     &lt;p&gt;常数阶 O(1)
 无论执行了多少行，只要是没有循环等复杂结构，那这个代码的时间复杂度就是 O(1)，如：&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var m = 0;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var m = 0;
 var n = 1;
 var test = m + n;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
@@ -716,7 +749,7 @@ var test = m + n;
   &lt;li&gt;
     &lt;p&gt;线性阶 O(n)&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var m = 1;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var m = 1;
 for(i=1; i&amp;lt;=n; ++i)
 {
  m = i;
@@ -729,7 +762,7 @@ for(i=1; i&amp;lt;=n; ++i)
   &lt;li&gt;
     &lt;p&gt;对数阶 O(logN)&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var i = 1;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var i = 1;
 while(i&amp;lt;n)
 {
     i = i * 2;
@@ -742,7 +775,7 @@ while(i&amp;lt;n)
     &lt;p&gt;线性对数阶 O(nlogN)
 线性对数阶 O(nlogN) 其实非常容易理解，将时间复杂度为 O(logn)的代码循环 N 遍的话，那么它的时间复杂度就是 n 乘以 O(logN)，也就是了 O(nlogN)。&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for(var i=0; i&amp;lt;n; i++){
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for(var i=0; i&amp;lt;n; i++){
     m = 1
     while(m &amp;lt; n){
         m = m * 2
@@ -754,7 +787,7 @@ while(i&amp;lt;n)
     &lt;p&gt;平方阶 O(n²)
 把 O(n) 的代码再嵌套循环一遍，它的时间复杂度就是 O(n²)&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var test = 1;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var test = 1;
 for(x=0; x&amp;lt;n; x++){
     for(y=0; y&amp;lt;n; y++){
         test = x+y
@@ -764,7 +797,7 @@ for(x=0; x&amp;lt;n; x++){
 
     &lt;p&gt;如果将其中的一层循环 n 改成 m,那么时间复杂度就是 O(m*n)：&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var test = 1;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var test = 1;
 for(x=0; x&amp;lt;m; x++){
     for(y=0; y&amp;lt;n; y++){
         test = x+y
@@ -788,7 +821,7 @@ O(1)、O(n)、O(n²)&lt;/p&gt;
 如果算法执行所需要的临时空间不随着某个变量 n 的大小而变化，即此算法空间复杂度为一个常量，可表示为 O(1)
 例如：&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var i = 0;
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var i = 0;
 var m = 1;
 i++;
 m++;
@@ -800,7 +833,7 @@ var n = m + i;
   &lt;li&gt;
     &lt;p&gt;空间复杂度 O(n)&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;int[] m = new int[n]
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;int[] m = new int[n]
 for(i=1; i&amp;lt;=n; ++i)
 {
  j = i;
@@ -810,7 +843,7 @@ for(i=1; i&amp;lt;=n; ++i)
 
     &lt;p&gt;这段代码中，line1 new 了一个数组出来，这个数据占用的大小为 n,这段代码的 line2-6, 虽然有循环，但是没有再分配新的空间，因此这段代码的空间复杂度主要看第一行即可。即：S(n) = O(n)&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function print(n) {
+    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function print(n) {
      var i = 0;
      var a = [];
      for (i; i &amp;lt;n; ++i) {
@@ -827,13 +860,15 @@ for(i=1; i&amp;lt;=n; ++i)
 &lt;/ol&gt;
 </description>
         <pubDate>Sat, 08 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/</guid>
+        <link>http://localhost:4000/2021/05/08/%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/08/%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%92%8C%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6</guid>
         
         <category>#时间复杂度,</category>
         
         <category>#空间复杂度</category>
         
+        
+        <category>零散的知识点积累</category>
         
       </item>
     
@@ -851,19 +886,19 @@ chrome 和 safari 是 compositionstart =&amp;gt; 监听 input 事件 =&amp;gt; c
 
 &lt;h3 id=&quot;上代码&quot;&gt;上代码&lt;/h3&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // 输入框事件
-    const searchInputDom = document.getElementById('search-input');
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // 输入框事件
+    const searchInputDom = document.getElementById(&apos;search-input&apos;);
 
     // 解决oninput事件在中文输入法下会取得拼音的值的问题
     let isInputZh = false;
 
-    searchInputDom.addEventListener('compositionstart', (e)=&amp;gt; {
-        console.log('compositionstart')
+    searchInputDom.addEventListener(&apos;compositionstart&apos;, (e)=&amp;gt; {
+        console.log(&apos;compositionstart&apos;)
         isInputZh = true;
     }, false);
 
-    searchInputDom.addEventListener('compositionend',  (e)=&amp;gt; {
-        console.log('compositionend')
+    searchInputDom.addEventListener(&apos;compositionend&apos;,  (e)=&amp;gt; {
+        console.log(&apos;compositionend&apos;)
         isInputZh = false;
 
         // 判断是否是webkit内核
@@ -874,7 +909,7 @@ chrome 和 safari 是 compositionstart =&amp;gt; 监听 input 事件 =&amp;gt; c
     }, false);
 
     searchInputDom.oninput= (e) =&amp;gt; {
-      console.log('oninput')
+      console.log(&apos;oninput&apos;)
       if(isInputZh) return;
       toSearch(e.target.value)
     };
@@ -887,16 +922,16 @@ chrome 和 safari 是 compositionstart =&amp;gt; 监听 input 事件 =&amp;gt; c
             versions: function() {
                 var u = navigator.userAgent, app = navigator.appVersion;
                 return {
-                    trident: u.indexOf('Trident') &amp;gt; -1, //IE内核
-                    presto: u.indexOf('Presto') &amp;gt; -1, //opera内核
-                    webKit: u.indexOf('AppleWebKit') &amp;gt; -1, //苹果、谷歌内核
-                    gecko: u.indexOf('Gecko') &amp;gt; -1 &amp;amp;&amp;amp; u.indexOf('KHTML') == -1, //火狐内核
+                    trident: u.indexOf(&apos;Trident&apos;) &amp;gt; -1, //IE内核
+                    presto: u.indexOf(&apos;Presto&apos;) &amp;gt; -1, //opera内核
+                    webKit: u.indexOf(&apos;AppleWebKit&apos;) &amp;gt; -1, //苹果、谷歌内核
+                    gecko: u.indexOf(&apos;Gecko&apos;) &amp;gt; -1 &amp;amp;&amp;amp; u.indexOf(&apos;KHTML&apos;) == -1, //火狐内核
                     mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
                     ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-                    android: u.indexOf('Android') &amp;gt; -1 || u.indexOf('Linux') &amp;gt; -1, //android终端或者uc浏览器
-                    iPhone: u.indexOf('iPhone') &amp;gt; -1 || u.indexOf('Mac') &amp;gt; -1, //是否为iPhone或者QQHD浏览器
-                    iPad: u.indexOf('iPad') &amp;gt; -1, //是否iPad
-                    webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                    android: u.indexOf(&apos;Android&apos;) &amp;gt; -1 || u.indexOf(&apos;Linux&apos;) &amp;gt; -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf(&apos;iPhone&apos;) &amp;gt; -1 || u.indexOf(&apos;Mac&apos;) &amp;gt; -1, //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf(&apos;iPad&apos;) &amp;gt; -1, //是否iPad
+                    webApp: u.indexOf(&apos;Safari&apos;) == -1 //是否web应该程序，没有头部与底部
                 };
             }(),
             language: (navigator.browserLanguage || navigator.language).toLowerCase()
@@ -912,8 +947,8 @@ chrome 和 safari 是 compositionstart =&amp;gt; 监听 input 事件 =&amp;gt; c
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98/</guid>
+        <link>http://localhost:4000/2021/05/07/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/07/%E8%A7%A3%E5%86%B3oninput%E4%BA%8B%E4%BB%B6%E5%9C%A8%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95%E4%B8%8B%E4%BC%9A%E5%8F%96%E5%BE%97%E6%8B%BC%E9%9F%B3%E7%9A%84%E5%80%BC%E7%9A%84%E9%97%AE%E9%A2%98</guid>
         
         <category>#input,</category>
         
@@ -924,6 +959,8 @@ chrome 和 safari 是 compositionstart =&amp;gt; 监听 input 事件 =&amp;gt; c
         <category>#浏览器兼容性</category>
         
         
+        <category>零散的知识点积累</category>
+        
       </item>
     
       <item>
@@ -932,7 +969,7 @@ chrome 和 safari 是 compositionstart =&amp;gt; 监听 input 事件 =&amp;gt; c
 
 &lt;p&gt;存在如下一段代码：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;input ref=&quot;input&quot; class=&quot;search-box&quot; placeholder=&quot;请输入要搜索的内容&quot; v-model=&quot;keyWords&quot; @input=&quot;search()&quot; @focus=&quot;focusSearch()&quot; @blur=&quot;onBlur()&quot;/&amp;gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;input ref=&quot;input&quot; class=&quot;search-box&quot; placeholder=&quot;请输入要搜索的内容&quot; v-model=&quot;keyWords&quot; @input=&quot;search()&quot; @focus=&quot;focusSearch()&quot; @blur=&quot;onBlur()&quot;/&amp;gt;
 
 &amp;lt;div class=&quot;result-list&quot; v-if=&quot;showComplete&quot;&amp;gt;
     &amp;lt;div class=&quot;result-item&quot; v-if=&quot;searchResultList.length === 0&quot;&amp;gt;没有找到对应内容&amp;lt;/div&amp;gt;
@@ -940,14 +977,14 @@ chrome 和 safari 是 compositionstart =&amp;gt; 监听 input 事件 =&amp;gt; c
 &amp;lt;/div&amp;gt;
 
 onBlur(){
-    console.log('blur')
+    console.log(&apos;blur&apos;)
     this.showComplete = false
 }
 toSearch(nodes){
-    console.log('click')
+    console.log(&apos;click&apos;)
     // do sth...
     this.$nextTick(()=&amp;gt;{
-        this.keyWords = '';
+        this.keyWords = &apos;&apos;;
     })
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -960,8 +997,8 @@ toSearch(nodes){
   &lt;li&gt;解决办法一：blur 执行的函数可以加个定时器，在 200ms 后执行&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;onBlur(){
-      console.log('blur')
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;onBlur(){
+      console.log(&apos;blur&apos;)
       setTimeout(()=&amp;gt;{
         this.showComplete = false
       },200)
@@ -972,12 +1009,12 @@ toSearch(nodes){
   &lt;li&gt;解决办法二：将 click 换成优先级更高的 mousedown，将优先于 blur 执行&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;div class=&quot;result-item&quot; v-for=&quot;r in searchResultList&quot; :key=&quot;r.id&quot; @mousedown=&quot;toSearch([r])&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;div class=&quot;result-item&quot; v-for=&quot;r in searchResultList&quot; :key=&quot;r.id&quot; @mousedown=&quot;toSearch([r])&quot;&amp;gt;&amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6/</guid>
+        <link>http://localhost:4000/2021/05/07/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/05/07/vue%E4%B8%ADinput%E7%9A%84blur%E5%BD%B1%E5%93%8D%E4%B8%8B%E6%8B%89%E6%A1%86%E4%B8%ADclick%E4%BA%8B%E4%BB%B6</guid>
         
         <category>#vue，</category>
         
@@ -988,148 +1025,9 @@ toSearch(nodes){
         <category>#click</category>
         
         
-      </item>
-    
-      <item>
-        <title>json tree形数据查找复合条件的json tree数据</title>
-        <description>&lt;h3 id=&quot;需求描述&quot;&gt;需求描述&lt;/h3&gt;
-
-&lt;p&gt;存在一个 json tree 形数据：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var treeData = [
-    {
-        id: 'root',
-        name: '食物',
-        children: [
-            {
-                id: '1',
-                name: '水果',
-                children: [
-                    {
-                        id: '1-1',
-                        name: '水果-苹果',
-                        children: []
-                    },
-                    {
-                        id: '1-2',
-                        name: '香蕉',
-                        children: []
-                    }
-                ]
-            },
-            {
-                id: '2',
-                name: '主食',
-                children: [
-                    {
-                        id: '2-1',
-                        name: '主食-米饭',
-                        children: []
-                    },
-                    {
-                        id: '2-2',
-                        name: '面条',
-                        children: []
-                    },
-                    {
-                        id: '2-3',
-                        name: '米线',
-                        children: []
-                    }
-                ]
-            },
-            {
-                id: '3',
-                name: '零食',
-                children: [
-                    {
-                        id: '3-1',
-                        name: '瓜子',
-                        children: []
-                    },
-                    {
-                        id: '3-2',
-                        name: '花生',
-                        children: []
-                    },
-                    {
-                        id: '3-3',
-                        name: '蚕豆',
-                        children: []
-                    }
-                ]
-            }
-        ]
-    }
-]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;输入框搜索关键词，如：“水果”，一旦发现某一层级的 name 匹配上了关键词，则返回这一层级以及他的所有子元素。
-返回的数据应该如下：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var searchResult = [
-    {
-        id: 'root',
-        name: '食物',
-        children: [
-            {
-                id: '1',
-                name: '水果',
-                children: [
-                    {
-                        id: '1-1',
-                        name: '水果-苹果',
-                        children: []
-                    },
-                    {
-                        id: '1-2',
-                        name: '香蕉',
-                        children: []
-                    }
-                ]
-            }
-    }
-]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;算法如下：&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    // tree search
-    handleTreeData(treeData, searchValue) {
-      if (!treeData || treeData.length === 0) {
-        return [];
-      }
-      const array = [];
-      for (let i = 0; i &amp;lt; treeData.length; i += 1) {
-        const nodeName = treeData[i].name.toLowerCase()
-        const searchName = searchValue.toLowerCase()
-        if (this.handleTreeData(treeData[i].children, searchValue).length &amp;gt; 0 || nodeName.includes(searchName)) {
-          let obj = {
-            ...treeData[i]
-          }
-          if(!nodeName.includes(searchName)){
-            // 父节点name不包含searchVal,则继续查找。否则，子节点不用查找，把父节点和父节点的children直接返回
-            obj.children = this.handleTreeData(treeData[i].children, searchValue)
-          }
-          array.push(obj)
-        }
-      }
-      return array;
-    }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Fri, 07 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/json-tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E6%9F%A5%E6%89%BE%E5%A4%8D%E5%90%88%E6%9D%A1%E4%BB%B6%E7%9A%84json-tree%E6%95%B0%E6%8D%AE/</guid>
+        <category>零散的知识点积累</category>
         
-        <category>#input,</category>
-        
-        <category>#oninput事件,</category>
-        
-        <category>#中文输入法,</category>
-        
-        <category>#浏览器兼容性</category>
-        
+        <category>Vue</category>
         
       </item>
     

@@ -3,6 +3,7 @@ layout: post
 title: iphone各机型屏幕尺寸（包含最新iphone12）
 date: 2021-04-06
 tags: "#ios, #iphone, #屏幕尺寸"
+categories: ["零散的知识点积累"]
 ---
 
 前言：更新 iphone 各机型屏幕尺寸列表（包含最新 iphone12）

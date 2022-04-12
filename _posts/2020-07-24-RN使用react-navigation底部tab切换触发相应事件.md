@@ -2,6 +2,7 @@
 layout: post
 title: RN使用react-navigation底部tab切换触发相应事件
 date: 2020-07-24
+categories: ["React-Native"]
 ---
 
 问题引入：

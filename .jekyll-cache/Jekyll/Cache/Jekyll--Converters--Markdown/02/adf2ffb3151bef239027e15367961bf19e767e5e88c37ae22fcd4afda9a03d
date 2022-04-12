@@ -1,0 +1,53 @@
+I"�<p>前言：adb 的全称为 Android Debug Bridge，就是起到调试桥的作用。通过 adb 我们可以在 IDE 中通过 DDMS 来调试 Android 程序，其实也就是 debug 工具。</p>
+
+<p>但是我们在 MAC 下安装完 JDK 和 Android studio 以后，我们在命令行执行这个命令，会提示这个错误：
+<code class="language-plaintext highlighter-rouge">adb: command not found</code></p>
+
+<h2 id="android-adb-环境设置">Android adb 环境设置</h2>
+
+<ul>
+  <li>进入当前用户 home 目录
+打开 terminal 终端，默认就是 home 根目录。如果不确认，可以在命令行输入：
+<code class="language-plaintext highlighter-rouge">echo $HOME</code></li>
+</ul>
+
+<p>输出的内容一般是类似这样的信息：/Users/你自己的用户名
+也可以使用以下命令，查看当前所在目录：
+<code class="language-plaintext highlighter-rouge">pwd</code></p>
+
+<ul>
+  <li>
+    <p>创建.bash_profile 文件
+<code class="language-plaintext highlighter-rouge">touch .bash_profile</code></p>
+  </li>
+  <li>
+    <p>打开.bash_profile 文件
+<code class="language-plaintext highlighter-rouge">open -e .bash_profile</code></p>
+  </li>
+  <li>
+    <p>编辑.bash_profile 文件。注意：/Users/你自己的用户名 要换成你自己的 home 目录</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export ANDROID_HOME=/Users/你自己的用户名/Library/Android/sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>编译.bash_profile
+<code class="language-plaintext highlighter-rouge">source .bash_profile</code></p>
+  </li>
+  <li>
+    <p>至此 adb 环境已经搭建成功，可以输入以下命令做个验证：
+<code class="language-plaintext highlighter-rouge">adb version</code>
+会输出类似以下信息：</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Android Debug Bridge version 1.0.41
+Version 29.0.6-6198805
+Installed as /Users/你自己的用户名/Library/Android/sdk/platform-tools/adb
+</code></pre></div></div>
+:ET

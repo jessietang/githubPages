@@ -49,4 +49,19 @@ $(document).ready(function() {
     
     $('.btn-mobile-menu__icon').toggleClass('fa fa-list fa fa-angle-up animated fadeIn');
   });
+
+  // 给category绑定事件
+  var categoryTitles = document.getElementsByClassName('category-title');
+  var categoryCount = categoryTitles.length;
+  for (var i = 0; i < categoryCount; i++){
+    categoryTitles[i].addEventListener('click', function(e){
+        const nextElementSibling = e.currentTarget.nextElementSibling
+        if(nextElementSibling.style.display == 'none'){
+          nextElementSibling.style.display = 'block'
+        }else{
+          nextElementSibling.style.display = 'none'
+        }
+        e.preventDefault();
+    }, false);
+  }
 });

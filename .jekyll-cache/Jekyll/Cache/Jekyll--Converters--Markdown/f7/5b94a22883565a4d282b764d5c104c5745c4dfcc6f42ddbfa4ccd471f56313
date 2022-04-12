@@ -1,0 +1,2 @@
+I"�<p>前言：adb 的全称为 Android Debug Bridge，就是起到调试桥的作用。通过 adb 我们可以在 IDE 中通过 DDMS 来调试 Android 程序，其实也就是 debug 工具。</p>
+:ET

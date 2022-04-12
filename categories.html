@@ -1,0 +1,18 @@
+---
+layout: page
+title:
+---
+
+<h3>随笔分类</h1>
+    {% for category in site.categories %}
+    <h4 class="category-title" style="cursor: pointer; margin-left: 20px; margin-top: 20px; ">
+        {{ category | first }}<span style="font-size: 14px">（{{ category | last | size }}）</span></h2>
+
+        <ul class="arc-list" style="display: none;">
+            {% for post in category.last %}
+            <li style="font-size: 16px;display:flex;justify-content: space-between;"><a
+                    href="{{ post.url }}">{{ post.title }}</a> <span
+                    style="font-size: 12px;">{{ post.date | date:"%Y-%m-%d"}}</span></li>
+            {% endfor %}
+        </ul>
+        {% endfor %}

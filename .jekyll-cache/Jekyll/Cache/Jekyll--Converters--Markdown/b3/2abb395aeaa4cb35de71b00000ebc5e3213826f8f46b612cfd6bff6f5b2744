@@ -1,0 +1,121 @@
+I"�<h3 id="vue-响应式过程的原理">vue 响应式过程的原理：</h3>
+
+<p>当创建 Vue 实例时,vue 会遍历 data 选项的属性,利用 Object.defineProperty 为属性添加 getter 和 setter 对数据的读取进行劫持（getter 用来依赖收集,setter 用来派发更新）,并且在内部追踪依赖,在属性被访问和修改时通知变化。</p>
+
+<p>每个组件实例会有相应的 watcher 实例,会在组件渲染的过程中记录依赖的所有数据属性（进行依赖收集,还有 computed watcher,user watcher 实例）,之后依赖项被改动时,setter 逻辑会通知依赖与此 data 的 watcher 实例重新计算（派发更新）,从而使它关联的组件重新渲染。</p>
+
+<p>总结就是: vue.js 采用数据劫持结合发布-订阅模式,通过 Object.defineproperty 来劫持各个属性的 setter,getter,在数据变动时发布消息给订阅者,触发响应的监听回调</p>
+
+<h3 id="vue-核心角色是下面几个">vue 核心角色是下面几个：</h3>
+
+<ol>
+  <li>
+    <p>Observer（监听器）：给对象添加 getter 和 setter，用于依赖搜集和派发更新。不仅是一个数据监听器，也是发布者；</p>
+  </li>
+  <li>
+    <p>Watcher（订阅者）：observer 把数据转发给了真正的订阅者——watcher 对象。watcher 接收到新的数据后，会去更新视图。watcher 实例分为渲染 watcher(render watcher), computed watcher, 侦听器 user watcher。维护了一个 deps（用于收集依赖）的实例数组。二次依赖收集时，cleanupDeps 在每次添加完新的订阅，会移除掉旧的订阅的 deps；</p>
+  </li>
+  <li>
+    <p>compile（编译器）：MVVM 框架特有的角色，负责对每个节点元素指令进行扫描和解析，指令的数据初始化、订阅者的创建这些“杂活”也归它管；</p>
+  </li>
+  <li>
+    <p>Dep：用于收集当前响应式对象的依赖关系，每个响应式对象都有一个 Dep 实例（里边 subs 是 Watcher 实例数组），数据变更触发 setter 逻辑时，通过 dep.notify()(遍历 subs，调用每个 Watcher 的 update()方法)通知各个 Watcher。</p>
+  </li>
+</ol>
+
+<h3 id="核心代码">核心代码</h3>
+
+<ul>
+  <li>实现 observer</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 遍历对象
+function observer(target) {
+  // target是对象，则遍历
+  if (target &amp;&amp; typeof target === 'object') {
+    Object.keys(target).forEach(key =&gt; {
+      defineReactive(target, key, target[key])
+    })
+  }
+}
+
+// 用defineProperty监听当前属性
+function defineReactive(target, key, val) {
+  const dep = new Dep()
+  // 递归
+  observer(val)
+  Object.defineProperty(target, key, {
+    // 可枚举
+    enumerable: true,
+    // 不可配置
+    configurable: false,
+    get: function() {
+      return val
+    },
+    set: function(value) {
+      console.log(val, value)
+      val = value
+    }
+  })
+}
+</code></pre></div></div>
+
+<ul>
+  <li>实现 dep 订阅者</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Dep {
+  constructor() {
+    // 初始化订阅队列
+    this.subs = []
+  }
+  // 增加订阅
+  addSub(sub) {
+    this.subs.push(sub)
+  }
+  // 通知订阅者
+  notify() {
+    this.subs.forEach(sub =&gt; {
+      sub.update()
+    })
+  }
+}
+</code></pre></div></div>
+
+<p>订阅者 Dep 里的 subs 数组是 Watcher 实例。</p>
+
+<ul>
+  <li>实现 Watcher 类</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Watcher {
+  constructor() {}
+  update() {
+    // 更新视图
+  }
+}
+</code></pre></div></div>
+
+<p>改写 defineReactive 中的 setter 方法，在监听器里去通知订阅者了:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 用defineProperty监听当前属性
+function defineReactive(target, key, val) {
+  const dep = new Dep()
+  // 递归
+  observer(val)
+  Object.defineProperty(target, key, {
+    // 可枚举
+    enumerable: true,
+    // 不可配置
+    configurable: false,
+    get: function() {
+      return val
+    },
+    set: function(value) {
+      console.log(val, value)
+      dep.notify()
+    }
+  })
+}
+</code></pre></div></div>
+:ET

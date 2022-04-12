@@ -3,6 +3,7 @@ layout: post
 title: 谈谈vue-router
 date: 2021-04-12
 tags: "#vue, #vue-router, #hash, #history"
+categories: ["Vue"]
 ---
 
 ### vue-router 对不同模式的实现大致是这样的：

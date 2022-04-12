@@ -2,7 +2,8 @@
 layout: post
 title: insertAdjacentHTML方法的使用
 date: 2021-03-30
-tags: "#insertAdjacentHTML, #insertAdjacentText,"
+tags: "#insertAdjacentHTML, #insertAdjacentText"
+categories: ["零散的知识点积累"]
 ---
 
 前言：我们常用 innerText & innerHTML 给一个 dom 元素插入一段文本或者 html。最近发现还有 insertAdjacentHTML 和 insertAdjacentText 方法，这两个方法更灵活，可以在指定的地方插入 html 内容和文本内容。（adjacent，这个单词是“相邻”的意思）

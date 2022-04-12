@@ -1,0 +1,15 @@
+I"�<p>前言：在做一个自定义鼠标右键菜单的需求的时候，发现 contextMenu 事件在 mac 和 windows 平台上表现不一致。</p>
+
+<h3 id="方法使用">方法使用</h3>
+
+<ul>
+  <li>
+    <p>区别</p>
+
+    <ul>
+      <li>mac: 右键按下即触发 contextMenu event，鼠标抬起，触发 mouseUp event；</li>
+      <li>win: 右键按下抬起后，先触发 mouseUp event，然后触发 contextMenu event。</li>
+    </ul>
+  </li>
+</ul>
+:ET
