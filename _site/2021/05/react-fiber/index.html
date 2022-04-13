@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>react fiber</title>
+  <meta name="description" content="react fiber 直接参考下面的文章，目前见过讲得最好的一篇文章：">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="react fiber">
+  <meta name="twitter:description" content="react fiber 直接参考下面的文章，目前见过讲得最好的一篇文章：">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="react fiber">
+  <meta property="og:description" content="react fiber 直接参考下面的文章，目前见过讲得最好的一篇文章：">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2021/05/react-fiber/">
+  <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+  </span>
+
+  <header class="panel-cover panel-cover--collapsed">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+
+        <a href="/blog/index.html" title="前往 唐静 的主页" class="blog-button"><img
+            src="/assets/images/avatar.jpg" width="80" alt="唐静 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/blog/index.html"
+            title="link to homepage for 唐静" class="blog-button">唐静</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">tangjing's blogs.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">6年前端。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/blog/index.html" title="Visit blog"
+                    class="blog-button">随笔</a></li>
+                
+                <li class="navigation__item"><a href="/about" target="_blank"
+                    title="A button">个人简历</a></li>
+                
+                <li class="navigation__item"><a href="/categories.html" target="_blank"
+                    title="A button">分类</a></li>
+                
+                <li class="navigation__item"><a href="https://github.com/jessietang" target="_blank"
+                    title="My Projects">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/onevcat" title="@onevcat 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/onevcat" title="@onevcat 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/onevcat" title="@onevcat" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/107108267983477358170" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:onev@onevcat.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2021-05-09 00:00:00 +0800" itemprop="datePublished"
+        class="post-meta__date date">2021-05-09</time> &nbsp;&nbsp;&nbsp;
+      <span class="post-meta__tags tags">#react,#fiber</span>
+      <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
+    </div>
+    <h1 class="post-title">react fiber</h1>
+  </header>
+
+  <section class="post">
+    <h3 id="react-fiber-直接参考下面的文章目前见过讲得最好的一篇文章">react fiber 直接参考下面的文章，目前见过讲得最好的一篇文章：</h3>
+
+<p><a href="http://www.ayqy.net/blog/dive-into-react-fiber/">react fiber</a></p>
+
+  </section>
+</article>
+
+<section class="read-more">
+    
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">最近的文章</span>
+        <h2 class="post-list__post-title post-title"><a href="/2021/05/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0/"
+                title="link to 手写promise实现">手写promise实现</a></h2>
+        <p class="excerpt">实现代码如下：class MyPromise{    constructor(executor) {        this.status = "pending";     // 初始化状态为pending        this.value = undefined;      // 初始化返回的成功的结果或者失败的原因        this.resolveArr = [];        // 初始化then中成功的方法        this.rejectArr = [];     ...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-05-11 00:00:00 +0800"
+                class="post-list__meta--date date">2021-05-11</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#promise</span><a class="btn-border-small"
+                href=/2021/05/%E6%89%8B%E5%86%99promise%E5%AE%9E%E7%8E%B0/>继续阅读</a></div>
+    </div>
+    
+
+    
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">更早的文章</span>
+        <h2 class="post-list__post-title post-title"><a href="/2021/05/react-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff%E7%AE%97%E6%B3%95/"
+                title="link to （react）深入理解虚拟dom和diff算法">（react）深入理解虚拟dom和diff算法</a></h2>
+        <p class="excerpt">什么是虚拟 dom?虚拟 dom 就是一个 js 对象。用 js 对象表示 DOM 信息和结构，当状态变更的时候，重新渲染这个 js 对象结构。这个 js 对象被称为 virtual dom.为什么要用虚拟 dom？早先的时候，我们都是直接操作 dom（如：jquery）.这里，我们创建一个简单的 div，然后把他的所有的属性都打印出来：    var div = document.createElement('div'),        str = '';    for (var key...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-05-08 00:00:00 +0800"
+                class="post-list__meta--date date">2021-05-08</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#react,#reactvirtualdom,#reactdiff算法</span><a class="btn-border-small"
+                href=/2021/05/react-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%99%9A%E6%8B%9Fdom%E5%92%8Cdiff%E7%AE%97%E6%B3%95/>继续阅读</a></div>
+    </div>
+    
+</section>
+<!-- <section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2021/05/react-fiber/";
+        this.page.identifier = "/2021/05/react-fiber/";
+    };
+
+    var disqus_shortname = 'vno-jekyll';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+ -->
+      <section class="footer">
+    <footer>
+        <span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享
+                署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2022-04-13 生成，感谢
+            <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 jessietang 创建，采用 <a
+                href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a
+                href="https://github.com/jessietang/jessietang.github.io">本站源码</a> - &copy;
+            2022</span>
+    </footer>
+</section>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>vue computed 属性为什么能够在依赖改变的时候，自己发生变化</title>
+  <meta name="description" content="Vue computed 属性为什么能够在依赖改变的时候，自己发生变化？">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="vue computed 属性为什么能够在依赖改变的时候，自己发生变化">
+  <meta name="twitter:description" content="Vue computed 属性为什么能够在依赖改变的时候，自己发生变化？">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="vue computed 属性为什么能够在依赖改变的时候，自己发生变化">
+  <meta property="og:description" content="Vue computed 属性为什么能够在依赖改变的时候，自己发生变化？">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2021/04/vue-computed-%E5%B1%9E%E6%80%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%A4%9F%E5%9C%A8%E4%BE%9D%E8%B5%96%E6%94%B9%E5%8F%98%E7%9A%84%E6%97%B6%E5%80%99-%E8%87%AA%E5%B7%B1%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96/">
+  <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+  </span>
+
+  <header class="panel-cover panel-cover--collapsed">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+
+        <a href="/blog/index.html" title="前往 唐静 的主页" class="blog-button"><img
+            src="/assets/images/avatar.jpg" width="80" alt="唐静 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/blog/index.html"
+            title="link to homepage for 唐静" class="blog-button">唐静</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">tangjing's blogs.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">6年前端。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/blog/index.html" title="Visit blog"
+                    class="blog-button">随笔</a></li>
+                
+                <li class="navigation__item"><a href="/about" target="_blank"
+                    title="A button">个人简历</a></li>
+                
+                <li class="navigation__item"><a href="/categories.html" target="_blank"
+                    title="A button">分类</a></li>
+                
+                <li class="navigation__item"><a href="https://github.com/jessietang" target="_blank"
+                    title="My Projects">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/onevcat" title="@onevcat 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/onevcat" title="@onevcat 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/onevcat" title="@onevcat" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/107108267983477358170" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:onev@onevcat.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2021-04-12 00:00:00 +0800" itemprop="datePublished"
+        class="post-meta__date date">2021-04-12</time> &nbsp;&nbsp;&nbsp;
+      <span class="post-meta__tags tags">#vue,#computed属性</span>
+      <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
+    </div>
+    <h1 class="post-title">vue computed 属性为什么能够在依赖改变的时候，自己发生变化</h1>
+  </header>
+
+  <section class="post">
+    <h3 id="vue-computed-属性为什么能够在依赖改变的时候自己发生变化">Vue computed 属性为什么能够在依赖改变的时候，自己发生变化？</h3>
+
+<p><img src="/assets/images/0412/1.png" alt="1.png" />
+computed 和 watch 公用一个 Watcher 类，在 computed 的情况下有一个 deps 。 Vue 在二次收集依赖时用 cleanupDeps 在每次添加完新的订阅，会移除掉旧的订阅。</p>
+
+<h3 id="收集依赖">收集依赖</h3>
+
+<ol>
+  <li>initState 时，对 computed 属性初始化时，触发 computed Watcher 依赖收集</li>
+  <li>initState 时，对 watch 属性初始化时，触发 user Watcher 依赖收集</li>
+  <li>render()的过程，触发 render watcher 依赖收集</li>
+  <li>re-render 时，vm.render()再次执行，会移除 subs 的订阅，重新赋值</li>
+</ol>
+
+<p>查看<a href="https://zhuanlan.zhihu.com/p/45081605">‘收集依赖’</a>更详细的解释。</p>
+
+  </section>
+</article>
+
+<section class="read-more">
+    
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">最近的文章</span>
+        <h2 class="post-list__post-title post-title"><a href="/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/"
+                title="link to vue和react diff 算法对比">vue和react diff 算法对比</a></h2>
+        <p class="excerpt">react diff 算法当调用 React 的 render()方法时，会创建一棵由 React 元素组成的树。在下一次 State 或 Props 更新时，相同的 render()方法会返回一棵不同的树。React 会应用 Diffing 算法来高效的比较两棵树，算法过程如下：  当根节点为【不同类型】的元素时，React 会拆卸原有的树，销毁对应的 DOM 节点和关联的 State、卸载子组件，最后再创建新的树。  当比对两个【相同类型的 DOM 元素】时，会保留 DOM 节点，【仅...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-04-12 00:00:00 +0800"
+                class="post-list__meta--date date">2021-04-12</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#vue2.0,#vue3.0,#react</span><a class="btn-border-small"
+                href=/2021/04/vue%E5%92%8Creact-diff-%E7%AE%97%E6%B3%95%E5%AF%B9%E6%AF%94/>继续阅读</a></div>
+    </div>
+    
+
+    
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">更早的文章</span>
+        <h2 class="post-list__post-title post-title"><a href="/2021/04/%E7%94%B5%E5%AD%90%E4%B9%A6%E7%B1%8D%E5%BD%95/"
+                title="link to 一些电子书籍链接记录">一些电子书籍链接记录</a></h2>
+        <p class="excerpt">一些电子书籍链接记录:  代码大全 2 中文版(完整清晰版).pdf 密码: lhpv  javascript 设计模式与开发实战.pdf（曾探） 密码: pd49  深入 react 技术栈.pdf 密码: 7o6b&hellip;</p>
+        <div class="post-list__meta"><time datetime="2021-04-06 00:00:00 +0800"
+                class="post-list__meta--date date">2021-04-06</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#电子书籍</span><a class="btn-border-small"
+                href=/2021/04/%E7%94%B5%E5%AD%90%E4%B9%A6%E7%B1%8D%E5%BD%95/>继续阅读</a></div>
+    </div>
+    
+</section>
+<!-- <section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2021/04/vue-computed-%E5%B1%9E%E6%80%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%A4%9F%E5%9C%A8%E4%BE%9D%E8%B5%96%E6%94%B9%E5%8F%98%E7%9A%84%E6%97%B6%E5%80%99-%E8%87%AA%E5%B7%B1%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96/";
+        this.page.identifier = "/2021/04/vue-computed-%E5%B1%9E%E6%80%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E5%A4%9F%E5%9C%A8%E4%BE%9D%E8%B5%96%E6%94%B9%E5%8F%98%E7%9A%84%E6%97%B6%E5%80%99-%E8%87%AA%E5%B7%B1%E5%8F%91%E7%94%9F%E5%8F%98%E5%8C%96/";
+    };
+
+    var disqus_shortname = 'vno-jekyll';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+ -->
+      <section class="footer">
+    <footer>
+        <span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享
+                署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2022-04-13 生成，感谢
+            <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 jessietang 创建，采用 <a
+                href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a
+                href="https://github.com/jessietang/jessietang.github.io">本站源码</a> - &copy;
+            2022</span>
+    </footer>
+</section>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

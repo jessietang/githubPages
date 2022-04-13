@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>RN运行报错日志记录集</title>
+  <meta name="description" content="整理了这两年开发 rn 过程中，记录了的一些，遇到的运行相关的问题。">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="RN运行报错日志记录集">
+  <meta name="twitter:description" content="整理了这两年开发 rn 过程中，记录了的一些，遇到的运行相关的问题。">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="RN运行报错日志记录集">
+  <meta property="og:description" content="整理了这两年开发 rn 过程中，记录了的一些，遇到的运行相关的问题。">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2020/04/RN%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E9%9B%86/">
+  <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+  </span>
+
+  <header class="panel-cover panel-cover--collapsed">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+
+        <a href="/blog/index.html" title="前往 唐静 的主页" class="blog-button"><img
+            src="/assets/images/avatar.jpg" width="80" alt="唐静 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/blog/index.html"
+            title="link to homepage for 唐静" class="blog-button">唐静</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">tangjing's blogs.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">6年前端。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/blog/index.html" title="Visit blog"
+                    class="blog-button">随笔</a></li>
+                
+                <li class="navigation__item"><a href="/about" target="_blank"
+                    title="A button">个人简历</a></li>
+                
+                <li class="navigation__item"><a href="/categories.html" target="_blank"
+                    title="A button">分类</a></li>
+                
+                <li class="navigation__item"><a href="https://github.com/jessietang" target="_blank"
+                    title="My Projects">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/onevcat" title="@onevcat 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/onevcat" title="@onevcat 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/onevcat" title="@onevcat" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/107108267983477358170" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:onev@onevcat.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2020-04-26 00:00:00 +0800" itemprop="datePublished"
+        class="post-meta__date date">2020-04-26</time> &nbsp;&nbsp;&nbsp;
+      <span class="post-meta__tags tags"></span>
+      <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
+    </div>
+    <h1 class="post-title">RN运行报错日志记录集</h1>
+  </header>
+
+  <section class="post">
+    <p>整理了这两年开发 rn 过程中，记录了的一些，遇到的运行相关的问题。</p>
+
+<ol>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=56f25e41d1ae0fef7581a03c22b5cd92">友盟 iOS13 报错([_LSDefaults sharedInstance] unrecognized selector sent to class)</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=a6d500b937230779049524bce2e7c7db">Could not launch “XXX” Domain IDEDebugSessionErrorDomain</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=e916ffe40a7d16396b165d2e4e8594bb">Cannot fit requested classes in a single dex file</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=e6349dd07bbd289330901d1f15df14ee">react-native android 报错找不到相应模块解决办法</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=7cd87f43a91251515030424e4035ce38">ios 连接真机调试的时候打不开 debug 模式</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=2afccb797f0ba6ebad16c0faf7247d47">RN0.57 打包报错，Execution failed for task ‘xxx，verifyReleaseResources’</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=b199fecaa64b9ae5a7862abdaa6b6e0d">执行 react-native run-android 报错</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=d242c87f075b8762ccec330c864cbce8">FileProvider 冲突报错(现有的代码拉下来就会有这个问题，因为加了下载更新相关的代码导致)</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=be218e6ad56f78e601ee9359d32800bd">react native android studio 报错 R 文件丢失</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=ca07faaf259887bc7eb2ae1bee6efc63">IOS 打包报重复引用问题</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=1689f0ac9b781cf468b9700cc0df5c6a">react native android4.4 开启 debug 模式无效问题</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=3e2bbcfda4dfddab9dbc511603e74e98">react-native run-android 运行完，开启 debug 模式 metro bundle 报错</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=7a10ba38769f1c7546249b7a4c699a25">react-native run-android 报错</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=f9c44683ee4ba75c8f003f3a81c580ac">React Native 日常报错 ‘config.h’ file not found</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=b96388a5ccc0b33f6107d4499c2fd0ae">android 编译报错 Could not find support-compat.aar (com.android.support:support-compat:27.1.0)</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=5654116592cfacf14fd4d52e3002b6e1">android 报错：Only fullscreen activities can request orientation</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=3c8d223d1ad0dc808c53e07517d13855">React Native 报错：Error recordAsync Expected a Camera component</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=830c4c077ee361a0575ad2361cc6de8b">react-native run-android 运行报错说找不到设备（权限问题）</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=7392c313d2ab61c9d71bf227946b881e">打包常见错误</a></p>
+  </li>
+  <li>
+    <p><a href="http://note.youdao.com/noteshare?id=f0ccc6a63e9fb22e1ba0bdde8ed18da9">安装启动遇到的问题</a></p>
+  </li>
+  <li>
+    <p>android 真机运行，报错找不到 bundle.js 文件，解决办法：(这个不是最好的解决办法，具体的我还有点记不太清了)
+Unable to load script from assets ‘index.android.bundle’ ？
+解决办法：
+在 android\app\src\main\下新建 assets 文件夹，然后执行：
+react-native bundle –platform android –dev false –entry-file index.js –bundle-output android/app/src/main/assets/index.android.bundle –assets-dest android/app/src/main/res
+会在 assets 下面生成 index.android.bundle 和 index.android.bundle.meta 文件
+最后重新运行：react-native run-android
+就可以了。</p>
+  </li>
+  <li>
+    <p><a href="https://reactnative.cn/docs/0.51/running-on-device-android.html">android 真机运行可以了，开启 remote debug 调试报错</a>
+运行:
+<code class="language-plaintext highlighter-rouge">adb reverse tcp:8081 tcp:8081</code></p>
+  </li>
+</ol>
+
+  </section>
+</article>
+
+<section class="read-more">
+    
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">最近的文章</span>
+        <h2 class="post-list__post-title post-title"><a href="/2020/07/mac%E4%B8%8B%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEadb%E7%8E%AF%E5%A2%83/"
+                title="link to mac下全局配置adb环境">mac下全局配置adb环境</a></h2>
+        <p class="excerpt">前言：adb 的全称为 Android Debug Bridge，就是起到调试桥的作用。通过 adb 我们可以在 IDE 中通过 DDMS 来调试 Android 程序，其实也就是 debug 工具。但是我们在 MAC 下安装完 JDK 和 Android studio 以后，我们在命令行执行这个命令，会提示这个错误：adb: command not foundAndroid adb 环境设置  进入当前用户 home 目录打开 terminal 终端，默认就是 home 根目录。如果不确...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2020-07-01 00:00:00 +0800"
+                class="post-list__meta--date date">2020-07-01</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#mac,#adb2</span><a class="btn-border-small"
+                href=/2020/07/mac%E4%B8%8B%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AEadb%E7%8E%AF%E5%A2%83/>继续阅读</a></div>
+    </div>
+    
+
+    
+</section>
+<!-- <section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2020/04/RN%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E9%9B%86/";
+        this.page.identifier = "/2020/04/RN%E8%BF%90%E8%A1%8C%E6%8A%A5%E9%94%99%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E9%9B%86/";
+    };
+
+    var disqus_shortname = 'vno-jekyll';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+ -->
+      <section class="footer">
+    <footer>
+        <span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享
+                署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2022-04-13 生成，感谢
+            <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 jessietang 创建，采用 <a
+                href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a
+                href="https://github.com/jessietang/jessietang.github.io">本站源码</a> - &copy;
+            2022</span>
+    </footer>
+</section>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

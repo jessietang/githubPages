@@ -7,8 +7,8 @@ creator: jessietang
 
 url: "http://vno.onevcat.com"
 
-# permalink: /:year/:month/:title/
-permalink: /:year/:month/:day/:title
+permalink: /:year/:month/:title/
+# permalink: /:year/:month/:day/:title
 
 # Format
 highlighter: rouge
