@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>bind、call、apply函数的区别及几种常见用法</title>
+  <meta name="description" content="讲区别之前，先讲一下三者的共同点：      都是用来改变函数的this对象的指向的。    第一个参数都是this要指向的对象。    都可以利用后续参数传参。  ">
+  <meta name="author" content="Wei Wang">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="bind、call、apply函数的区别及几种常见用法">
+  <meta name="twitter:description" content="讲区别之前，先讲一下三者的共同点：      都是用来改变函数的this对象的指向的。    第一个参数都是this要指向的对象。    都可以利用后续参数传参。  ">
+  
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="bind、call、apply函数的区别及几种常见用法">
+  <meta property="og:description" content="讲区别之前，先讲一下三者的共同点：      都是用来改变函数的this对象的指向的。    第一个参数都是this要指向的对象。    都可以利用后续参数传参。  ">
+  
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  <link href="/assets/images/favicon.png" rel="shortcut icon" type="image/png">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="http://localhost:4000/2022/04/12/bind-call-apply%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95">
+  <link rel="alternate" type="application/rss+xml" title="唐静" href="http://localhost:4000/feed.xml">
+  
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+  
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+    <i class="fa fa-list btn-mobile-menu__icon"></i>
+    <i class="fa fa-angle-up btn-mobile-close__icon hidden"></i>
+  </span>
+
+  <header class="panel-cover panel-cover--collapsed">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+
+        <a href="/blog/index.html" title="前往 唐静 的主页" class="blog-button"><img
+            src="/assets/images/avatar.jpg" width="80" alt="唐静 logo" class="panel-cover__logo logo" /></a>
+        <h1 class="panel-cover__title panel-title"><a href="/blog/index.html"
+            title="link to homepage for 唐静" class="blog-button">唐静</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">tangjing's blogs.</span>
+        
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description">6年前端。</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+
+        
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/blog/index.html" title="Visit blog"
+                    class="blog-button">随笔</a></li>
+                
+                <li class="navigation__item"><a href="/about" target="_blank"
+                    title="A button">个人简历</a></li>
+                
+                <li class="navigation__item"><a href="/categories.html" target="_blank"
+                    title="A button">分类</a></li>
+                
+                <li class="navigation__item"><a href="https://github.com/jessietang" target="_blank"
+                    title="My Projects">Projects</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+
+          <div><nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+  
+  <!-- Weibo -->
+  <li class="navigation__item">
+    <a href="http://weibo.com/onevcat" title="@onevcat 的微博" target="_blank">
+      <i class='social fa fa-weibo'></i>
+      <span class="label">Weibo</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Github -->
+  <li class="navigation__item">
+    <a href="https://github.com/onevcat" title="@onevcat 的 Github" target="_blank">
+      <i class='social fa fa-github'></i>
+      <span class="label">Github</span>
+    </a>
+  </li>
+  
+  
+  
+  <!-- Twitter -->
+  <li class="navigation__item">
+    <a href="http://twitter.com/onevcat" title="@onevcat" target="_blank">
+      <i class='social fa fa-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+  
+
+  
+  <!-- Google Plus -->
+  <li class="navigation__item">
+    <a href="https://plus.google.com/107108267983477358170" rel="author" title="Google+" target="_blank">
+      <i class='social fa fa-google-plus-square'></i>
+      <span class="label">Google Plus</span>
+    </a>
+  </li>
+  
+
+  <!-- RSS -->
+  <li class="navigation__item">
+    <a href="/feed.xml" rel="author" title="RSS" target="_blank">
+      <i class='social fa fa-rss'></i>
+      <span class="label">RSS</span>
+    </a>
+  </li>
+
+  
+  <!-- Email -->
+  <li class="navigation__item">
+    <a href="mailto:onev@onevcat.com" title="Contact me">
+      <i class='social fa fa-envelope'></i>
+      <span class="label">Email</span>
+    </a>
+  </li>
+  
+
+  </ul>
+</nav>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="panel-cover--overlay cover-red"></div>
+    
+  </div>
+</header>
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2022-04-12 00:00:00 +0800" itemprop="datePublished"
+        class="post-meta__date date">2022-04-12</time> &nbsp;&nbsp;&nbsp;
+      <span class="post-meta__tags tags">#bind,#call,#apply</span>
+      <a href="/blog/index.html" style="font-size: 12px;float:right;color:#666">返回随笔列表 </a>
+    </div>
+    <h1 class="post-title">bind、call、apply函数的区别及几种常见用法</h1>
+  </header>
+
+  <section class="post">
+    <h4 id="讲区别之前先讲一下三者的共同点">讲区别之前，先讲一下三者的共同点：</h4>
+<blockquote>
+  <ol>
+    <li>都是用来改变函数的this对象的指向的。</li>
+    <li>第一个参数都是this要指向的对象。</li>
+    <li>都可以利用后续参数传参。</li>
+  </ol>
+</blockquote>
+
+<h4 id="三者的区别">三者的区别：</h4>
+<blockquote>
+  <ol>
+    <li>call/apply都是对函数的直接调用。二者传参有区别。 <br /> call(this,arg1,arg2,…)  /  apply(this,[arg1,arg2,…])</li>
+    <li>bind函数返回的还是一个函数。【后面写一个bind函数的实现】<br /> bind(thisArgs, arg1, arg2, …)</li>
+  </ol>
+</blockquote>
+
+<p> </p>
+
+<h4 id="1-先来说说bind函数">1. 先来说说bind函数</h4>
+
+<h4 id="bind函数的几种常见用法">bind函数的几种常见用法：</h4>
+
+<h5 id="1-偏函数使一个函数拥有预设的初始参数">1. 偏函数。使一个函数拥有预设的初始参数。</h5>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x+y</span><span class="dl">'</span><span class="p">,</span> <span class="nx">x</span><span class="o">+</span><span class="nx">y</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">add1</span> <span class="o">=</span> <span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// x+y 3</span>
+
+<span class="kd">var</span> <span class="nx">add2</span> <span class="o">=</span> <span class="nx">add</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="nx">add2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// x+y 100+1 = 101  第二个参数2无效</span>
+</code></pre></div></div>
+
+<h5 id="2-改变this指向">2. 改变this指向</h5>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 在默认情况下，使用 window.setTimeout() 时，this 关键字会指向 window （或 global）对象。</span>
+<span class="c1">// 当类的方法中需要 this 指向类的实例时，你可能需要显式地把 this 绑定到回调函数，就不会丢失该实例的引用。</span>
+<span class="kd">function</span> <span class="nx">Test</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">}</span>
+<span class="nx">Test</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">boom</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">declare</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">),</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">Test</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">declare</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="k">this</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Test</span><span class="p">()</span>
+<span class="nx">test</span><span class="p">.</span><span class="nx">boom</span><span class="p">()</span> <span class="c1">// 1 Test{x: 1}</span>
+</code></pre></div></div>
+
+<h4 id="来实现一个简易的bind函数需要注意的是bind函数返回的还是一个函数">来实现一个简易的bind函数，需要注意的是，bind函数返回的还是一个函数：</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 简易实现</span>
+<span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">myBind</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span>
+    <span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// 把当前函数(调用myBind方法的函数)的this，指向myBind的第一个参数对象的this</span>
+        <span class="nb">self</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">context</span><span class="p">)</span>
+    <span class="p">}</span>
+ <span class="p">}</span>
+
+ <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="na">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+ <span class="kd">var</span> <span class="nx">fun</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">)</span>
+ <span class="p">}.</span><span class="nx">myBind</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span>
+ <span class="nx">fun</span><span class="p">()</span> <span class="c1">// 1</span>
+
+</code></pre></div></div>
+
+  </section>
+</article>
+
+<section class="read-more">
+    
+
+    
+    
+    <div class="read-more-item">
+        <span class="read-more-item-dim">更早的文章</span>
+        <h2 class="post-list__post-title post-title"><a href="/2022/04/12/js%E4%B8%ADthis%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98"
+                title="link to js中的this指向问题">js中的this指向问题</a></h2>
+        <p class="excerpt">先说结论。总结的规律：      普通函数。普通函数体内的this对象，指向调用该函数时候的对象的this。严格模式下（设置’use strict’），this指向undefined。    箭头函数。箭头函数体内的this对象，指向该函数所在的作用域（这里的作用域就简单理解成一个函数吧，虽然不太准确）指向的对象。即使call()、apply()、bind()方法也不能改变箭头函数ths的指向。    延时函数setTimeout内部的回调函数（普通匿名函数）的this指向全局对象wind...&hellip;</p>
+        <div class="post-list__meta"><time datetime="2022-04-12 00:00:00 +0800"
+                class="post-list__meta--date date">2022-04-12</time> &nbsp;&nbsp; <span
+                class="post-list__meta--tags tags">#this指向</span><a class="btn-border-small"
+                href=/2022/04/12/js%E4%B8%ADthis%E6%8C%87%E5%90%91%E9%97%AE%E9%A2%98>继续阅读</a></div>
+    </div>
+    
+</section>
+<!-- <section class="post-comments">
+  
+    <div id="disqus_thread"></div>
+    <script>
+    
+    var disqus_config = function () {
+        this.page.url = "http://localhost:4000/2022/04/12/bind-call-apply%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95";
+        this.page.identifier = "/2022/04/12/bind-call-apply%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95";
+    };
+
+    var disqus_shortname = 'vno-jekyll';
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>要查看<a href="http://disqus.com/?ref_noscript"> Disqus </a>评论，请启用 JavaScript</noscript>
+    
+  
+  
+  
+  
+</section>
+ -->
+      <section class="footer">
+    <footer>
+        <span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享
+                署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2022-04-13 生成，感谢
+            <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
+        <span class="footer__copyright">本站由 jessietang 创建，采用 <a
+                href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a
+                href="https://github.com/jessietang/jessietang.github.io">本站源码</a> - &copy;
+            2022</span>
+    </footer>
+</section>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script type="text/javascript" src="/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

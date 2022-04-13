@@ -1,0 +1,56 @@
+I"�<h4 id="讲区别之前先讲一下三者的共同点">讲区别之前，先讲一下三者的共同点：</h4>
+<blockquote>
+  <ol>
+    <li>都是用来改变函数的this对象的指向的。</li>
+    <li>第一个参数都是this要指向的对象。</li>
+    <li>都可以利用后续参数传参。</li>
+  </ol>
+</blockquote>
+
+<h4 id="三者的区别">三者的区别：</h4>
+<blockquote>
+  <ol>
+    <li>call/apply都是对函数的直接调用。二者传参有区别。<br /> call(this,arg1,arg2,…)  /  apply(this,[arg1,arg2,…])</li>
+    <li>bind函数返回的还是一个函数。bind(thisArgs, arg1, arg2, …) 【后面写一个bind函数的实现】</li>
+  </ol>
+</blockquote>
+
+<p> </p>
+
+<h4 id="1-先来说说bind函数">1. 先来说说bind函数</h4>
+
+<p>bind函数的几种常见用法：</p>
+
+<ol>
+  <li>偏函数。使一个函数拥有预设的初始参数。</li>
+</ol>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">add</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">x+y</span><span class="dl">'</span><span class="p">,</span> <span class="nx">x</span><span class="o">+</span><span class="nx">y</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">add1</span> <span class="o">=</span> <span class="nx">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// x+y 3</span>
+
+<span class="kd">var</span> <span class="nx">add2</span> <span class="o">=</span> <span class="nx">add</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="nx">add2</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c1">// x+y 100+1 = 101  第二个参数2无效</span>
+</code></pre></div></div>
+
+<ol>
+  <li>改变this指向</li>
+</ol>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 在默认情况下，使用 window.setTimeout() 时，this 关键字会指向 window （或 global）对象。</span>
+<span class="c1">// 当类的方法中需要 this 指向类的实例时，你可能需要显式地把 this 绑定到回调函数，就不会丢失该实例的引用。</span>
+<span class="kd">function</span> <span class="nx">Test</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">}</span>
+<span class="nx">Test</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">boom</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">declare</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">),</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">Test</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">declare</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="k">this</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Test</span><span class="p">()</span>
+<span class="nx">test</span><span class="p">.</span><span class="nx">boom</span><span class="p">()</span> <span class="c1">// 1 Test{x: 1}</span>
+</code></pre></div></div>
+
+:ET
