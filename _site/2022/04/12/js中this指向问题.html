@@ -355,6 +355,25 @@
 <span class="c1">// 这里的箭头函数是printX，他所在的作用域是函数a，函数a指向的对象是p,</span>
 <span class="c1">// 所以这里的this指向的是对象p</span>
 <span class="nx">p</span><span class="p">.</span><span class="nx">a</span><span class="p">()</span> <span class="c1">// undefined Object{a:...}</span>
+
+</code></pre></div></div>
+
+<h3 id="9-实例9">9. 实例9：</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">fullname</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">a</span><span class="dl">"</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">fullname</span><span class="p">:</span> <span class="dl">"</span><span class="s2">b</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">prop</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">fullname</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">getFullname</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">fullname</span><span class="p">;</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">prop</span><span class="p">.</span><span class="nx">getFullname</span><span class="p">());</span> 
+<span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">prop</span><span class="p">.</span><span class="nx">getFullname</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">test</span><span class="p">());</span> <span class="c1">// 输出结果是： a  a</span>
+
 </code></pre></div></div>
 
 <h3 id="but-我遇到了用上述结论无法解释的问题在延时函数内部的回调函数里面的this指向问题可能还需要我再想想怎么去解释">but, 我遇到了用上述结论无法解释的问题。在延时函数内部的回调函数里面的this指向问题。可能还需要我再想想，怎么去解释。</h3>

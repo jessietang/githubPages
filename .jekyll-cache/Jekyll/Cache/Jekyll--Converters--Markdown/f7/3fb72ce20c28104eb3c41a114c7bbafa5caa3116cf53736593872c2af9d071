@@ -1,7 +1,0 @@
-I"�<h3 id="先说结论">先说结论。</h3>
-<h4 id="总结的规律">总结的规律：</h4>
-<ol>
-  <li>普通函数。普通函数体内的this对象，指向<strong>调用该函数时候的对象的this</strong>。严格模式下（设置’use strict’），this指向undefined。</li>
-  <li>箭头函数。箭头函数体内的this对象，指向<strong>该函数所在的作用域指向的对象</strong>。即使call()、apply()、bind()方法也不能改变箭头函数ths的指向。</li>
-</ol>
-:ET

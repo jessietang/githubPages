@@ -1,8 +1,9 @@
-I"�j<h3 id="先说结论">先说结论。</h3>
+I"s<h3 id="先说结论">先说结论。</h3>
 <h4 id="总结的规律">总结的规律：</h4>
 <ol>
   <li>普通函数。普通函数体内的this对象，指向<strong>调用该函数时候的对象的this</strong>。严格模式下（设置’use strict’），this指向undefined。</li>
-  <li>箭头函数。箭头函数体内的this对象，指向<strong>该函数所在的作用域指向的对象</strong>。即使call()、apply()、bind()方法也不能改变箭头函数ths的指向。</li>
+  <li>箭头函数。箭头函数体内的this对象，指向<strong>该函数所在的作用域（这里的作用域就简单理解成一个函数吧，虽然不太准确）指向的对象</strong>。即使call()、apply()、bind()方法也不能改变箭头函数ths的指向。</li>
+  <li>延时函数setTimeout内部的回调函数（普通匿名函数）的this指向全局对象window。</li>
 </ol>
 
 <h4 id="实例辅证以下都是在非严格模式下">实例辅证（以下都是在非严格模式下）</h4>
@@ -186,9 +187,28 @@
 <span class="c1">// 这里的箭头函数是printX，他所在的作用域是函数a，函数a指向的对象是p,</span>
 <span class="c1">// 所以这里的this指向的是对象p</span>
 <span class="nx">p</span><span class="p">.</span><span class="nx">a</span><span class="p">()</span> <span class="c1">// undefined Object{a:...}</span>
+
 </code></pre></div></div>
 
-<h3 id="but-我遇到一个用上述结论无法解释的问题在延时函数内部的回调函数里面的this指向问题可能还需要我再想想怎么去解释">but, 我遇到一个用上述结论无法解释的问题。在延时函数内部的回调函数里面的this指向问题。可能还需要我再想想，怎么去解释。</h3>
+<h3 id="9-实例9">9. 实例9：</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">fullname</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">a</span><span class="dl">"</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">fullname</span><span class="p">:</span> <span class="dl">"</span><span class="s2">b</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">prop</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">fullname</span><span class="p">:</span> <span class="dl">"</span><span class="s2">c</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">getFullname</span><span class="p">:</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">fullname</span><span class="p">;</span>
+    <span class="p">},</span>
+  <span class="p">},</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">obj</span><span class="p">.</span><span class="nx">prop</span><span class="p">.</span><span class="nx">getFullname</span><span class="p">());</span> 
+<span class="kd">var</span> <span class="nx">test</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">prop</span><span class="p">.</span><span class="nx">getFullname</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">test</span><span class="p">());</span> <span class="c1">// 输出结果是： a  a</span>
+
+</code></pre></div></div>
+
+<h3 id="but-我遇到了用上述结论无法解释的问题在延时函数内部的回调函数里面的this指向问题可能还需要我再想想怎么去解释">but, 我遇到了用上述结论无法解释的问题。在延时函数内部的回调函数里面的this指向问题。可能还需要我再想想，怎么去解释。</h3>
 <h3 id="先上例子">先上例子：</h3>
 
 <h4 id="1-延时函数内部的回调函数普通匿名函数的this指向全局对象window">1. 延时函数内部的回调函数（普通匿名函数）的this指向全局对象window</h4>
@@ -236,7 +256,6 @@
 <span class="nx">test</span><span class="p">()</span> <span class="c1">// 1 window{...}</span>
 
 </code></pre></div></div>
-<p>额，上面这俩，等我再想想，怎么合理的去解释结果。。。</p>
 
 <h4 id="4-再看下面这俩我也无法解释得到的结果">4. 再看下面这俩，我也无法解释得到的结果：</h4>
 
@@ -259,5 +278,7 @@
 <span class="kd">let</span> <span class="nx">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Person</span><span class="p">()</span> <span class="c1">// 1 Person{x: 1, ...}</span>
 
 </code></pre></div></div>
+
+<p>额，上面这俩，等我再想想，怎么合理的去解释结果。。。</p>
 
 :ET
