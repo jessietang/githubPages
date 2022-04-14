@@ -26,7 +26,7 @@ nav:
   
   - { title: 个人简历, description: A button, url: "/about" }
   # - { title: tags, description: A button, url: "/tags" }
-  - { title: 分类, description: A button, url: "/categories.html" }
+  - { title: 分类, description: A button, url: "/categories" }
   - {
       title: Projects,
       description: My Projects,
