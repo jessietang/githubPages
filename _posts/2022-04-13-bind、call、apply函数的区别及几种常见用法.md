@@ -180,3 +180,6 @@ function MyFun(){
  console.log(myFun) // MyFun{x: 1, fun1: f, emit: f}  myFun对象上，有EasyEmitter里面的方法了
 
 ```
+
+
+测试。。。。。
