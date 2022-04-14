@@ -168,211 +168,221 @@
   <section class="post">
     <h3 id="实现代码如下">实现代码如下：</h3>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class MyPromise{
-    constructor(executor) {
-        this.status = "pending";     // 初始化状态为pending
-        this.value = undefined;      // 初始化返回的成功的结果或者失败的原因
-        this.resolveArr = [];        // 初始化then中成功的方法
-        this.rejectArr = [];         // 初始化then中失败的方法
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">MyPromise</span><span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">executor</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">pending</span><span class="dl">"</span><span class="p">;</span>     <span class="c1">// 初始化状态为pending</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kc">undefined</span><span class="p">;</span>      <span class="c1">// 初始化返回的成功的结果或者失败的原因</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">resolveArr</span> <span class="o">=</span> <span class="p">[];</span>        <span class="c1">// 初始化then中成功的方法</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">rejectArr</span> <span class="o">=</span> <span class="p">[];</span>         <span class="c1">// 初始化then中失败的方法</span>
 
 
-        // 定义change方法，因为我们发现好像resolve和reject方法共同的地方还挺多
-        let change = (status, value) =&gt; {
-            if(this.status !== "pending") return;  // 状态一旦改变，就不会再变
-            this.status = status;
-            this.value = value;
+        <span class="c1">// 定义change方法，因为我们发现好像resolve和reject方法共同的地方还挺多</span>
+        <span class="kd">let</span> <span class="nx">change</span> <span class="o">=</span> <span class="p">(</span><span class="nx">status</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">pending</span><span class="dl">"</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>  <span class="c1">// 状态一旦改变，就不会再变</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">status</span> <span class="o">=</span> <span class="nx">status</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
 
-            // 根据状态判断要执行成功的方法或失败的方法
-            let fnArr = status === "resolved" ? this.resolveArr : this.rejectArr;
+            <span class="c1">// 根据状态判断要执行成功的方法或失败的方法</span>
+            <span class="kd">let</span> <span class="nx">fnArr</span> <span class="o">=</span> <span class="nx">status</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">resolved</span><span class="dl">"</span> <span class="p">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">resolveArr</span> <span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">rejectArr</span><span class="p">;</span>
 
-            // fnArr中的方法依次执行
-            fnArr.forEach(item =&gt; {
-                if(typeof item !== "function") return;
-                item(this. value);
-            })
-        }
-        // 这里是resolve方法，成功后执行，将状态改变为resolved，并且将结果返回
-        let resolve = result =&gt; {
-            // 如果数组中有值，则立即改变状态
-            if(this.resolveArr.length &gt; 0) {
-                change("resolved", result)
-            }
-            // 如果没值，则延后改变状态
-            let timer = setTimeout(_ =&gt; {
-                change("resolved", result)
-                clearTimeout(timer);
-            }, 0)
-        }
+            <span class="c1">// fnArr中的方法依次执行</span>
+            <span class="nx">fnArr</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">item</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+                <span class="nx">item</span><span class="p">(</span><span class="k">this</span><span class="p">.</span> <span class="nx">value</span><span class="p">);</span>
+            <span class="p">})</span>
+        <span class="p">}</span>
+        <span class="c1">// 这里是resolve方法，成功后执行，将状态改变为resolved，并且将结果返回</span>
+        <span class="kd">let</span> <span class="nx">resolve</span> <span class="o">=</span> <span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="c1">// 如果数组中有值，则立即改变状态</span>
+            <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">resolveArr</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">change</span><span class="p">(</span><span class="dl">"</span><span class="s2">resolved</span><span class="dl">"</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="c1">// 如果没值，则延后改变状态</span>
+            <span class="kd">let</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">_</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="nx">change</span><span class="p">(</span><span class="dl">"</span><span class="s2">resolved</span><span class="dl">"</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+                <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+            <span class="p">},</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">}</span>
 
-        // 这里是reject方法，异常时执行，状态改为rejected，并且将失败的原因返回
-        let reject = reason =&gt; {
-        // 如果数组中有值，则立即改变状态
-            if(this.rejectArr.length &gt; 0) {
-                change("rejected", reason);
-            }
-            // 如果没值，则延后改变状态
-            let timer = setTimeout(_ =&gt; {
-                change("rejected", reason);
-                clearTimeout(timer);
-            }, 0)
-        }
+        <span class="c1">// 这里是reject方法，异常时执行，状态改为rejected，并且将失败的原因返回</span>
+        <span class="kd">let</span> <span class="nx">reject</span> <span class="o">=</span> <span class="nx">reason</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// 如果数组中有值，则立即改变状态</span>
+            <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">rejectArr</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">change</span><span class="p">(</span><span class="dl">"</span><span class="s2">rejected</span><span class="dl">"</span><span class="p">,</span> <span class="nx">reason</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="c1">// 如果没值，则延后改变状态</span>
+            <span class="kd">let</span> <span class="nx">timer</span> <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">_</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="nx">change</span><span class="p">(</span><span class="dl">"</span><span class="s2">rejected</span><span class="dl">"</span><span class="p">,</span> <span class="nx">reason</span><span class="p">);</span>
+                <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+            <span class="p">},</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">}</span>
 
-        // try、catch捕获异常，如果错误，执行reject方法
-        try {
-            executor(resolve, reject)
-        } catch(err) {
-            reject(err)
-        }
-    }
+        <span class="c1">// try、catch捕获异常，如果错误，执行reject方法</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nx">executor</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-    then(resolveFn, rejectFn) {
-    // 如果传入的两个参数不是函数，则直接执行返回结果
+    <span class="nx">then</span><span class="p">(</span><span class="nx">resolveFn</span><span class="p">,</span> <span class="nx">rejectFn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// 如果传入的两个参数不是函数，则直接执行返回结果</span>
 
-        if(typeof resolveFn !== "function") {
-            resolveFn = result =&gt; {
-                return result;
-            }
-        }
+        <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">resolveFn</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">resolveFn</span> <span class="o">=</span> <span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-        if(typeof rejectFn !== "function") {
-            rejectFn = reason =&gt; {
-                return MyPromise.reject(reason);
-            }
-        }
+        <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">rejectFn</span> <span class="o">!==</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">rejectFn</span> <span class="o">=</span> <span class="nx">reason</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">MyPromise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">reason</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-        return new MyPromise((resolve, reject) =&gt; {
-            this.resolveArr.push(result =&gt; {
-                try {
-                    let x = resolveFn(result);  // 获取执行成功方法返回的结果
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">resolveArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="k">try</span> <span class="p">{</span>
+                    <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">resolveFn</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>  <span class="c1">// 获取执行成功方法返回的结果</span>
 
-                    // 如果x是一个promise实例，则继续调用then方法 ==&gt; then链的实现
-                    if(x instanceof MyPromise) {
-                        x.then(resolve, reject)
-                        return;
-                    }
+                    <span class="c1">// 如果x是一个promise实例，则继续调用then方法 ==&gt; then链的实现</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="k">instanceof</span> <span class="nx">MyPromise</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">x</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span>
+                        <span class="k">return</span><span class="p">;</span>
+                    <span class="p">}</span>
 
-                    // 不是promise实例，直接执行成功的方法
-                    resolve(x);
-                } catch(err) {
-                    reject(err)
-                }
-            })
+                    <span class="c1">// 不是promise实例，直接执行成功的方法</span>
+                    <span class="nx">resolve</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">})</span>
 
-            this.rejectArr.push(reason =&gt; {
-                try {
-                    let x = rejectFn(reason);
+            <span class="k">this</span><span class="p">.</span><span class="nx">rejectArr</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">reason</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="k">try</span> <span class="p">{</span>
+                    <span class="kd">let</span> <span class="nx">x</span> <span class="o">=</span> <span class="nx">rejectFn</span><span class="p">(</span><span class="nx">reason</span><span class="p">);</span>
 
-                    if(x instanceof MyPromise) {
-                        x.then(resolve, reject)
-                        return;
-                    }
+                    <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="k">instanceof</span> <span class="nx">MyPromise</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">x</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span>
+                        <span class="k">return</span><span class="p">;</span>
+                    <span class="p">}</span>
 
-                    resolve(x);
-                } catch(err) {
-                    reject(err)
-                }
-            })
-        })
-    }
+                    <span class="nx">resolve</span><span class="p">(</span><span class="nx">x</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">})</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
 
-    catch(rejectFn) {
-        return this.then(null, rejectFn)
-    }
+    <span class="k">catch</span><span class="p">(</span><span class="nx">rejectFn</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">rejectFn</span><span class="p">)</span>
+    <span class="p">}</span>
 
-    static resolve(result) {
-        // 返回新的promise实例，执行promise实例中resolve方法
-        return new MyPromise(resolve =&gt; {
-            resolve(result)
-        })
-    }
+    <span class="kd">static</span> <span class="nx">resolve</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 返回新的promise实例，执行promise实例中resolve方法</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">(</span><span class="nx">resolve</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">resolve</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
 
-    static reject(reason) {
-        // 返回新的promise实例，执行promise实例中reject方法
-        return new MyPromise((_, reject) =&gt; {
-            reject(reason);
-        })
-    }
+    <span class="kd">static</span> <span class="nx">reject</span><span class="p">(</span><span class="nx">reason</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 返回新的promise实例，执行promise实例中reject方法</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">_</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">reject</span><span class="p">(</span><span class="nx">reason</span><span class="p">);</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
 
-    done(resolveFn, rejectFn) {
-        this.then(resolveFn, rejectFn)
-            .catch(reason =&gt; {
-                setTimeout(() =&gt; {
-                    throw reason;
-                }, 0)
-            })
-    }
+    <span class="nx">done</span><span class="p">(</span><span class="nx">resolveFn</span><span class="p">,</span> <span class="nx">rejectFn</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">resolveFn</span><span class="p">,</span> <span class="nx">rejectFn</span><span class="p">)</span>
+            <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">reason</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="nx">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="k">throw</span> <span class="nx">reason</span><span class="p">;</span>
+                <span class="p">},</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="p">})</span>
+    <span class="p">}</span>
 
-    finally(finallyFn) {
-        let P = this.constructor;
-        return this.then(
-            value =&gt; P.resolve(finallyFn()).then(() =&gt; value),
-            reason =&gt; P.reject(finallyFn()).then(() =&gt; reason)
-        )
-    }
+    <span class="k">finally</span><span class="p">(</span><span class="nx">finallyFn</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">P</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="kd">constructor</span><span class="p">;</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span>
+            <span class="nx">value</span> <span class="o">=&gt;</span> <span class="nx">P</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">finallyFn</span><span class="p">()).</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">value</span><span class="p">),</span>
+            <span class="nx">reason</span> <span class="o">=&gt;</span> <span class="nx">P</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">finallyFn</span><span class="p">()).</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="nx">reason</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
 
-    // 接收数组参数
-    static all(promiseList) {
-        // 返回新实例，调用后还可使用then、catch等方法
-        return new MyPromise((resolve, reject) =&gt; {
-            let index = 0,      // 成功次数计数
-                results = [];   // 返回的结果
+    <span class="c1">// 接收promise数组参数</span>
+    <span class="kd">static</span> <span class="nx">all</span><span class="p">(</span><span class="nx">promiseList</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 返回新实例，调用后还可使用then、catch等方法</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>      <span class="c1">// 成功次数计数</span>
+                <span class="nx">results</span> <span class="o">=</span> <span class="p">[];</span>   <span class="c1">// 返回的结果</span>
 
-            for(let i = 0; i &lt; promiseList.length; i++) {
-                let item = promiseList[i];
+            <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">promiseList</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">let</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">promiseList</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 
-                // 如果item不是promise实例
-                if(!(item instanceof MyPromise)) return;
+                <span class="c1">// 如果item不是promise实例</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">item</span> <span class="k">instanceof</span> <span class="nx">MyPromise</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
 
-                item.then(result =&gt; {
-                    index++;
-                    results[i] = result;
-                    if(index === promiseList.length) {
-                        resolve(results);
-                    }
-                }).catch(reason =&gt; {
-                    reject(reason);
-                })
-            }
-        })
-    }
+                <span class="nx">item</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">index</span><span class="o">++</span><span class="p">;</span>
+                    <span class="nx">results</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">result</span><span class="p">;</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">index</span> <span class="o">===</span> <span class="nx">promiseList</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">resolve</span><span class="p">(</span><span class="nx">results</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">reason</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">reject</span><span class="p">(</span><span class="nx">reason</span><span class="p">);</span>
+                <span class="p">})</span>
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
 
-    static race(promiseList) {
-        return new MyPromise((resolve, reject) =&gt; {
-            promiseList.forEach(item =&gt; {
-                if(!(item instanceof MyPromise)) return;
+    <span class="kd">static</span> <span class="nx">race</span><span class="p">(</span><span class="nx">promiseList</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="nx">promiseList</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">item</span> <span class="k">instanceof</span> <span class="nx">MyPromise</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
 
-                item.then(result =&gt; {
-                    resolve(result);
-                }).catch(err =&gt; {
-                    reject(err)
-                })
-            })
-        })
-    }
+                <span class="nx">item</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">resolve</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+                <span class="p">}).</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">reject</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+                <span class="p">})</span>
+            <span class="p">})</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
 
-    static allSettled(promiseList) {
-        return new MyPromise((resolve, reject) =&gt; {
-            let results = [];
+    <span class="c1">// Promise.allSettled()实现。返回所有执行结果，并带有执行结果状态。</span>
+    <span class="kd">static</span> <span class="nx">allSettled</span><span class="p">(</span><span class="nx">promiseList</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+            <span class="kd">let</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">promiseList</span><span class="p">.</span><span class="nx">length</span>
+            <span class="kd">let</span> <span class="nx">promiseResult</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">len</span><span class="p">)</span>
+            <span class="kd">let</span> <span class="nx">promiseCount</span> <span class="o">=</span> <span class="mi">0</span>
 
-            for(let i = 0; i &lt; promiseList.length; i++) {
-                let item = promiseList[i];
+            <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">promiseList</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">let</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">promiseList</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
 
-                if(!(item instanceof MyPromise)) return;
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">item</span> <span class="k">instanceof</span> <span class="nx">MyPromise</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
 
-                item.then(result =&gt; {
-                    results[i] = result;
-                }, reason =&gt; {
-                    results[i] = reason;
-                })
-                resolve(results);
-            }
-        })
-    }
+                <span class="nx">item</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">result</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">promiseCount</span><span class="o">++</span>
+                    <span class="nx">promiseResult</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="na">status</span><span class="p">:</span> <span class="dl">'</span><span class="s1">fullfilled</span><span class="dl">'</span><span class="p">,</span> <span class="na">value</span><span class="p">:</span> <span class="nx">result</span><span class="p">};</span>
+                <span class="p">},</span> <span class="nx">reason</span> <span class="o">=&gt;</span> <span class="p">{</span>
+                    <span class="nx">promiseCount</span>
+                    <span class="nx">promiseResult</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="na">status</span><span class="p">:</span> <span class="dl">'</span><span class="s1">rejected</span><span class="dl">'</span><span class="p">,</span> <span class="nx">reason</span><span class="p">};</span>
+                <span class="p">}).</span><span class="k">finally</span><span class="p">(()</span><span class="o">=&gt;</span><span class="p">{</span>
+                    <span class="c1">// 所有的都执行完了，才返回</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">promiseCount</span> <span class="o">==</span> <span class="nx">len</span><span class="p">){</span>
+                        <span class="nx">resolve</span><span class="p">(</span><span class="nx">promiseResult</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">})</span>
+                
+            <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
 
 
 
 
-}
+<span class="p">}</span>
 </code></pre></div></div>
 
   </section>
