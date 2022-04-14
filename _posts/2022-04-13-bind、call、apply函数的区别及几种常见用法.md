@@ -70,3 +70,113 @@ Function.prototype.myBind = function(context){
  fun() // 1
 
 ```
+
+#### bind函数复杂一点的实现：
+
+```javascript
+ // bind函数复杂一点的实现
+ Function.prototype.myBind = function(){
+     // 这个地方的arguments是myBind这个function的arguments
+     var self = this
+     var context = Array.prototype.shift.call(arguments)
+     var args = [].slice.call(arguments)
+     return function(){
+         // 这个地方的arguments是当前return这个function的arguments
+        self.apply(context, [].concat.call(args, [].slice.call(arguments)))
+     }
+ }
+
+ var obj = {x: 1}
+ var fun = function(m,n){
+     console.log(this.x, m,n)
+ }.myBind(obj,300)
+ fun(100,200,1) // 1 300 100
+```
+
+
+#### 2. 上面的这个bind函数实现，涉及到较多关于call和apply的使用。下面来说一下这俩。
+
+#### call和apply函数的几种常见用法：
+
+##### 1. 改变this指向
+
+```javascript
+var person1 = {
+    name: 'p1',
+    age: 11,
+    sayHello: function(sex){
+        console.log(this.name+'今年'+this.age+'岁，性别：'+sex)
+    }
+}
+
+var person2 = {
+    name: 'p2',
+    age: 22
+}
+
+person1.sayHello.call(person2, '女') // p2今年22岁，性别：女
+```
+
+##### 2. 借用其他对象的方法（这点经常使用，比较常见）
+
+```javascript
+ var funs = []
+
+ const fun1 = function(){console.log('fun1')}
+ const fun2 = function(){console.log('fun2')}
+ const fun3 = function(){console.log('fun3')}
+
+ funs.push(fun1)
+ Array.prototype.push.apply(funs,[fun2])
+ Array.prototype.push.call(funs,fun3)
+ console.log(funs) // [f,f,f]
+
+ const firstFun = [].shift.call(funs) // 把funs里面的第一个踢出来
+ console.log(firstFun) // ƒ (){console.log('fun1')}
+
+ // 输出fun2fun3
+ funs.forEach(i=>{
+     i && i.call && i.call() // call第一个参数不传，非严格模式下，默认指向Window对象
+ })
+
+```
+
+再来一个示例：
+
+```javascript
+  function test(){
+     console.log(arguments);
+     console.log(Object.prototype.toString.call(arguments));
+     var args = [].slice.call(arguments);
+     console.log(args);
+     console.log(Object.prototype.toString.call(args));
+ }
+ test(1,2,3,4)
+
+```
+上面示例输出如下：
+![1.jpg](/assets/images/2204/1.jpg)
+
+&nbsp;
+再来一个项目里面常用的示例：
+
+```javascript
+  function EasyEmitter(){
+    this.emit = function(key,handler){
+       console.log(this.x, key)
+    }
+}
+function MyFun(){
+     this.x = 1;
+     this.fun1 = function(){
+         console.log(this.x)
+     }
+     EasyEmitter.call(this) // 调用了这个，this上面就有EasyEmitter里面的方法了，如: emit方法
+     console.log(this) // MyFun{x: 1, fun1: f, emit: f}  myFun对象上，有EasyEmitter里面的方法了
+     this.emit('ddd',null) // EasyEmitter里面的this，就指向MyFun对象了
+ }
+
+ let myFun = new MyFun()
+ console.log(myFun) // MyFun{x: 1, fun1: f, emit: f}  myFun对象上，有EasyEmitter里面的方法了
+
+```

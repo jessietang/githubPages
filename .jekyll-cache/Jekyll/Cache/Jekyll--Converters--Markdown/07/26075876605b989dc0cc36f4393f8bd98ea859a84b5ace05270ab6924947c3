@@ -1,4 +1,4 @@
-I"�<h4 id="讲区别之前先讲一下三者的共同点">讲区别之前，先讲一下三者的共同点：</h4>
+I"~.<h4 id="讲区别之前先讲一下三者的共同点">讲区别之前，先讲一下三者的共同点：</h4>
 <blockquote>
   <ol>
     <li>都是用来改变函数的this对象的指向的。</li>
@@ -67,4 +67,46 @@
  <span class="nx">fun</span><span class="p">()</span> <span class="c1">// 1</span>
 
 </code></pre></div></div>
+
+<h4 id="bind函数复杂一点的实现">bind函数复杂一点的实现：</h4>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// bind函数复杂一点的实现</span>
+ <span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">myBind</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+     <span class="c1">// 这个地方的arguments是myBind这个function的arguments</span>
+     <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span>
+     <span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">shift</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)</span>
+     <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">[].</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)</span>
+     <span class="k">return</span> <span class="kd">function</span><span class="p">(){</span>
+         <span class="c1">// 这个地方的arguments是当前return这个function的arguments</span>
+        <span class="nb">self</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="p">[].</span><span class="nx">concat</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="p">[].</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">)))</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+
+ <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="na">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+ <span class="kd">var</span> <span class="nx">fun</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">m</span><span class="p">,</span><span class="nx">n</span><span class="p">){</span>
+     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">,</span> <span class="nx">m</span><span class="p">,</span><span class="nx">n</span><span class="p">)</span>
+ <span class="p">}.</span><span class="nx">myBind</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>
+ <span class="nx">fun</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c1">// 1 300 100</span>
+</code></pre></div></div>
+
+<p> </p>
+
+<h4 id="2-上面的这个bind函数实现涉及到较多关于call和apply的使用下面来说一下这俩">2. 上面的这个bind函数实现，涉及到较多关于call和apply的使用。下面来说一下这俩。</h4>
+
+<h4 id="call和apply函数的几种常见用法">call和apply函数的几种常见用法：</h4>
+
+<h5 id="1-改变this指向">1. 改变this指向</h5>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">person1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">p1</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">age</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="na">sayHello</span><span class="p">:</span> <span class="nx">fucntion</span><span class="p">(</span><span class="nx">sex</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="o">+</span><span class="dl">'</span><span class="s1">今年</span><span class="dl">'</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">age</span><span class="o">+</span><span class="dl">'</span><span class="s1">岁，性别：</span><span class="dl">'</span><span class="o">+</span><span class="nx">sex</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h5 id="2-借用其他对象的方法这点经常使用比较常见">2. 借用其他对象的方法（这点经常使用，比较常见）</h5>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code></code></pre></div></div>
 :ET
