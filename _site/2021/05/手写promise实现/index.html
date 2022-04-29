@@ -310,7 +310,8 @@
         <span class="p">)</span>
     <span class="p">}</span>
 
-    <span class="c1">// 接收promise数组参数</span>
+    <span class="c1">// Promise.all()实现。接收promise数组参数。</span>
+    <span class="c1">// 如果都成功，返回所有的成功结果。只要有一个失败，就返回失败的那个结果</span>
     <span class="kd">static</span> <span class="nx">all</span><span class="p">(</span><span class="nx">promiseList</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// 返回新实例，调用后还可使用then、catch等方法</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -336,6 +337,7 @@
         <span class="p">})</span>
     <span class="p">}</span>
 
+    <span class="c1">// Promise.race()实现。返回最先得到执行的那个结果</span>
     <span class="kd">static</span> <span class="nx">race</span><span class="p">(</span><span class="nx">promiseList</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nx">MyPromise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
             <span class="nx">promiseList</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">item</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -448,7 +450,7 @@
     <footer>
         <span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享
                 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
-        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2022-04-14 生成，感谢
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2022-04-29 生成，感谢
             <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
         <span class="footer__copyright">本站由 jessietang 创建，采用 <a
                 href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a

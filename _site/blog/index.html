@@ -171,6 +171,27 @@
         <li class="post-list-item">
             <time datetime="" itemprop="datePublished"
                 class="post-list-item-date">2022-04-12</time> &nbsp;&nbsp;&nbsp;<span
+                class="post-list-item-tags">#js单线程, js事件循环</span>
+            <div class="post-list-item-title"><a href="/2022/04/js%E5%8D%95%E7%BA%BF%E7%A8%8B%E5%92%8C%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF/">js单线程和事件循环</a></div>
+            <div class="post-list-item-content"><h4 id="先直接上例子看">先直接上例子看：</h4>
+<p>例子1：
+```javascript
+console.log(‘ssssss’)
+var p = new Promise((resolve, reject)=&gt;{
+    console.log(‘121’)
+    resolve(‘121===’)
+})
+p.then(val=&gt;{
+    console.log(‘122’)
+    console.log(val)
+})
+console.log(‘eeeeee’)</p>
+</div>
+        </li>
+        
+        <li class="post-list-item">
+            <time datetime="" itemprop="datePublished"
+                class="post-list-item-date">2022-04-12</time> &nbsp;&nbsp;&nbsp;<span
                 class="post-list-item-tags">#bind, #call, #apply</span>
             <div class="post-list-item-title"><a href="/2022/04/bind-call-apply%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%87%A0%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/">bind、call、apply函数的区别及几种常见用法</a></div>
             <div class="post-list-item-content"><h4 id="讲区别之前先讲一下三者的共同点">讲区别之前，先讲一下三者的共同点：</h4>
@@ -437,7 +458,7 @@
     <footer>
         <span class="footer__copyright">本站点采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">知识共享
                 署名-非商业性使用-相同方式共享 4.0 国际 许可协议</a></span>
-        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2022-04-14 生成，感谢
+        <span class="footer__copyright">由 <a href="https://jekyllrb.com">Jekyll</a> 于 2022-04-29 生成，感谢
             <a href="https://www.digitalocean.com/?refcode=30ed2d146762">Digital Ocean</a> 为本站提供稳定的 VPS 服务</span>
         <span class="footer__copyright">本站由 jessietang 创建，采用 <a
                 href="https://github.com/onevcat/vno-jekyll">Vno - Jekyll</a> 作为主题，您可以在 GitHub 找到<a
