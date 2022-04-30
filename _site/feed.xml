@@ -5,8 +5,8 @@
     <description>6年前端。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 30 Apr 2022 20:07:56 +0800</pubDate>
-    <lastBuildDate>Sat, 30 Apr 2022 20:07:56 +0800</lastBuildDate>
+    <pubDate>Sat, 30 Apr 2022 22:17:20 +0800</pubDate>
+    <lastBuildDate>Sat, 30 Apr 2022 22:17:20 +0800</lastBuildDate>
     <generator>Jekyll v4.2.2</generator>
     
       <item>
@@ -189,12 +189,242 @@
         <link>http://localhost:4000/2022/04/%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%85%B3%E7%B3%BB%E7%9A%84list%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%98%E6%88%90tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%8E%B0/</link>
         <guid isPermaLink="true">http://localhost:4000/2022/04/%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%85%B3%E7%B3%BB%E7%9A%84list%E6%95%B0%E6%8D%AE%E8%BD%AC%E5%8F%98%E6%88%90tree%E5%BD%A2%E6%95%B0%E6%8D%AE%E5%AE%9E%E7%8E%B0/</guid>
         
-        <category>#算法，数据转换，tree形数据</category>
+        <category>#算法，#数据转换，#tree形数据</category>
         
         
         <category>面试合集</category>
         
         <category>零散的知识点积累</category>
+        
+      </item>
+    
+      <item>
+        <title>findIndex(numArr, sum)用时间复杂度是o(n)的算法来实现</title>
+        <description>&lt;h4 id=&quot;问题-实现一个findindex算法可以满足如下规律实现索引在数组里面对应的值加起来等于第二个参数sum时间复杂度为on&quot;&gt;问题： 实现一个findIndex算法可以满足如下规律：实现索引在数组里面对应的值加起来等于第二个参数sum，时间复杂度为o(n)&lt;/h4&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;findIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [1, 2]&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;findIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [0, 3]&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;findIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [0,1] || [1,2] || [0,2]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;我刚开始用for循环来实现的：&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;但是这样实现的时间复杂度为o(n^2)&lt;/p&gt;
+
+&lt;p&gt;实现为时间复杂度为o(n)的算法，分析如下：&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
+    [5-1]: 3,
+    [5-2]: 2,
+    [5-3]: 1,
+    [5-4]: 0,
+    [5-5]: 4
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;这样只需要在外面循环一次，从一个对象里面取某个属性，时间复杂度是常数。&lt;/p&gt;
+&lt;div class=&quot;language-javascript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;findIndex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{};&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hasOwnProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))],&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hasOwnProperty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sum&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;arr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Sat, 30 Apr 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/04/findIndex(numArr,-sum)%E7%94%A8%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFo(n)%E7%9A%84%E7%AE%97%E6%B3%95%E6%9D%A5%E5%AE%9E%E7%8E%B0/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/04/findIndex(numArr,-sum)%E7%94%A8%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E6%98%AFo(n)%E7%9A%84%E7%AE%97%E6%B3%95%E6%9D%A5%E5%AE%9E%E7%8E%B0/</guid>
+        
+        <category>#面试,</category>
+        
+        <category>#算法</category>
+        
+        
+        <category>面试合集</category>
+        
+      </item>
+    
+      <item>
+        <title>2022年3、4月找工作面试题合集整理</title>
+        <description>&lt;h4 id=&quot;最近34月份大概面了10家的公司每次面试下来我都会简单的整理记录一下面试官闻到的问题也有一些自己可能当时没领会到后面突然某一天醒悟的一些问题按类别分类整理如下&quot;&gt;最近3、4月份，大概面了10+家的公司，每次面试下来，我都会简单的整理记录一下，面试官闻到的问题。也有一些自己可能当时没领会到，后面突然某一天醒悟的一些问题。按类别分类整理如下：&lt;/h4&gt;
+
+&lt;h4 id=&quot;一前端基础知识&quot;&gt;一、前端基础知识&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;什么是跨域？&lt;/li&gt;
+  &lt;li&gt;什么是函数节流和防抖？&lt;/li&gt;
+  &lt;li&gt;前端性能优化可以从哪些方面做？你做过哪些？&lt;/li&gt;
+  &lt;li&gt;对称加密和非对称加密，是什么，各自有什么优缺点？&lt;/li&gt;
+  &lt;li&gt;排序算法实现：快速排序、冒泡排序、选择排序。数组sort排序用的什么排序？&lt;/li&gt;
+  &lt;li&gt;http三次握手？&lt;/li&gt;
+  &lt;li&gt;websocket怎么发数据&lt;/li&gt;
+  &lt;li&gt;https加密过程&lt;/li&gt;
+  &lt;li&gt;地址栏输入网址，回车，做了什么？&lt;/li&gt;
+  &lt;li&gt;react vue区别&lt;/li&gt;
+  &lt;li&gt;常见的web漏洞介绍及解决方案？(XSS、CSRF）&lt;/li&gt;
+  &lt;li&gt;webpack配置组件按需加载怎么做？&lt;/li&gt;
+  &lt;li&gt;虚拟dom有什么好处？&lt;/li&gt;
+  &lt;li&gt;跨域解决方案？跨域了请求到底发到后端去没有？浏览器同源策略 拦截 是在什么时候拦截的？&lt;/li&gt;
+  &lt;li&gt;移动端适配 怎么做？ rem html根部设置那个值根据什么来计算应该设置多少？&lt;/li&gt;
+  &lt;li&gt;js数据类型有哪些？判断数据类型有哪些方法？&lt;/li&gt;
+  &lt;li&gt;深克隆有哪些方法？&lt;/li&gt;
+  &lt;li&gt;http1和http2的区别&lt;/li&gt;
+  &lt;li&gt;typeof null 是啥？为啥是object ？&lt;/li&gt;
+  &lt;li&gt;你做过的性能优化，举例说明&lt;/li&gt;
+  &lt;li&gt;简单介绍一下你了解的rn&lt;/li&gt;
+  &lt;li&gt;前端代码审查主要做些啥？&lt;/li&gt;
+  &lt;li&gt;函数柯里化是什么？&lt;/li&gt;
+  &lt;li&gt;箭头函数中的this和普通函数中的this指向？&lt;/li&gt;
+  &lt;li&gt;Promise有哪些方法？promise.all和promise.allSettled区别？自己实现一个promise.all、promise.race、promise.allSettled方法&lt;/li&gt;
+  &lt;li&gt;如何在事件代理中正确使用 focus 和 blur 事件?&lt;/li&gt;
+  &lt;li&gt;遇到过印象深刻的问题，以及如何解决的&lt;/li&gt;
+  &lt;li&gt;怎么样去取消一个ajax api请求？&lt;/li&gt;
+  &lt;li&gt;纯函数是什么？&lt;/li&gt;
+  &lt;li&gt;开闭原则是什么?&lt;/li&gt;
+  &lt;li&gt;代码设计，六大设计原则&lt;/li&gt;
+  &lt;li&gt;websocket是怎么保持长链接的？ socket之tcp如何维护长连接？&lt;/li&gt;
+  &lt;li&gt;RN本质?&lt;/li&gt;
+  &lt;li&gt;RN是如何做到JS和OC交互的？&lt;/li&gt;
+  &lt;li&gt;解释一下null == undefined 为啥是true？&lt;/li&gt;
+  &lt;li&gt;数组的reduce方法&lt;/li&gt;
+  &lt;li&gt;去掉一个字符串前后空格有哪些实现方式？&lt;/li&gt;
+  &lt;li&gt;es6新特性常见的有哪些&lt;/li&gt;
+  &lt;li&gt;for循环里面用let和var有啥不同？&lt;/li&gt;
+  &lt;li&gt;http缓存(浏览器缓存），from disk, from memory原理？&lt;/li&gt;
+  &lt;li&gt;data数据具有父子关系的这种，变成tree形数据，怎么操作？&lt;/li&gt;
+  &lt;li&gt;监听订阅者模式，怎么实现？&lt;/li&gt;
+  &lt;li&gt;常见的哪些性能优化？webpack gulp都怎么样使用过？&lt;/li&gt;
+  &lt;li&gt;跨域处理方式?&lt;/li&gt;
+  &lt;li&gt;nginx配置？页面跳转没问题，刷新就报错了&lt;/li&gt;
+  &lt;li&gt;emit/on/onOnce/off 实现&lt;/li&gt;
+  &lt;li&gt;http和tcp关系和区别 udp&lt;/li&gt;
+  &lt;li&gt;http包的格式&lt;/li&gt;
+  &lt;li&gt;::after&lt;/li&gt;
+  &lt;li&gt;box-sizing: content-box/border-box&lt;/li&gt;
+  &lt;li&gt;flex 父容器有哪些属性，子容器可以有哪些属性&lt;/li&gt;
+  &lt;li&gt;reduce实现&lt;/li&gt;
+  &lt;li&gt;Funtion.prototype.bind方法实现&lt;/li&gt;
+  &lt;li&gt;多人协助冲突问题解决方案？&lt;/li&gt;
+  &lt;li&gt;时间复杂度、空间复杂度？&lt;/li&gt;
+  &lt;li&gt;call apply bind区别&lt;/li&gt;
+  &lt;li&gt;数组截取部分元素的方法&lt;/li&gt;
+  &lt;li&gt;this指向问题&lt;/li&gt;
+  &lt;li&gt;代码执行顺序问题（js单线程和任务队列、宏任务、微任务）&lt;/li&gt;
+  &lt;li&gt;ul下面有四个li,  删除第三个li元素&lt;/li&gt;
+  &lt;li&gt;正则&lt;/li&gt;
+  &lt;li&gt;css实现九宫格布局 左右两边抵拢&lt;/li&gt;
+  &lt;li&gt;css实现多主题切换，怎么设计&lt;/li&gt;
+  &lt;li&gt;移动端实现1px方案&lt;/li&gt;
+  &lt;li&gt;typescript 里面 any和unknown区别&lt;/li&gt;
+  &lt;li&gt;typescript里面 两个问号和两个竖线区别？&lt;/li&gt;
+  &lt;li&gt;CSRF 跨站请求伪造是什么？&lt;/li&gt;
+  &lt;li&gt;跨域及解决方案？options请求是什么？&lt;/li&gt;
+  &lt;li&gt;网页从输入地址栏到加载出来，这中间经历了什么？&lt;/li&gt;
+  &lt;li&gt;js单线程和事件循环？宏任务和微任务？&lt;/li&gt;
+  &lt;li&gt;http缓存机制（强制缓存+协商缓存）&lt;/li&gt;
+  &lt;li&gt;webpack有哪几个模块 分别是干啥的？&lt;/li&gt;
+  &lt;li&gt;setTimeout(fn, 3000) 一定是3s之后执行？&lt;/li&gt;
+  &lt;li&gt;vue 和 react的diff区别&lt;/li&gt;
+  &lt;li&gt;position有哪些值&lt;/li&gt;
+  &lt;li&gt;左边100 右边200 中间自适应 怎么布局&lt;/li&gt;
+  &lt;li&gt;git pull 和 git fetch区别？&lt;/li&gt;
+  &lt;li&gt;需求评审到最终上线中间要经历哪些过程？会输出一些什么东西？有哪些风险控制？&lt;/li&gt;
+  &lt;li&gt;transition动画什么时候停止？&lt;/li&gt;
+  &lt;li&gt;document.getElementsByTagName(‘div’) 返回的数据类型是什么类型？&lt;/li&gt;
+  &lt;li&gt;document.querySelectorAll(‘div’)返回的数据类型是什么类型？&lt;/li&gt;
+  &lt;li&gt;前端单元测试怎么做？&lt;/li&gt;
+  &lt;li&gt;http状态码 200 301 304 404 401 403&lt;/li&gt;
+  &lt;li&gt;webpack hash contenthash chunkhash区别&lt;/li&gt;
+  &lt;li&gt;display:none  visibility:hidden opacity:0 区别&lt;/li&gt;
+  &lt;li&gt;说一个最近做的组件封装&lt;/li&gt;
+  &lt;li&gt;promise.all  &amp;amp;  promise.race区别&lt;/li&gt;
+  &lt;li&gt;写算法，rgb转十六进制&lt;/li&gt;
+  &lt;li&gt;promise.then怎么实现&lt;/li&gt;
+  &lt;li&gt;闭包
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;二前端框架-react&quot;&gt;二、前端框架-react&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;React 分包怎么做？&lt;/li&gt;
+  &lt;li&gt;合成事件是什么? 跟原生事件区别?&lt;/li&gt;
+  &lt;li&gt;合成事件 是挂载到哪里的?&lt;/li&gt;
+  &lt;li&gt;合成事件中的冒泡 是怎么样的 是真实的冒泡吗？&lt;/li&gt;
+  &lt;li&gt;useState或者说setState是异步的还是同步的？&lt;/li&gt;
+  &lt;li&gt;介绍一下react里面的fiber是什么？&lt;/li&gt;
+  &lt;li&gt;redux讲述一下?&lt;/li&gt;
+  &lt;li&gt;useCallback  useMemo区别？useEffect可以拿来做什么？&lt;/li&gt;
+  &lt;li&gt;有自己写过hook么？怎么写？&lt;/li&gt;
+  &lt;li&gt;react事件池介绍一下？&lt;/li&gt;
+  &lt;li&gt;react-redux中的高阶函数connect介绍一下&lt;/li&gt;
+  &lt;li&gt;高阶组件是什么&lt;/li&gt;
+  &lt;li&gt;用过哪些hook。讲一下useEffect的参数&lt;/li&gt;
+  &lt;li&gt;if else 里面可以用hook么？ 为什么？ hook使用规则是什么？&lt;/li&gt;
+  &lt;li&gt;context 怎么用 有哪些方法？&lt;/li&gt;
+  &lt;li&gt;react有哪些hook&lt;/li&gt;
+  &lt;li&gt;useReducer是用来干啥的？&lt;/li&gt;
+  &lt;li&gt;react里面可以用来通信，组件间传值的是哪个hooks？怎么用？&lt;/li&gt;
+  &lt;li&gt;父组件子组件通信怎么做？&lt;/li&gt;
+  &lt;li&gt;用过哪些 redux 中间件？&lt;/li&gt;
+  &lt;li&gt;redux-saga用过没有？&lt;/li&gt;
+  &lt;li&gt;immer的使用（主要是produce方法）&lt;/li&gt;
+  &lt;li&gt;react里面的useState原理？&lt;/li&gt;
+  &lt;li&gt;useEffect第二个参数不传代表什么？useEffect第一个参数直接return代表什么？第二个参数，是可选参数，不传参数或者穿数组（空数组、一个值的数组、多个值的数组）&lt;/li&gt;
+  &lt;li&gt;react生命周期&lt;/li&gt;
+  &lt;li&gt;react hooks为什么只能用在顶层？&lt;/li&gt;
+  &lt;li&gt;useRef用来做变量保存？&lt;/li&gt;
+  &lt;li&gt;react-router 几种模式阐述一下？为什么路由切换，页面不会闪烁？&lt;/li&gt;
+  &lt;li&gt;react diff算法研究过吗？&lt;/li&gt;
+  &lt;li&gt;useEffect介绍一下 ？hook介绍一下？&lt;/li&gt;
+  &lt;li&gt;react使用什么做数据状态管理&lt;/li&gt;
+  &lt;li&gt;react里面setState合并状态更新操作&lt;/li&gt;
+  &lt;li&gt;react合成事件冒泡&lt;/li&gt;
+  &lt;li&gt;react生命周期 在函数组件和class类组件中分别是什么？&lt;/li&gt;
+  &lt;li&gt;react class组件和函数组件区别？&lt;/li&gt;
+  &lt;li&gt;react组件优化主要从哪些地方入手做的？
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;三前端框架-vue&quot;&gt;三、前端框架-vue&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;vue双向绑定原理？&lt;/li&gt;
+  &lt;li&gt;vue keep-alive用来干啥？&lt;/li&gt;
+  &lt;li&gt;vue页面切换数据上个页面数据不丢失怎么做？（keep-alive）&lt;/li&gt;
+  &lt;li&gt;vuex讲述一下?&lt;/li&gt;
+  &lt;li&gt;vue中使用v-bind=”$attrs”和v-on=”$listeners”进行多层组件监听&lt;/li&gt;
+  &lt;li&gt;做过的vue组件优化问题&lt;/li&gt;
+  &lt;li&gt;双向数据绑定核心原理？&lt;/li&gt;
+  &lt;li&gt;vue单文件为啥样式加了scope 就可以隔离样式？&lt;/li&gt;
+  &lt;li&gt;vue $nextTick原理？&lt;/li&gt;
+  &lt;li&gt;vue mixins&lt;/li&gt;
+  &lt;li&gt;vue生命周期&lt;/li&gt;
+  &lt;li&gt;vue 自定义指令 directive&lt;/li&gt;
+  &lt;li&gt;v-model原理&lt;/li&gt;
+  &lt;li&gt;vue自定义指令、过滤器&lt;/li&gt;
+  &lt;li&gt;vuex介绍一下，数据怎么流动的&lt;/li&gt;
+  &lt;li&gt;vue绑定class和style写法&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Sat, 30 Apr 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/04/3-4%E6%9C%88%E6%89%BE%E5%B7%A5%E4%BD%9C%E9%9D%A2%E8%AF%95%E9%A2%98%E5%90%88%E9%9B%86%E6%95%B4%E7%90%86/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/04/3-4%E6%9C%88%E6%89%BE%E5%B7%A5%E4%BD%9C%E9%9D%A2%E8%AF%95%E9%A2%98%E5%90%88%E9%9B%86%E6%95%B4%E7%90%86/</guid>
+        
+        <category>#面试</category>
+        
+        
+        <category>面试合集</category>
         
       </item>
     
@@ -1058,218 +1288,6 @@ myTrim(str) // &apos;111  222  3&apos;
         <guid isPermaLink="true">http://localhost:4000/2021/05/%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E6%9C%89%E6%9F%90%E4%B8%AA%E5%B1%9E%E6%80%A7/</guid>
         
         <category>#对象，#属性</category>
-        
-        
-        <category>零散的知识点积累</category>
-        
-      </item>
-    
-      <item>
-        <title>node快速切换版本、版本升级和降级</title>
-        <description>&lt;h3 id=&quot;为什么要涉及版本切换&quot;&gt;为什么要涉及版本切换&lt;/h3&gt;
-
-&lt;p&gt;在某天把电脑安装的 node 版本升级到了最新版本（v14.17.0）。后面在某个 app tets 项目里面，用的是 expo-cli 脚手架构建的项目。执行启动命令&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expo start --ios&lt;/code&gt;的时候，报了一个错：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ERROR: Node.js version 14.17.0 is no longer supported.
-
-expo-cli supports following Node.js versions:
-* &amp;gt;=10.13.0 &amp;lt;11.0.0 (Active LTS)
-* &amp;gt;=12.0.0 &amp;lt;13.0.0 (Active LTS)
-* &amp;gt;=13.0.0 &amp;lt;14.0.0 (Current Release)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;从报错可以看到，只支持 14.0.0 一下的 node 版本。
-所以需要把 node 版本降回来，但是我又想把最新版本留着。这个时候就需要一个可以快速切换 node 版本的工具了。
-以下来源于网络，整理记录一番：&lt;/p&gt;
-
-&lt;h4 id=&quot;node-版本管理模块-n&quot;&gt;node 版本管理模块 n&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;安装 node 版本管理模块 n
-mac:&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo npm install n -g
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;windows:
-管理员模式打开 cmd&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install n -g
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;如遇到下面的报错：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;unsupported platform for n@7.2.2: wanted {&quot;os&quot;: &quot;!win32&quot;, &quot;arch&quot;: &quot;any&quot;} &amp;lt;current: {&quot;os&quot;: &quot;win32&quot;, &quot;arch&quot;: &quot;x64&quot;}&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;我的 windows 的确是 win64, 但是在操作时还是报这个错了。解决办法：&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm install n -g --force
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;下面的步骤根据需求安装（接下来我都列举 mac 的安装方式，sudo 是 mac 下输入密码验证身份的命令，因此 windows 用户应该是以管理员身份运行命令行工具）&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;安装稳定版本&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n stable
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;安装最新版本&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n latest
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;安装指定版本， 如 12.0.0 版本&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n 12.0.0
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;查看当前安装了哪些版本&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;n
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;执行查看安装了哪些版本命令之后，会出现你安装的列表，通过上下箭头进行选择切换。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;删除版本&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo n rm 版本号
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-        <pubDate>Mon, 24 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/node%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E7%89%88%E6%9C%AC-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%92%8C%E9%99%8D%E7%BA%A7/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/node%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%E7%89%88%E6%9C%AC-%E7%89%88%E6%9C%AC%E5%8D%87%E7%BA%A7%E5%92%8C%E9%99%8D%E7%BA%A7/</guid>
-        
-        <category>#node,</category>
-        
-        <category>#node版本切换</category>
-        
-        
-        <category>零散的知识点积累</category>
-        
-      </item>
-    
-      <item>
-        <title>jsdoc的使用</title>
-        <description>&lt;h3 id=&quot;需要一个工具javascript-api-文档生成器&quot;&gt;需要一个工具—javascript API 文档生成器&lt;/h3&gt;
-
-&lt;p&gt;我们在开发完成之后，需要写一份 js api 说明文档。手动去写，太麻烦了，而且，如果改动了 js 代码或者注释之类的，需要同时更新 api 文档，比较麻烦。
-所以，我们可以使用&lt;a href=&quot;http://shouce.jb51.net/jsdoc/&quot;&gt;jsdoc&lt;/a&gt;这个工具来进行文档的转换。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;用 conf.json 配置 jsdoc
-要自定义 JSDoc 的行为，可以使用 JSON 格式的配置文件格式化 JSDoc，使用-c 选项，例如： jsdoc -c /path/to/conf.json。&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
- &quot;opts&quot;: {
-     &quot;recurse&quot;: true
- },
- &quot;tags&quot;: {
-     &quot;allowUnknownTags&quot;: true,
-     &quot;dictionaries&quot;: [
-         &quot;jsdoc&quot;,
-         &quot;closure&quot;
-     ]
- },
- &quot;source&quot;: {
-     &quot;include&quot;: [
-         &quot;src/demo/Test.js&quot;,
-         &quot;src/demo/funcs/views/&quot;,
-         &quot;src/demo/funcs/models/&quot;
-     ],
-     &quot;includePattern&quot;: &quot;.+\\.js(doc)?$&quot;,
-     &quot;excludePattern&quot;: &quot;(^|\\/|\\\\)_&quot;
- },
- &quot;plugins&quot;: [],
- &quot;templates&quot;: {
-     &quot;cleverLinks&quot;: false,
-     &quot;monospaceLinks&quot;: false,
-     &quot;default&quot;: {
-         &quot;includeDate&quot;: false,
-         &quot;outputSourceFiles&quot;: false,
-         &quot;layoutFile&quot;: &quot;jsdoc/template/layout.tmpl&quot;
-     }
- }
-}
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;使用自定义模板 layout.tmpl
-这里为了方便， 我直接从 github jsdoc 源码里找到了一个 layout.tmpl 原来的模板, 如下（我修改了引入的 js 文件和 css 文件的路径，要跟执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsdoc -c ./jsdoc/path/to/conf.json -r&lt;/code&gt;之后生产的文件里面的这些文件匹配，最开始就是没看到这里路径的不同，所以自定义模板一直没起作用）：&lt;/p&gt;
-
-    &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
-&amp;lt;html lang=&quot;en&quot;&amp;gt;
-&amp;lt;head&amp;gt;
-   &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
-   &amp;lt;title&amp;gt;JSDoc: &amp;lt;?js= title ?&amp;gt;&amp;lt;/title&amp;gt;
-
-   &amp;lt;script src=&quot;./scripts/prettify/prettify.js&quot;&amp;gt; &amp;lt;/script&amp;gt;
-   &amp;lt;script src=&quot;./scripts/prettify/lang-css.js&quot;&amp;gt; &amp;lt;/script&amp;gt;
-   &amp;lt;!--[if lt IE 9]&amp;gt;
-   &amp;lt;script src=&quot;//html5shiv.googlecode.com/svn/trunk/html5.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
-   &amp;lt;![endif]--&amp;gt;
-   &amp;lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;./styles/prettify-tomorrow.css&quot;&amp;gt;
-   &amp;lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;./styles/jsdoc-default.css&quot;&amp;gt;
-   &amp;lt;style&amp;gt;
-   section{
-       border-bottom: none;
-   }
-   nav h2 {
-       display: none!important;
-   }
-   &amp;lt;/style&amp;gt;
-&amp;lt;/head&amp;gt;
-
-&amp;lt;body&amp;gt;
-
-&amp;lt;div id=&quot;main&quot;&amp;gt;
-
-   &amp;lt;h1 class=&quot;page-title&quot;&amp;gt;&amp;lt;?js= title ?&amp;gt;&amp;lt;/h1&amp;gt;
-
-   &amp;lt;?js= content ?&amp;gt;
-&amp;lt;/div&amp;gt;
-
-&amp;lt;nav&amp;gt;
-   &amp;lt;?js= this.nav ?&amp;gt;
-&amp;lt;/nav&amp;gt;
-
-&amp;lt;br class=&quot;clear&quot;&amp;gt;
-
-&amp;lt;footer&amp;gt;
-   &amp;lt;?js if(env.conf.templates &amp;amp;&amp;amp; env.conf.templates.default &amp;amp;&amp;amp; env.conf.templates.default.includeDate !== false) { ?&amp;gt; on &amp;lt;?js= (new Date()) ?&amp;gt;&amp;lt;?js } ?&amp;gt;
-&amp;lt;/footer&amp;gt;
-
-&amp;lt;script&amp;gt; prettyPrint(); &amp;lt;/script&amp;gt;
-&amp;lt;script src=&quot;./scripts/linenumber.js&quot;&amp;gt; &amp;lt;/script&amp;gt;
-&amp;lt;/body&amp;gt;
-&amp;lt;/html&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;执行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jsdoc -c ./jsdoc/path/to/conf.json -r&lt;/code&gt;命令，会生成一个 out 文件夹，里面的各个 html 就是转换结果，把 out 文件夹下面的东西拷贝到需要使用的地方即可。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-</description>
-        <pubDate>Mon, 17 May 2021 00:00:00 +0800</pubDate>
-        <link>http://localhost:4000/2021/05/jsdoc%E7%9A%84%E4%BD%BF%E7%94%A8/</link>
-        <guid isPermaLink="true">http://localhost:4000/2021/05/jsdoc%E7%9A%84%E4%BD%BF%E7%94%A8/</guid>
-        
-        <category>#javascript,</category>
-        
-        <category>#js注释转api文档</category>
         
         
         <category>零散的知识点积累</category>
